@@ -2268,87 +2268,91 @@
         const GITHUB_CSV_URL = 'https://raw.githubusercontent.com/transparencia-mg/acordos_cooperacao_tecnica/main/dataset/data/acordos_cooperacao_tecnica.csv';
 
 
-                // ==================== FUNÇÕES DE COMPARTILHAMENTO ====================
-        function copiarLink() {
-            const currentUrl = window.location.href;
-            
-            navigator.clipboard.writeText(currentUrl).then(() => {
-                alert('Link copiado para a área de transferência!');
-            }).catch(err => {
-                console.error('Erro ao copiar:', err);
-                // Fallback para navegadores antigos
-                copiarFallback(currentUrl);
-            });
-            
-            // Fechar dropdown
-            document.querySelectorAll('.share-options').forEach(option => {
-                option.classList.remove('show');
-            });
-        }
+// ==================== FUNÇÕES DE COMPARTILHAMENTO ====================
+function copiarLink() {
+    const currentUrl = window.location.href;
+    
+    navigator.clipboard.writeText(currentUrl).then(() => {
+        alert('Link copiado para a área de transferência!');
+    }).catch(err => {
+        console.error('Erro ao copiar:', err);
+        copiarFallback(currentUrl);
+    });
+}
 
-        function copiarFallback(texto) {
-            const textarea = document.createElement('textarea');
-            textarea.value = texto;
-            textarea.style.position = 'fixed';
-            textarea.style.opacity = '0';
-            document.body.appendChild(textarea);
-            textarea.select();
-            
-            try {
-                document.execCommand('copy');
-                alert('Link copiado para a área de transferência!');
-            } catch (err) {
-                alert('Não foi possível copiar o link. Tente selecionar e copiar manualmente: ' + texto);
-            }
-            
-            document.body.removeChild(textarea);
-        }
+function copiarFallback(texto) {
+    const textarea = document.createElement('textarea');
+    textarea.value = texto;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    
+    try {
+        document.execCommand('copy');
+        alert('Link copiado para a área de transferência!');
+    } catch (err) {
+        alert('Não foi possível copiar o link. Tente selecionar e copiar manualmente: ' + texto);
+    }
+    
+    document.body.removeChild(textarea);
+}
 
-        function compartilharFacebook(e) {
-            e.preventDefault();
-            const url = encodeURIComponent(window.location.href);
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-            
-            // Fechar dropdown
-            document.querySelectorAll('.share-options').forEach(option => {
-                option.classList.remove('show');
-            });
-        }
+function compartilharFacebook(e) {
+    e.preventDefault();
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+}
 
-        function compartilharTwitter(e) {
-            e.preventDefault();
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('Estrutura Organizacional - Governo de Minas Gerais');
-            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
-            
-            // Fechar dropdown
-            document.querySelectorAll('.share-options').forEach(option => {
-                option.classList.remove('show');
-            });
-        }
+function compartilharTwitter(e) {
+    e.preventDefault();
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent('Acordos de Cooperação Técnica - Governo de Minas Gerais');
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+}
 
-        function compartilharLinkedIn(e) {
-            e.preventDefault();
-            const url = encodeURIComponent(window.location.href);
-            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
-            
-            // Fechar dropdown
-            document.querySelectorAll('.share-options').forEach(option => {
-                option.classList.remove('show');
-            });
-        }
+function compartilharLinkedIn(e) {
+    e.preventDefault();
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+}
 
-        function compartilharWhatsApp(e) {
-            e.preventDefault();
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent('Confira a estrutura organizacional do Governo de Minas Gerais');
-            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
-            
-            // Fechar dropdown
-            document.querySelectorAll('.share-options').forEach(option => {
-                option.classList.remove('show');
-            });
+function compartilharWhatsApp(e) {
+    e.preventDefault();
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent('Confira os Acordos de Cooperação Técnica do Governo de Minas Gerais');
+    window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+}
+
+// Função para mostrar/ocultar dropdown de compartilhamento
+function toggleShareDropdown(dashboard) {
+    const dropdownId = dashboard === 1 ? 'shareOptionsDashboard1' : 'shareOptionsDashboard2';
+    const dropdown = document.getElementById(dropdownId);
+    
+    if (dropdown) {
+        const isShowing = dropdown.classList.contains('show');
+        
+        // Fechar todos os dropdowns primeiro
+        document.querySelectorAll('.share-options').forEach(opt => {
+            opt.classList.remove('show');
+        });
+        
+        // Se não estava mostrando, mostra este
+        if (!isShowing) {
+            dropdown.classList.add('show');
         }
+    }
+}
+
+// Fechar dropdowns ao clicar fora
+document.addEventListener('click', function(event) {
+    if (!event.target.closest('.share-dropdown')) {
+        document.querySelectorAll('.share-options').forEach(opt => {
+            opt.classList.remove('show');
+        });
+    }
+});
+        
         // ==================== INICIALIZAÇÃO ====================
         document.addEventListener('DOMContentLoaded', function() {
             console.log('=== INICIANDO DASHBOARD ACORDOS ===');
