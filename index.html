@@ -2633,7 +2633,6 @@ document.addEventListener('click', function(event) {
                 </div>`;
         }
 
-        // ==================== CONFIGURAR EVENT LISTENERS ====================
 // ==================== CONFIGURAR EVENT LISTENERS ====================
 function setupEventListeners() {
     // Filtros Dashboard 1
@@ -2671,7 +2670,7 @@ function setupEventListeners() {
     // Exportação Dashboard 1
     const exportCSVDashboard1Btn = document.getElementById('exportCSVDashboard1');
     const printDashboard1Btn = document.getElementById('printDashboard1');
-    const compartilharLinkDashboard1Btn = document.getElementById('compartilharLinkDashboard1');
+    const compartilharLinkDashboard1Btn = document.getElementById('shareDashboard1');
     
     if (exportCSVDashboard1Btn) {
         exportCSVDashboard1Btn.addEventListener('click', () => exportToCSV('dashboard1'));
@@ -2682,7 +2681,7 @@ function setupEventListeners() {
     }
     
     if (compartilharLinkDashboard1Btn) {
-        compartilharLinkDashboard1Btn.addEventListener('click', () => copiarLink());
+        compartilharLinkDashboard1Btn.addEventListener('click', () => toggleShareDropdown(1));
     }
     
     // Exportação Dashboard 2
@@ -2699,6 +2698,7 @@ function setupEventListeners() {
     }
     
     if (compartilharLinkDashboard2Btn) {
+        // Este botão é simples, apenas copia o link
         compartilharLinkDashboard2Btn.addEventListener('click', () => copiarLink());
     }
     
@@ -2774,6 +2774,34 @@ function setupEventListeners() {
             });
         });
     }, 100);
+    
+    // Event listeners para opções de compartilhamento do dropdown
+    setTimeout(() => {
+        // Link share
+        document.querySelectorAll('.link-share').forEach(btn => {
+            btn.addEventListener('click', copiarLink);
+        });
+        
+        // Facebook
+        document.querySelectorAll('.facebook-share').forEach(btn => {
+            btn.addEventListener('click', compartilharFacebook);
+        });
+        
+        // Twitter
+        document.querySelectorAll('.twitter-share').forEach(btn => {
+            btn.addEventListener('click', compartilharTwitter);
+        });
+        
+        // LinkedIn
+        document.querySelectorAll('.linkedin-share').forEach(btn => {
+            btn.addEventListener('click', compartilharLinkedIn);
+        });
+        
+        // WhatsApp
+        document.querySelectorAll('.whatsapp-share').forEach(btn => {
+            btn.addEventListener('click', compartilharWhatsApp);
+        });
+    }, 500);
 }
 
         // ==================== FUNÇÕES DE FILTRO ====================
