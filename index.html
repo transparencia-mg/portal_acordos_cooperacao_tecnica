@@ -1815,11 +1815,30 @@
                         <button class="btn-export" id="printDashboard1">
                             <i class="fas fa-print me-2"></i>Imprimir
                         </button>
-                        <button class="btn-export" id="compartilharLinkDashboard1">
-                            <i class="fas fa-share me-2"></i>Compartilhar
-                        </button>
-                    </div>
-                    
+                        <!-- Botão de Compartilhar -->
+                        <div class="share-dropdown">
+                            <button class="btn-share" id="shareDashboard1">
+                                <i class="fas fa-share-alt me-2"></i> Compartilhar
+                            </button>
+                            <div class="share-options" id="shareOptionsDashboard1">
+                                <a href="#" class="link-share" onclick="copiarLink()">
+                                    <i class="fas fa-link"></i> Copiar Link
+                                </a>
+                                <a href="#" class="facebook-share" onclick="compartilharFacebook(event)">
+                                    <i class="fab fa-facebook-f"></i> Facebook
+                                </a>
+                                <a href="#" class="twitter-share" onclick="compartilharTwitter(event)">
+                                    <i class="fab fa-twitter"></i> Twitter
+                                </a>
+                                <a href="#" class="linkedin-share" onclick="compartilharLinkedIn(event)">
+                                    <i class="fab fa-linkedin-in"></i> LinkedIn
+                                </a>
+                                <a href="#" class="whatsapp-share" onclick="compartilharWhatsApp(event)">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>                    
                     <div class="right-aligned-container">
                         <div class="items-per-page">
                             <span>Itens por página:</span>
@@ -2248,6 +2267,88 @@
         // URL do CSV no GitHub
         const GITHUB_CSV_URL = 'https://raw.githubusercontent.com/transparencia-mg/acordos_cooperacao_tecnica/main/dataset/data/acordos_cooperacao_tecnica.csv';
 
+
+                // ==================== FUNÇÕES DE COMPARTILHAMENTO ====================
+        function copiarLink() {
+            const currentUrl = window.location.href;
+            
+            navigator.clipboard.writeText(currentUrl).then(() => {
+                alert('Link copiado para a área de transferência!');
+            }).catch(err => {
+                console.error('Erro ao copiar:', err);
+                // Fallback para navegadores antigos
+                copiarFallback(currentUrl);
+            });
+            
+            // Fechar dropdown
+            document.querySelectorAll('.share-options').forEach(option => {
+                option.classList.remove('show');
+            });
+        }
+
+        function copiarFallback(texto) {
+            const textarea = document.createElement('textarea');
+            textarea.value = texto;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                alert('Link copiado para a área de transferência!');
+            } catch (err) {
+                alert('Não foi possível copiar o link. Tente selecionar e copiar manualmente: ' + texto);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        function compartilharFacebook(e) {
+            e.preventDefault();
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+            
+            // Fechar dropdown
+            document.querySelectorAll('.share-options').forEach(option => {
+                option.classList.remove('show');
+            });
+        }
+
+        function compartilharTwitter(e) {
+            e.preventDefault();
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Estrutura Organizacional - Governo de Minas Gerais');
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+            
+            // Fechar dropdown
+            document.querySelectorAll('.share-options').forEach(option => {
+                option.classList.remove('show');
+            });
+        }
+
+        function compartilharLinkedIn(e) {
+            e.preventDefault();
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+            
+            // Fechar dropdown
+            document.querySelectorAll('.share-options').forEach(option => {
+                option.classList.remove('show');
+            });
+        }
+
+        function compartilharWhatsApp(e) {
+            e.preventDefault();
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Confira a estrutura organizacional do Governo de Minas Gerais');
+            window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+            
+            // Fechar dropdown
+            document.querySelectorAll('.share-options').forEach(option => {
+                option.classList.remove('show');
+            });
+        }
         // ==================== INICIALIZAÇÃO ====================
         document.addEventListener('DOMContentLoaded', function() {
             console.log('=== INICIANDO DASHBOARD ACORDOS ===');
