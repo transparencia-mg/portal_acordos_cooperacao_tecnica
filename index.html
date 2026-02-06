@@ -2630,82 +2630,147 @@
         }
 
         // ==================== CONFIGURAR EVENT LISTENERS ====================
-        function setupEventListeners() {
-            // Filtros Dashboard 1
-            document.getElementById('aplicarFiltros').addEventListener('click', function() {
-                applyFilters('dashboard1');
+// ==================== CONFIGURAR EVENT LISTENERS ====================
+function setupEventListeners() {
+    // Filtros Dashboard 1
+    const aplicarFiltrosBtn = document.getElementById('aplicarFiltros');
+    const limparFiltrosBtn = document.getElementById('limparFiltros');
+    
+    if (aplicarFiltrosBtn) {
+        aplicarFiltrosBtn.addEventListener('click', function() {
+            applyFilters('dashboard1');
+        });
+    }
+    
+    if (limparFiltrosBtn) {
+        limparFiltrosBtn.addEventListener('click', function() {
+            clearAllFilters();
+        });
+    }
+    
+    // Dashboard 2
+    const pesquisarAcordosBtn = document.getElementById('pesquisarAcordos');
+    const limparFiltrosDashboard2Btn = document.getElementById('limparFiltrosDashboard2');
+    
+    if (pesquisarAcordosBtn) {
+        pesquisarAcordosBtn.addEventListener('click', function() {
+            applyFilters('dashboard2');
+        });
+    }
+    
+    if (limparFiltrosDashboard2Btn) {
+        limparFiltrosDashboard2Btn.addEventListener('click', function() {
+            clearDashboard2Filters();
+        });
+    }
+    
+    // Exportação Dashboard 1
+    const exportCSVDashboard1Btn = document.getElementById('exportCSVDashboard1');
+    const printDashboard1Btn = document.getElementById('printDashboard1');
+    const compartilharLinkDashboard1Btn = document.getElementById('compartilharLinkDashboard1');
+    
+    if (exportCSVDashboard1Btn) {
+        exportCSVDashboard1Btn.addEventListener('click', () => exportToCSV('dashboard1'));
+    }
+    
+    if (printDashboard1Btn) {
+        printDashboard1Btn.addEventListener('click', () => printDashboard('dashboard1'));
+    }
+    
+    if (compartilharLinkDashboard1Btn) {
+        compartilharLinkDashboard1Btn.addEventListener('click', () => copiarLink());
+    }
+    
+    // Exportação Dashboard 2
+    const exportCSVDashboard2Btn = document.getElementById('exportCSVDashboard2');
+    const printDashboard2Btn = document.getElementById('printDashboard2');
+    const compartilharLinkDashboard2Btn = document.getElementById('compartilharLinkDashboard2');
+    
+    if (exportCSVDashboard2Btn) {
+        exportCSVDashboard2Btn.addEventListener('click', () => exportToCSV('dashboard2'));
+    }
+    
+    if (printDashboard2Btn) {
+        printDashboard2Btn.addEventListener('click', () => printDashboard('dashboard2'));
+    }
+    
+    if (compartilharLinkDashboard2Btn) {
+        compartilharLinkDashboard2Btn.addEventListener('click', () => copiarLink());
+    }
+    
+    // Download
+    const downloadCSVBtn = document.getElementById('downloadCSV');
+    if (downloadCSVBtn) {
+        downloadCSVBtn.addEventListener('click', downloadFullCSV);
+    }
+    
+    // Campo de busca na Consulta
+    const searchAcordosInput = document.getElementById('searchAcordos');
+    if (searchAcordosInput) {
+        searchAcordosInput.addEventListener('input', function(e) {
+            currentSearchTerm = e.target.value.toLowerCase();
+            filterAcordosTable(currentSearchTerm);
+        });
+    }
+    
+    // Itens por página Dashboard 1
+    const itemsPerPageDashboard1Select = document.getElementById('itemsPerPageDashboard1');
+    if (itemsPerPageDashboard1Select) {
+        itemsPerPageDashboard1Select.addEventListener('change', function() {
+            itemsPerPageDashboard1 = parseInt(this.value);
+            currentPageDashboard1 = 1;
+            updateResumoTable();
+            iframeUpdateHeight();
+        });
+    }
+    
+    // Itens por página Dashboard 2
+    const itemsPerPageDashboard2Select = document.getElementById('itemsPerPageDashboard2');
+    if (itemsPerPageDashboard2Select) {
+        itemsPerPageDashboard2Select.addEventListener('change', function() {
+            itemsPerPageDashboard2 = parseInt(this.value);
+            currentPageDashboard2 = 1;
+            updateAcordosTable();
+            iframeUpdateHeight();
+        });
+    }
+    
+    // Mudança de ano nos selects
+    const anoDashboard1Select = document.getElementById('anoDashboard1');
+    if (anoDashboard1Select) {
+        anoDashboard1Select.addEventListener('change', function() {
+            const selectedYear = this.value;
+            filterByYear(selectedYear);
+        });
+    }
+    
+    const anoDashboard2Select = document.getElementById('anoDashboard2');
+    if (anoDashboard2Select) {
+        anoDashboard2Select.addEventListener('change', function() {
+            const selectedYear = this.value;
+            filterByYear(selectedYear);
+        });
+    }
+    
+    // Adicionar event listeners para ordenação
+    setTimeout(() => {
+        const visaoGeralThs = document.querySelectorAll('#visaoGeralTable th[data-sort]');
+        visaoGeralThs.forEach(th => {
+            th.addEventListener('click', function() {
+                const column = this.getAttribute('data-sort');
+                sortTable('visaoGeral', column);
             });
-            document.getElementById('limparFiltros').addEventListener('click', function() {
-                clearAllFilters();
+        });
+        
+        const acordosTableThs = document.querySelectorAll('#acordosTable th[data-sort]');
+        acordosTableThs.forEach(th => {
+            th.addEventListener('click', function() {
+                const column = this.getAttribute('data-sort');
+                sortTable('acordos', column);
             });
-            
-            // Dashboard 2
-            document.getElementById('pesquisarAcordos').addEventListener('click', function() {
-                applyFilters('dashboard2');
-            });
-            document.getElementById('limparFiltrosDashboard2').addEventListener('click', function() {
-                clearDashboard2Filters();
-            });
-            
-            // Exportação
-            document.getElementById('exportCSVDashboard1').addEventListener('click', () => exportToCSV('dashboard1'));
-            document.getElementById('printDashboard1').addEventListener('click', () => printDashboard('dashboard1'));
-            document.getElementById('compartilharLinkDashboard1').addEventListener('click', () => copiarLink());
-           
-            document.getElementById('exportCSVDashboard2').addEventListener('click', () => exportToCSV('dashboard2'));
-            document.getElementById('printDashboard2').addEventListener('click', () => printDashboard('dashboard2'));
-            document.getElementById('compartilharLinkDashboard2').addEventListener('click', () => copiarLink());
-            
-            // Download
-            document.getElementById('downloadCSV').addEventListener('click', downloadFullCSV);
-            
-            // Campo de busca na Consulta
-            document.getElementById('searchAcordos').addEventListener('input', function(e) {
-                currentSearchTerm = e.target.value.toLowerCase();
-                filterAcordosTable(currentSearchTerm);
-            });
-            
-            // Itens por página
-            document.getElementById('itemsPerPageDashboard1').addEventListener('change', function() {
-                itemsPerPageDashboard1 = parseInt(this.value);
-                currentPageDashboard1 = 1;
-                updateResumoTable();
-                iframeUpdateHeight();
-            });
-            
-            document.getElementById('itemsPerPageDashboard2').addEventListener('change', function() {
-                itemsPerPageDashboard2 = parseInt(this.value);
-                currentPageDashboard2 = 1;
-                updateAcordosTable();
-                iframeUpdateHeight();
-            });
-            
-            // Mudança de ano nos selects
-            document.getElementById('anoDashboard1').addEventListener('change', function() {
-                const selectedYear = this.value;
-                filterByYear(selectedYear);
-            });
-            
-            document.getElementById('anoDashboard2').addEventListener('change', function() {
-                const selectedYear = this.value;
-                filterByYear(selectedYear);
-            });
-            
-            // Adicionar event listeners para ordenação
-            document.querySelectorAll('#visaoGeralTable th[data-sort]').forEach(th => {
-                th.addEventListener('click', function() {
-                    const column = this.getAttribute('data-sort');
-                    sortTable('visaoGeral', column);
-                });
-            });
-            
-            document.querySelectorAll('#acordosTable th[data-sort]').forEach(th => {
-                th.addEventListener('click', function() {
-                    const column = this.getAttribute('data-sort');
-                    sortTable('acordos', column);
-                });
-            });
-        }
+        });
+    }, 100);
+}
 
         // ==================== FUNÇÕES DE FILTRO ====================
         function updateFilterOptions() {
