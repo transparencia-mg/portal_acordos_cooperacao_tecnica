@@ -1,37 +1,13 @@
-Dashboard interativo para **visualização, consulta e download de dados públicos** sobre **acordos de cooperação técnica não financeiros** celebrados pelos órgãos do Governo do Estado de Minas Gerais, com base em **arquivos CSV padronizados** e **publicação em dados abertos**.
+Conjunto de dados sobre **acordos de cooperação técnica não financeiros** celebrados pelos órgãos do Governo do Estado de Minas Gerais, disponibilizado em conformidade com a política estadual de transparência e de dados abertos.
 
----
+Os dados são organizados em arquivos anuais e seguem um padrão estruturado, facilitando o uso por cidadãos, pesquisadores, órgãos de controle e desenvolvedores para consulta, análise e reutilização das informações.
 
-## 🔍 Visão Geral
+Periodicidade de Atualização: Quadrimestral.
 
-Este projeto disponibiliza um **dashboard web público** para consulta e análise dos dados de acordos de cooperação técnica que **não envolvem recursos financeiros**.  
+## Como participar
 
-### Principais funcionalidades
+Fique a vontade para utilizar os canais oficiais de atendimento do Poder Executivo Estadual para dúvidas e sugestões:
 
-- **Visão Geral por Órgão**  
-  Visualização agregada da quantidade de acordos por situação  
-  *(Vigentes, Concluídos, Expirados, Suspensos)*
-
-- **Consulta Individual de Acordos**  
-  Busca detalhada por:
-  - Número do termo  
-  - Número SEI  
-  - Órgão  
-  - Parceiro  
-  - Período de vigência  
-  - Situação
-
-- **Carregamento Automático de Dados**  
-  Integração direta com arquivo CSV hospedado no repositório
-
-- **Análise Visual com Gráficos**  
-  Gráficos interativos para:
-  - Distribuição por situação  
-  - Evolução anual  
-  - Órgãos mais ativos
-
-- **Exportação de Dados**  
-  Download dos dados filtrados ou completos em formato CSV
-
-- **Atualização Contínua**  
-  O dashboard se atualiza automaticamente sempre que novos dados são publicados no repositório
+- [Fale Conosco](https://www.mg.gov.br/planejamento/pagina/atendimento/fale-conosco/fale-conosco): Dúvidas
+- [Manifestações de Ouvidoria](http://www.ouvidoriageral.mg.gov.br/): Denúncia, Reclamação, Crítica, Elogio ou Sugestões
+- [Pedido de Acesso à Informação](http://www.acessoainformacao.mg.gov.br/sistema/site/index.html): Acesso às informações dos órgãos e entidades estaduais que não estejam publicamente disponíveis.
