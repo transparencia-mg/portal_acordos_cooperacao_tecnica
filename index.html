@@ -37,7 +37,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { width: 100%; overflow-x: hidden; margin: 0; padding: 0; height: auto; }
         body { font-family: 'Montserrat', 'Open Sans', sans-serif; background-color: var(--background-light); padding-bottom: 15px; }
-        .container { max-width: 85% !important; width: 100%; margin: 0 auto; padding: 0 40px; }
+        .container { max-width: 88% !important; width: 100%; margin: 0 auto; padding: 0 40px; }
 
         .data-atualizacao-container { display: flex; justify-content: left; margin: 15px 0; }
         .data-atualizacao-box { background: white; border-radius: 8px; padding: 8px 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--primary-dark); font-weight: 600; }
@@ -95,7 +95,7 @@
         .nav-tabs .nav-link.active { background: #234c63 !important; color: #fff !important; }
 
         .modal-creative .modal-header { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 100%); color: white; padding: 20px 30px; }
-        .info-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 4px solid var(--accent-red); margin-bottom: 15px; }
+        .info-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 15px; }
         .info-label { font-size: 11px; text-transform: uppercase; color: #6c757d; font-weight: 600; margin-bottom: 5px; }
         .info-value { font-size: 14px; font-weight: 600; color: var(--primary-dark); }
 
@@ -109,7 +109,7 @@
         .tag-encerrado { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; background-color: rgba(23,162,184,0.1); color: var(--info-blue); }
         .tag-rescindido { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; background-color: rgba(185,60,66,0.1); color: var(--accent-red); }
         
-        .card-stats { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; border-left: 4px solid var(--info-blue); box-shadow: 0 3px 12px rgba(0,0,0,0.06); }
+        .card-stats { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 3px 12px rgba(0,0,0,0.06); }
         .table-bordered { border: 1px solid #dee2e6; width: 100%; }
         .table-bordered th, .table-bordered td { border: 1px solid #dee2e6; padding: 12px; vertical-align: top; }
         
@@ -575,9 +575,10 @@ function renderDownloads() {
         <div class="row">
             <div class="col-md-6 mb-3">
                 <div class="card-stats p-4 bg-white rounded shadow-sm h-100">
-                    <h4 class="fw-bold text-start mb-3"><i class="material-icons me-2">open_in_new</i> Portal de Dados Abertos</h4>
+                    <h4 class="fw-bold text-start mb-3"><i class="material-icons me-2"></i> Portal de Dados Abertos</h4>
                     <p class="text-muted text-justify" style="font-size: 13px; text-align: justify;">
-                        Acesse o conjunto de dados de acordos de cooperação técnica no Portal de Dados Abertos de Minas Gerais, documentado conforme especificações Frictionless Data, possibilitando a validação automática dos dados e acesso às informações completas.
+                        Acesse o conjunto de dados de acordos de cooperação técnica no Dados MG, documentado conforme especificações Frictionless Data.
+
                     </p>
                     <div class="mt-4 text-end">
                         <a href="https://dados.mg.gov.br/dataset/acordos_cooperacao_tecnica" target="_blank" class="btn-export text-decoration-none fw-bold d-inline-block px-4 py-2"><i class="material-icons me-2" style="font-size: 16px;">launch</i>Acessar Portal de Dados MG</a>
@@ -586,7 +587,7 @@ function renderDownloads() {
             </div>
             <div class="col-md-6 mb-3">
                 <div class="card-stats p-4 bg-white rounded shadow-sm h-100">
-                    <h4 class="fw-bold text-start mb-3"><i class="material-icons me-2">gavel</i> Legislação</h4>
+                    <h4 class="fw-bold text-start mb-3"><i class="material-icons me-2"></i> Legislação</h4>
                     <p class="text-muted text-justify" style="font-size: 13px; text-align: justify;">
                         Decreto Estadual nº 48.764, de 22 de janeiro de 2024, que dispõe sobre acordos de cooperação técnica no âmbito da administração pública estadual.
                     </p>
