@@ -692,7 +692,7 @@ async function loadData() {
 // ==================== INICIALIZAÇÃO ====================
 document.addEventListener('DOMContentLoaded', function() {
     loadData().then(() => {
-        setupAtualizacaoData();
+        setupAtualizacaoData(); 
         updateFilterOptions();
         renderVisaoGeral();
         renderConsulta();
@@ -700,7 +700,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.getElementById('dashboard1-tab')?.addEventListener('click', () => setTimeout(() => filtrarTabelaVG(''), 100));
         document.querySelectorAll('.share-dropdown button').forEach(btn => btn.addEventListener('click', e => e.stopPropagation()));
-        document.addEventListener('click', (e) => { if (!e.target.closest('.share-dropdown')) document.querySelectorAll('.share-options').forEach(opt => opt.classList.remove('show')); });
+        document.addEventListener('click', (e) => { 
+            if (!e.target.closest('.share-dropdown')) 
+                document.querySelectorAll('.share-options').forEach(opt => opt.classList.remove('show')); 
+        });
     }).catch(console.error);
 });
 </script>
