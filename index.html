@@ -240,7 +240,6 @@ async function setupAtualizacaoData() {
         el.textContent = 'Não disponível';
     }
 }
-    document.getElementById('data-atualizacao-header').innerText = new Date().toLocaleString('pt-BR');
 
 function updateFilterOptions() {
     const anos = [...new Set(acordosData.map(a => a.ano))].sort((a,b)=>b-a);
@@ -693,7 +692,7 @@ async function loadData() {
 // ==================== INICIALIZAÇÃO ====================
 document.addEventListener('DOMContentLoaded', function() {
     loadData().then(() => {
-        updateDataAtualizacao();
+        setupAtualizacaoData();
         updateFilterOptions();
         renderVisaoGeral();
         renderConsulta();
