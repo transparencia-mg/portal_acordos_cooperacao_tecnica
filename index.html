@@ -215,13 +215,30 @@ function getSituacaoBadge(situacao) {
     return `<span class="badge-status">${s || 'N/A'}</span>`;
 }
 
-function updateDataAtualizacao() {
-    const now = new Date();
-    const dataFormatada = now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR');
-    const elementoData = document.getElementById('data-atualizacao-header');
-    const printDate = document.getElementById('print-date');
-    if (elementoData) elementoData.textContent = dataFormatada;
-    if (printDate) printDate.textContent = dataFormatada;
+async function setupAtualizacaoData() {
+    const el = document.getElementById('data-atualizacao-header');
+
+    try {
+        const resp = await fetch(
+            'https://api.github.com/repos/transparencia-mg/portal_acordos_cooperacao_tecnica/commits?path=dataset/data/acordos_cooperacao_tecnica.csv&per_page=1'
+        );
+
+        if (!resp.ok) throw new Error('Erro ao buscar commit');
+
+        const commits = await resp.json();
+
+        if (commits && commits.length > 0) {
+            const data = commits[0].commit.committer.date;
+            el.textContent = new Date(data).toLocaleDateString('pt-BR');
+            return;
+        }
+
+        el.textContent = 'Não disponível';
+
+    } catch (e) {
+        console.error('Erro ao buscar data:', e);
+        el.textContent = 'Não disponível';
+    }
 }
 
 function updateFilterOptions() {
