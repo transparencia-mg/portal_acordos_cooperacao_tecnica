@@ -4,707 +4,592 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Acordos de Cooperação Técnica - Governo de Minas Gerais</title>
-
-    <!-- ==================== ESTILOS E BIBLIOTECAS ==================== -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Bibliotecas para PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
-
-    <!-- Chart.js e PapaParse -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
     <style>
-        /* ==================== VARIÁVEIS DE CORES ==================== */
         :root {
-            --primary-dark: #1a3a5c;
-            --primary-darker: #0f2a44;
-            --accent-red: #b93c42;
-            --accent-bright: #db233f;
-            --background-light: #f5f7fa;
-            --success-green: #28a745;
-            --warning-yellow: #ffc107;
-            --info-blue: #17a2b8;
+            --primary:        #1a3a5c;
+            --primary-dark:   #0f2a44;
+            --primary-mid:    #20445d;
+            --accent:         #b93c42;
+            --bg:             #f0f3f8;
+            --bg-card:        #ffffff;
+            --border:         #dde3ec;
+            --text-main:      #1a2333;
+            --text-muted:     #64748b;
+            --text-light:     #94a3b8;
+            --green:          #1e9e52;
+            --green-bg:       #e6f7ee;
+            --blue:           #1a6db5;
+            --blue-bg:        #e3f0fb;
+            --red:            #b93c42;
+            --red-bg:         #fdecea;
+            --table-head:     #3d5a73;
+            --shadow-sm:      0 2px 8px rgba(26,58,92,0.07);
+            --shadow-md:      0 4px 18px rgba(26,58,92,0.10);
+            --r-sm: 6px; --r-md: 10px; --r-lg: 14px;
         }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html, body { width:100%; overflow-x:hidden; }
+        body { font-family:'Montserrat','Segoe UI',sans-serif; background:var(--bg); color:var(--text-main); font-size:13px; padding-bottom:30px; }
+        body,button,input,select,textarea,span,div { font-family:'Montserrat',sans-serif !important; }
+        .material-icons { font-family:'Material Icons' !important; font-size:16px; vertical-align:middle; }
+        .page-inner { width:100%; max-width:1400px; margin:0 auto; padding:0 32px; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { width: 100%; overflow-x: hidden; margin: 0; padding: 0; height: auto; }
-        body { font-family: 'Montserrat', 'Open Sans', sans-serif; background-color: var(--background-light); padding-bottom: 15px; }
-        .container { max-width: 88% !important; width: 100%; margin: 0 auto; padding: 0 40px; }
+        /* DATA ATUALIZAÇÃO */
+        .data-atualizacao-container { display:flex; align-items:center; margin:8px 0 18px; }
+        .data-atualizacao-box { display:inline-flex; align-items:center; gap:6px; background:var(--bg-card); border:1px solid var(--border); border-radius:20px; padding:5px 14px; font-size:11.5px; font-weight:600; color:var(--primary); box-shadow:var(--shadow-sm); }
+        .data-atualizacao-box .material-icons { font-size:14px; color:var(--accent); }
 
-        .data-atualizacao-container { display: flex; justify-content: left; margin: 15px 0; }
-        .data-atualizacao-box { background: white; border-radius: 8px; padding: 8px 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--primary-dark); font-weight: 600; }
-        .data-atualizacao-box i { font-size: 14px; color: var(--accent-red); }
+        /* TABS */
+        .nav-tabs-container { padding:16px 0 4px; }
+        .nav-tabs { border:none !important; display:flex; flex-wrap:wrap; gap:8px; }
+        .nav-tabs .nav-link { border:none !important; border-radius:var(--r-md) !important; padding:9px 20px !important; font-size:12.5px; font-weight:600; color:var(--primary) !important; background:var(--bg-card) !important; display:inline-flex !important; align-items:center; gap:7px; transition:all .2s; box-shadow:var(--shadow-sm); white-space:nowrap; }
+        .nav-tabs .nav-link .material-icons { font-size:15px; }
+        .nav-tabs .nav-link:hover { background:#e8edf4 !important; }
+        .nav-tabs .nav-link.active { background:var(--primary-mid) !important; color:#fff !important; box-shadow:0 4px 14px rgba(26,58,92,.22); }
 
-        .filter-container { background: white; border-radius: 10px; box-shadow: 0 3px 12px rgba(0,0,0,0.08); padding: 20px; margin-bottom: 20px; width: 100%; }
-        .filter-label { font-size: 16px; font-weight: 600; color: #1a3a5c; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .filter-label i { font-size: 18px; color: var(--accent-red); }
-        .form-control, .form-select { border: 2px solid #e9ecef; border-radius: 6px; padding: 10px 12px; font-size: 13px; height: 42px; width: 100%; }
-        .form-control:focus, .form-select:focus { border-color: var(--accent-red); box-shadow: 0 0 0 2px rgba(185,60,66,0.15); }
+        /* FILTER */
+        .filter-container { background:var(--bg-card); border-radius:var(--r-md); box-shadow:var(--shadow-sm); border:1px solid var(--border); padding:20px 22px; margin-bottom:20px; }
+        .filter-section-title { font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--text-muted); margin-bottom:12px; display:flex; align-items:center; gap:6px; }
+        .filter-section-title .material-icons { font-size:14px; color:var(--accent); }
+        .filter-label { display:block; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:var(--primary); margin-bottom:5px; }
+        .form-control,.form-select { border:1.5px solid #dde3ec; border-radius:var(--r-sm); padding:7px 10px; font-size:12px; height:36px; width:100%; color:var(--text-main); transition:border-color .2s,box-shadow .2s; background:#fff; }
+        .form-control:focus,.form-select:focus { border-color:var(--primary-mid); box-shadow:0 0 0 3px rgba(32,68,93,.10); outline:none; }
+        .form-control::placeholder { color:var(--text-light); }
+        .filters-row { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:4px; }
+        .filter-group { flex:1; min-width:140px; }
+        .consulta-filters-row { display:flex; flex-wrap:wrap; gap:12px; }
+        .consulta-filter-group { flex:1 1 calc(33.333% - 12px); min-width:200px; }
+        .botoes-abaixo { margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; }
 
-        .metric-card { background: white; border-radius: 8px; border: 1px solid #e5e9ef; box-shadow: 0 3px 12px rgba(0,0,0,0.06); overflow: hidden; height: 100%; }
-        .metric-header { background: #20445d; color: white; font-size: 18px; font-weight: 600; padding: 10px 15px; }
-        .metric-body { padding: 12px 15px; }
-        .metric-value { font-size: 26px; font-weight: 500; color: #171c21; }
+        /* BUTTONS */
+        .btn-pesquisa { background:var(--primary-mid); border:none; padding:0 18px; height:36px; font-size:12px; font-weight:700; color:white; border-radius:var(--r-sm); display:inline-flex; align-items:center; gap:5px; cursor:pointer; transition:all .2s; }
+        .btn-pesquisa:hover { background:var(--accent); transform:translateY(-1px); box-shadow:0 4px 12px rgba(185,60,66,.2); }
+        .btn-secondary-custom { background:white; border:1.5px solid var(--primary-dark); color:var(--primary-dark); padding:0 18px; height:36px; font-size:12px; font-weight:700; border-radius:var(--r-sm); display:inline-flex; align-items:center; gap:5px; cursor:pointer; transition:all .2s; }
+        .btn-secondary-custom:hover { background:var(--primary-dark); color:white; }
+        .btn-export { background:white; border:1.5px solid var(--border); color:var(--primary); padding:0 12px; height:30px; font-size:11.5px; font-weight:600; border-radius:var(--r-sm); display:inline-flex; align-items:center; gap:4px; cursor:pointer; transition:all .2s; white-space:nowrap; text-decoration:none; }
+        .btn-export .material-icons { font-size:13px; }
+        .btn-export:hover { background:var(--primary); border-color:var(--primary); color:white; }
+        .btn-action { width:30px; height:30px; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:white; border:none; border-radius:var(--r-sm); cursor:pointer; transition:all .2s; }
+        .btn-action .material-icons { font-size:14px; }
+        .btn-action:hover { background:var(--accent); transform:scale(1.07); }
+        #btnTopo { background:white; color:var(--primary); border:1px solid var(--border); border-radius:20px; padding:6px 18px; font-size:11.5px; font-weight:600; display:inline-flex; align-items:center; gap:5px; cursor:pointer; box-shadow:var(--shadow-sm); transition:all .2s; }
+        #btnTopo:hover { background:var(--primary); color:white; }
+        #btnTopo .material-icons { font-size:14px; }
 
-        .chart-container { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 3px 12px rgba(0,0,0,0.06); margin-bottom: 20px; min-height: 320px; }
-        .chart-header { background: #20445d; color: white; padding: 10px 15px; }
-        .chart-title { font-size: 18px; font-weight: 600; color: white; margin: 0; }
-        .chart-wrapper { position: relative; height: 240px; width: 100%; padding: 15px; }
+        /* METRIC CARDS */
+        .metric-card { background:var(--bg-card); border-radius:var(--r-md); border:1px solid var(--border); box-shadow:var(--shadow-sm); overflow:hidden; height:100%; transition:box-shadow .25s,transform .25s; }
+        .metric-card:hover { box-shadow:var(--shadow-md); transform:translateY(-2px); }
+        .metric-header { background:var(--primary-mid); color:white; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; padding:9px 14px; display:flex; align-items:center; gap:6px; }
+        .metric-header .material-icons { font-size:15px; opacity:.85; }
+        .metric-body { padding:14px 16px 12px; }
+        .metric-value { font-size:26px; font-weight:700; color:var(--text-main); line-height:1.1; letter-spacing:-.5px; }
+        .metric-sublabel { font-size:10.5px; color:var(--text-muted); font-weight:500; margin-top:3px; }
 
-        .table-fixed-header-container { position: relative; overflow: auto; width: 100%; max-height: 600px; }
-        .table-fixed-header-container table thead th { background-color: #54697b; color: white !important; position: sticky; top: 0; z-index: 10; font-weight: 600; padding: 12px 10px; font-size: 15px; text-transform: uppercase; white-space: nowrap; }
-        .table { width: 100%; font-size: 15px; border-collapse: collapse; }
-        .table th, .table td { border: 1px solid #d6dee6; padding: 12px 10px; }
-        .table tbody tr:hover { background-color: rgba(41,67,90,0.04); }
-        .orgao-link { color: #006a82; text-decoration: none; font-weight: 400; cursor: pointer; }
-        .orgao-link:hover { color: var(--accent-red); }
+        /* CHARTS */
+        .chart-container { background:var(--bg-card); border-radius:var(--r-md); border:1px solid var(--border); box-shadow:var(--shadow-sm); overflow:hidden; margin-bottom:20px; }
+        .chart-header { background:var(--primary-mid); padding:10px 16px; display:flex; align-items:center; gap:8px; }
+        .chart-title { font-size:12.5px; font-weight:700; color:white; margin:0; }
+        .chart-header .material-icons { font-size:15px; color:rgba(255,255,255,.75); }
+        .chart-wrapper { height:240px; padding:14px 16px; position:relative; }
 
-        .sortable-header { cursor: pointer; position: relative; padding-right: 25px !important; }
-        .sortable-header:hover { background-color: #2a4a6e !important; }
-        .sortable-header i { font-size: 18px; position: absolute; right: 5px; top: 50%; transform: translateY(-50%); }
+        /* TOOLBAR */
+        .toolbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px; }
+        .toolbar-left { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+        .toolbar-right { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-left:auto; }
+        .table-badge { background:var(--primary); color:white; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; white-space:nowrap; }
+        .table-search-container { display:flex; align-items:center; gap:5px; background:white; border:1.5px solid var(--border); border-radius:20px; padding:3px 10px; height:32px; transition:border-color .2s; }
+        .table-search-container:focus-within { border-color:var(--primary-mid); }
+        .table-search-container .material-icons { font-size:14px; color:var(--text-muted); }
+        .table-search-input { border:none !important; outline:none; background:transparent; font-size:12px; width:160px; color:var(--text-main); }
+        .table-search-input::placeholder { color:var(--text-light); }
+        .clear-icon { font-size:13px; color:var(--text-light); cursor:pointer; display:none; }
+        .clear-icon:hover { color:var(--accent); }
 
-        .btn-primary-custom, .btn-pesquisa { background: #20445d; border: none; padding: 10px 20px; font-weight: 600; border-radius: 6px; font-size: 18px; color: white; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; height: 42px; }
-        .btn-primary-custom:hover, .btn-pesquisa:hover { background: var(--accent-red); transform: translateY(-1px); }
-        .btn-secondary-custom { background: white; border: 2px solid var(--primary-darker); color: var(--primary-darker); padding: 10px 20px; font-weight: 600; font-size: 18px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; height: 42px; }
-        .btn-secondary-custom:hover { background-color: #132837; color: white; border-color: #132837; }
-        .btn-export { background: #eeeff5; border: 1px solid #d6dee6; color: #1a3a5c; padding: 2px 10px; border-radius: 6px; font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; height: 28px; cursor: pointer; }
-        .btn-export:hover { background-color: #1a3a5c; border-color: #1a3a5c; color: #ffffff; }
-        .btn-action { padding: 6px; border-radius: 4px; border: none; background-color: var(--primary-dark); color: white; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+        /* TABLE */
+        .table-container { border-radius:var(--r-md); box-shadow:var(--shadow-sm); border:1px solid var(--border); overflow:hidden; background:var(--bg-card); }
+        .table-fixed-header-container { overflow:auto; max-height:560px; width:100%; }
+        .table { width:100%; border-collapse:collapse; font-size:12px; }
+        .table thead th { background:var(--table-head) !important; color:white !important; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; padding:11px 11px; white-space:nowrap; border:none !important; position:sticky; top:0; z-index:10; }
+        .table tbody tr { background:white; }
+        .table tbody tr:nth-child(even) { background:#f7f9fc; }
+        .table tbody tr:hover { background:#eef3fa !important; }
+        .table tbody td { padding:9px 11px; vertical-align:middle; border-bottom:1px solid #edf1f7; font-size:12px; color:var(--text-main); }
+        .table tfoot tr { background:#dce3ed !important; }
+        .table tfoot td { padding:9px 11px; font-size:12px; font-weight:700; border-top:2px solid #c5d0de; color:var(--primary); }
+        .sortable-header { cursor:pointer; user-select:none; position:relative; padding-right:24px !important; }
+        .sortable-header:hover { background:#344e63 !important; }
+        .sortable-header .material-icons { font-size:13px; position:absolute; right:5px; top:50%; transform:translateY(-50%); opacity:.75; }
+        .text-right { text-align:right; }
+        .text-center { text-align:center; }
 
-        .share-dropdown { position: relative; display: inline-block; }
-        .share-options { display: none; position: absolute; right: 0; top: 100%; background-color: white; min-width: 200px; box-shadow: 0 8px 16px rgba(0,0,0,0.15); border-radius: 8px; padding: 8px; z-index: 1000; border: 1px solid #dee2e6; margin-top: 5px; }
-        .share-options.show { display: block; }
-        .share-options a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 6px; font-size: 14px; color: var(--primary-dark); text-decoration: none; cursor: pointer; }
-        .share-options a:hover { background-color: var(--background-light); color: var(--accent-red); }
+        /* BADGES */
+        .tag-vigente   { display:inline-block; padding:3px 9px; border-radius:20px; font-size:10.5px; font-weight:700; background:var(--green-bg); color:var(--green); }
+        .tag-encerrado { display:inline-block; padding:3px 9px; border-radius:20px; font-size:10.5px; font-weight:700; background:var(--blue-bg); color:var(--blue); }
+        .tag-rescindido{ display:inline-block; padding:3px 9px; border-radius:20px; font-size:10.5px; font-weight:700; background:var(--red-bg); color:var(--red); }
+        .badge-status  { display:inline-block; padding:3px 9px; border-radius:20px; font-size:10.5px; font-weight:700; background:#f0f3f8; color:var(--text-muted); }
+        .orgao-link { color:var(--blue); text-decoration:none; font-weight:600; cursor:pointer; }
+        .orgao-link:hover { color:var(--accent); text-decoration:underline; }
 
-        .table-search-container { display: flex; align-items: center; gap: 6px; background: white; border: 1px solid #d6dee6; border-radius: 20px; padding: 4px 10px; height: 38px; }
-        .table-search-input { border: none !important; outline: none; background: transparent; font-size: 13px; width: 160px; }
-        .clear-icon { font-size: 14px; color: #94a3b8; cursor: pointer; display: none; }
+        /* PAGINATION */
+        .pagination-container { display:flex; justify-content:space-between; align-items:center; padding:11px 16px; background:white; border-top:1px solid var(--border); flex-wrap:wrap; gap:8px; }
+        .pagination-info { font-size:11.5px; color:var(--text-muted); font-weight:500; }
+        .pagination { gap:3px; margin:0 !important; }
+        .pagination .page-link { font-size:12px; color:var(--primary); border:1px solid var(--border); border-radius:var(--r-sm) !important; padding:4px 9px; font-weight:600; }
+        .pagination .page-item.active .page-link { background:var(--primary-mid); border-color:var(--primary-mid); color:white; }
+        .pagination .page-link:hover { background:#eef3fa; }
+        .items-per-page { height:30px; min-width:70px; border:1.5px solid var(--border); border-radius:var(--r-sm); padding:0 6px; font-size:11.5px; font-weight:600; color:var(--primary); cursor:pointer; background:white; }
 
-        .nav-tabs-container { background: transparent; padding: 10px 0; margin: 15px 0; }
-        .nav-tabs { border: none !important; gap: 10px; }
-        .nav-tabs .nav-link { border: none !important; background: #ffffff !important; border-radius: 10px !important; padding: 8px 18px !important; font-weight: 500; font-size: 18px; color: #1a3a5c !important; display: inline-flex !important; align-items: center; gap: 6px; }
-        .nav-tabs .nav-link.active { background: #234c63 !important; color: #fff !important; }
+        /* MODAL */
+        .modal-creative .modal-content { border:none; border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow-md); }
+        .modal-creative .modal-header { background:linear-gradient(135deg,var(--primary) 0%,var(--primary-mid) 100%); padding:16px 22px; border:none; }
+        .modal-creative .modal-header .modal-title { color:white; font-weight:700; font-size:14px; display:flex; align-items:center; gap:8px; }
+        .modal-creative .modal-header .btn-close { filter:brightness(0) invert(1); opacity:1; }
+        .modal-creative .modal-body { padding:20px 22px; background:#f7f9fc; }
+        .modal-creative .modal-footer { background:white; border-top:1px solid var(--border); padding:12px 22px; }
+        .info-card { background:white; border:1px solid var(--border); border-radius:var(--r-md); padding:14px 16px; margin-bottom:0; box-shadow:var(--shadow-sm); }
+        .info-label { font-size:10px; text-transform:uppercase; letter-spacing:.6px; color:var(--text-muted); font-weight:700; margin-bottom:4px; }
+        .info-value { font-size:13px; font-weight:500; color:var(--text-main); word-break:break-word; line-height:1.5; }
+        .info-value.highlight { font-size:16px; color:var(--primary); font-weight:700; }
 
-        .modal-creative .modal-header { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 100%); color: white; padding: 20px 30px; }
-        .info-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 15px; }
-        .info-label { font-size: 11px; text-transform: uppercase; color: #6c757d; font-weight: 600; margin-bottom: 5px; }
-        .info-value { font-size: 14px; font-weight: 600; color: var(--primary-dark); }
+        /* SHARE */
+        .share-dropdown { position:relative; display:inline-block; }
+        .share-options { display:none; position:absolute; left:0; top:calc(100% + 5px); background:white; min-width:180px; box-shadow:var(--shadow-md); border-radius:var(--r-md); padding:6px; z-index:2000; border:1px solid var(--border); }
+        .share-options.show { display:block; }
+        .share-options a { display:flex; align-items:center; gap:8px; padding:8px 10px; border-radius:var(--r-sm); font-size:12px; color:var(--primary); text-decoration:none; cursor:pointer; }
+        .share-options a .material-icons { font-size:14px; color:var(--accent); }
+        .share-options a:hover { background:var(--bg); color:var(--accent); }
 
-        .pagination-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: white; border-top: 1px solid #dee2e6; }
-        .pagination-info { font-size: 13px; color: #6c757d; }
-        .pagination .page-link { color: var(--primary-dark); }
-        .pagination .page-item.active .page-link { background-color: var(--primary-dark); border-color: var(--primary-dark); color: white; }
-        .items-per-page { height: 38px; min-width: 80px; border-radius: 10px; border: 1px solid #d6dee6; padding: 6px 30px 6px 10px; font-size: 14px; font-weight: 600; color: #1a3a5c; cursor: pointer; }
+        /* DOWNLOADS */
+        .download-card { background:white; border:1px solid var(--border); border-radius:var(--r-md); padding:20px 22px; box-shadow:var(--shadow-sm); height:100%; display:flex; flex-direction:column; transition:box-shadow .25s; }
+        .download-card:hover { box-shadow:var(--shadow-md); }
+        .download-card-icon { width:44px; height:44px; background:#eef3fa; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:12px; }
+        .download-card-icon .material-icons { font-size:22px; color:var(--primary-mid); }
+        .download-card h5 { font-size:13.5px; font-weight:700; color:var(--primary); margin-bottom:8px; }
+        .download-card p { font-size:12px; color:var(--text-muted); line-height:1.6; flex:1; margin-bottom:16px; }
+        .portal-banner { background:linear-gradient(135deg,var(--primary) 0%,var(--primary-mid) 100%); border-radius:var(--r-md); padding:18px 22px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:20px; }
+        .portal-banner-text { color:white; }
+        .portal-banner-text h5 { font-size:13px; font-weight:700; margin-bottom:3px; }
+        .portal-banner-text p { font-size:11.5px; opacity:.8; margin:0; }
+        .btn-portal { background:white; color:var(--primary); border:none; padding:8px 18px; border-radius:var(--r-sm); font-size:12px; font-weight:700; display:inline-flex; align-items:center; gap:6px; text-decoration:none; white-space:nowrap; cursor:pointer; }
+        .btn-portal .material-icons { font-size:14px; color:var(--accent); }
 
-        .tag-vigente { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; background-color: rgba(40,167,69,0.1); color: var(--success-green); }
-        .tag-encerrado { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; background-color: rgba(23,162,184,0.1); color: var(--info-blue); }
-        .tag-rescindido { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; background-color: rgba(185,60,66,0.1); color: var(--accent-red); }
-        
-        .card-stats { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 3px 12px rgba(0,0,0,0.06); }
-        .table-bordered { border: 1px solid #dee2e6; width: 100%; }
-        .table-bordered th, .table-bordered td { border: 1px solid #dee2e6; padding: 12px; vertical-align: top; }
-        
-        .filters-row { display: flex; gap: 15px; width: 100%; flex-wrap: nowrap; }
-        .filter-group { flex: 1; }
-        .consulta-filters-row { display: flex; flex-wrap: wrap; gap: 15px; width: 100%; }
-        .consulta-filter-group { flex: 1 1 calc(33.333% - 15px); min-width: 250px; }
-        .consulta-buttons-row { display: flex; gap: 10px; width: 100%; margin-top: 15px; }
-        .botoes-abaixo { margin-top: 15px; display: flex; gap: 10px; }
-        #btnTopo { background: #eeeff5; color: #1a3a5c; border: 1px solid #d6dee6; border-radius: 12px; padding: 10px 16px; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
-        #btnTopo:hover { background-color: #1a3a5c; color: #ffffff; }
-        
+        /* DICIONÁRIO */
+        .dic-header-box { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--r-md); padding:18px 22px; margin-bottom:16px; box-shadow:var(--shadow-sm); }
+        .dic-header-box h5 { font-size:14px; font-weight:700; color:var(--primary); margin-bottom:4px; }
+        .dic-header-box p { font-size:12px; color:var(--text-muted); margin:0; }
+        .dic-table-wrap { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--r-md); overflow:hidden; margin-bottom:18px; box-shadow:var(--shadow-sm); }
+        .dic-table-header { background:var(--primary-mid); color:white; padding:10px 16px; font-size:12px; font-weight:700; display:flex; align-items:center; gap:8px; }
+        .dic-table-header .material-icons { font-size:15px; opacity:.8; }
+        .dic-count { background:rgba(255,255,255,.2); padding:2px 10px; border-radius:20px; font-size:10.5px; margin-left:auto; }
+        .dic-table { width:100%; border-collapse:collapse; font-size:12px; }
+        .dic-table thead th { background:var(--table-head); color:white; padding:9px 12px; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
+        .dic-table tbody tr:nth-child(even) { background:#f7f9fc; }
+        .dic-table tbody tr.dic-row-highlight { background:#fff8dc !important; }
+        .dic-table tbody td { padding:9px 12px; border-bottom:1px solid #edf1f7; vertical-align:top; }
+        code { background:#eef2f8; color:var(--primary); padding:2px 7px; border-radius:4px; font-size:11px; font-family:'Courier New',monospace !important; font-weight:600; }
+        .tipo-badge { background:#eef2f8; color:var(--text-muted); padding:2px 8px; border-radius:4px; font-size:10.5px; font-weight:600; }
+
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .container { padding: 0 15px; max-width: 100% !important; }
-            .filters-row { flex-direction: column; }
-            .consulta-filter-group { flex: 1 1 100%; }
+            .page-inner { padding:0 12px; }
+            .filters-row { flex-direction:column; }
+            .filter-group { min-width:100%; }
+            .consulta-filter-group { flex:1 1 100%; }
+            .metric-value { font-size:20px; }
+            .nav-tabs .nav-link { font-size:11.5px; padding:7px 12px !important; }
         }
     </style>
 </head>
 <body>
+<div class="page-inner">
 
-<div class="main-container">
-    <div class="container">
-        <!-- Elementos para PDF -->
-        <div class="print-header" style="display:none;">
-            <h2>Acordos de Cooperação Técnica - Governo de Minas Gerais</h2>
-            <p>https://transparencia.mg.gov.br/acordos-cooperacao</p>
-        </div>
-        <div class="print-footer" style="display:none;">
-            Documento gerado em: <span id="print-date"></span>
-        </div>
+    <!-- TABS -->
+    <div class="nav-tabs-container">
+        <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
+            <li class="nav-item"><button class="nav-link active" id="tab-vg" data-bs-toggle="tab" data-bs-target="#pane-vg"><i class="material-icons">bar_chart</i>Visão Geral</button></li>
+            <li class="nav-item"><button class="nav-link" id="tab-consulta" data-bs-toggle="tab" data-bs-target="#pane-consulta"><i class="material-icons">handshake</i>Consulta de Acordos</button></li>
+            <li class="nav-item"><button class="nav-link" id="tab-dic" data-bs-toggle="tab" data-bs-target="#pane-dic"><i class="material-icons">menu_book</i>Dicionário de Dados</button></li>
+            <li class="nav-item"><button class="nav-link" id="tab-dl" data-bs-toggle="tab" data-bs-target="#pane-dl"><i class="material-icons">cloud_download</i>Downloads</button></li>
+        </ul>
+    </div>
 
-        <!-- Menu de Navegação -->
-        <div class="nav-tabs-container">
-            <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
-                <li class="nav-item"><button class="nav-link active" id="dashboard1-tab" data-bs-toggle="tab" data-bs-target="#dashboard1"><i class="material-icons">bar_chart</i>Visão Geral</button></li>
-                <li class="nav-item"><button class="nav-link" id="dashboard2-tab" data-bs-toggle="tab" data-bs-target="#dashboard2"><i class="material-icons">handshake</i>Consulta de Acordos</button></li>
-                <li class="nav-item"><button class="nav-link" id="dashboard3-tab" data-bs-toggle="tab" data-bs-target="#dashboard3"><i class="material-icons">download</i>Downloads</button></li>
-            </ul>
+    <!-- DATA ATUALIZAÇÃO -->
+    <div class="data-atualizacao-container">
+        <div class="data-atualizacao-box">
+            <i class="material-icons">event</i>
+            Atualizado em:&nbsp;<span id="data-atualizacao-header">Carregando...</span>
         </div>
+    </div>
 
-        <!-- Data de Atualização -->
-        <div class="data-atualizacao-container">
-            <div class="data-atualizacao-box">
-                <i class="material-icons">update</i> Atualizado em: <span id="data-atualizacao-header">Carregando...</span>
-            </div>
-        </div>
-
-        <!-- Conteúdo das Abas -->
-        <div class="tab-content" id="dashboardTabsContent">
-            <div class="tab-pane fade show active" id="dashboard1" role="tabpanel"><div id="visao-geral-content"></div></div>
-            <div class="tab-pane fade" id="dashboard2" role="tabpanel"><div id="consulta-content"></div></div>
-            <div class="tab-pane fade" id="dashboard3" role="tabpanel"><div id="downloads-content"></div></div>
-        </div>
+    <!-- TAB PANES -->
+    <div class="tab-content" id="dashboardTabsContent">
+        <div class="tab-pane fade show active" id="pane-vg" role="tabpanel"><div id="visao-geral-content"></div></div>
+        <div class="tab-pane fade" id="pane-consulta" role="tabpanel"><div id="consulta-content"></div></div>
+        <div class="tab-pane fade" id="pane-dic" role="tabpanel"><div id="dicionario-content"></div></div>
+        <div class="tab-pane fade" id="pane-dl" role="tabpanel"><div id="downloads-content"></div></div>
     </div>
 </div>
 
-<!-- Modal de Detalhes -->
+<!-- MODAL -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content modal-creative">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="material-icons me-2">description</i> Detalhes do Acordo</h5>
+                <h5 class="modal-title"><i class="material-icons">description</i> Detalhes do Acordo</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body" id="acordoInfo"></div>
             <div class="modal-footer">
-                <button type="button" class="btn-secondary-custom" data-bs-dismiss="modal"><i class="material-icons me-2">close</i>Fechar</button>
+                <button type="button" class="btn-secondary-custom" data-bs-dismiss="modal"><i class="material-icons">close</i> Fechar</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// ==================== VARIÁVEIS GLOBAIS ====================
-let acordosData = [];
-let filteredData = [];
-let currentPageDashboard1 = 1;
-let currentPageDashboard2 = 1;
-let itemsPerPageDashboard1 = 100;
-let itemsPerPageDashboard2 = 100;
+// ============================================================
+// ESTADO
+// ============================================================
+let acordosData = [], filteredData = [];
+let currentPageVG = 1, itensPorPagVG = 50;
+let currentPageCI = 1, itensPorPagCI = 50;
+let sortVG = { col:'orgao_acordo', dir:'asc' };
+let sortCI = { col:'ano', dir:'desc' };
 let charts = {};
-let currentSortDashboard1 = { column: 'orgao_acordo', order: 'asc' };
-let currentSortDashboard2 = { column: 'ano', order: 'desc' };
+const CSV_URL = 'https://raw.githubusercontent.com/transparencia-mg/acordos_cooperacao_tecnica/main/dataset/data/acordos_cooperacao_tecnica.csv';
 
-const GITHUB_CSV_URL = 'https://raw.githubusercontent.com/transparencia-mg/acordos_cooperacao_tecnica/main/dataset/data/acordos_cooperacao_tecnica.csv';
+// ============================================================
+// AUXILIARES
+// ============================================================
+function fmtDate(s){if(!s)return'-';try{const d=new Date(s);if(isNaN(d.getTime()))return s;return d.toLocaleDateString('pt-BR');}catch{return s;}}
+function normSit(s){const u=(s||'').toUpperCase();if(u.includes('VIGENTE')||u.includes('ATIVO'))return'VIGENTE';if(u.includes('ENCERRADO')||u.includes('CONCLU'))return'ENCERRADO';if(u.includes('RESCINDIDO')||u.includes('CANCELAD'))return'RESCINDIDO';return u;}
+function getSitBadge(s){const u=(s||'').toUpperCase();if(u==='VIGENTE')return'<span class="tag-vigente">VIGENTE</span>';if(u==='ENCERRADO')return'<span class="tag-encerrado">ENCERRADO</span>';if(u==='RESCINDIDO')return'<span class="tag-rescindido">RESCINDIDO</span>';return`<span class="badge-status">${u||'N/A'}</span>`;}
+function voltarAoTopo(){window.scrollTo({top:0,behavior:'smooth'});}
+function toast(msg,ok){document.querySelectorAll('.tp-toast').forEach(t=>t.remove());const el=document.createElement('div');el.className='tp-toast';el.style.cssText=`position:fixed;top:20px;right:20px;z-index:9999;background:white;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.15);padding:12px 18px;display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:#1a3a5c;border-left:4px solid ${ok?'#1e9e52':'#b93c42'};transform:translateX(120%);transition:transform .3s;`;el.innerHTML=`<i class="material-icons" style="font-size:17px;color:${ok?'#1e9e52':'#b93c42'}">${ok?'check_circle':'error'}</i><span>${msg}</span>`;document.body.appendChild(el);setTimeout(()=>el.style.transform='translateX(0)',80);setTimeout(()=>{el.style.transform='translateX(120%)';setTimeout(()=>el.remove(),320);},3200);}
 
-// ==================== FUNÇÕES AUXILIARES ====================
-function formatDate(dateString) {
-    if (!dateString) return '-';
-    try {
-        const date = new Date(dateString);
-        if (isNaN(date.getTime())) return dateString;
-        return date.toLocaleDateString('pt-BR');
-    } catch { return dateString; }
-}
+// ============================================================
+// DATA ATUALIZAÇÃO
+// ============================================================
+async function setupDataAtualizacao(){const el=document.getElementById('data-atualizacao-header');try{const r=await fetch('https://api.github.com/repos/transparencia-mg/acordos_cooperacao_tecnica/commits?path=dataset/data/acordos_cooperacao_tecnica.csv&per_page=1');if(r.ok){const cs=await r.json();if(cs&&cs.length>0){el.textContent=new Date(cs[0].commit.committer.date).toLocaleDateString('pt-BR');return;}}}catch{}el.textContent='Não disponível';}
 
-function getSituacaoBadge(situacao) {
-    const s = situacao?.toUpperCase() || '';
-    if (s === 'VIGENTE') return '<span class="tag-vigente">VIGENTE</span>';
-    if (s === 'ENCERRADO') return '<span class="tag-encerrado">ENCERRADO</span>';
-    if (s === 'RESCINDIDO') return '<span class="tag-rescindido">RESCINDIDO</span>';
-    return `<span class="badge-status">${s || 'N/A'}</span>`;
-}
+// ============================================================
+// COMPARTILHAMENTO
+// ============================================================
+function toggleShare(id){document.querySelectorAll('.share-options').forEach(el=>{if(el.id!==`shareOpts${id}`)el.classList.remove('show');});document.getElementById(`shareOpts${id}`)?.classList.toggle('show');}
+function copiarLink(e){e?.preventDefault();navigator.clipboard.writeText(window.location.href).then(()=>toast('Link copiado!',true));document.querySelectorAll('.share-options').forEach(el=>el.classList.remove('show'));}
+function compartilharFacebook(e){e?.preventDefault();window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`,'_blank');document.querySelectorAll('.share-options').forEach(el=>el.classList.remove('show'));}
+function compartilharTwitter(e){e?.preventDefault();window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Acordos de Cooperação Técnica - MG')}`,'_blank');document.querySelectorAll('.share-options').forEach(el=>el.classList.remove('show'));}
+function compartilharWhatsApp(e){e?.preventDefault();window.open(`https://wa.me/?text=${encodeURIComponent('Acordos de Cooperação Técnica - MG '+window.location.href)}`,'_blank');document.querySelectorAll('.share-options').forEach(el=>el.classList.remove('show'));}
 
-async function setupAtualizacaoData() {
-    const el = document.getElementById('data-atualizacao-header');
+// ============================================================
+// EXPORT
+// ============================================================
+function exportCSV(dados,nome){const cols=['ano','numero_termo','numero_sei','orgao_acordo','parceiro_acordo','objeto','inicio_vigencia','fim_vigencia','situacao','link_documento','numero_documento'];const csv=[cols.join(';'),...dados.map(a=>cols.map(c=>`"${(a[c]||'').toString().replace(/"/g,'""')}"`).join(';'))].join('\n');const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});const lnk=document.createElement('a');lnk.href=URL.createObjectURL(blob);lnk.download=nome;lnk.click();URL.revokeObjectURL(lnk.href);}
+function exportVGCSV(){exportCSV(filteredData,`visao_geral_acordos_${new Date().toISOString().split('T')[0]}.csv`);}
+function exportCICSV(){exportCSV(filteredData,`acordos_cooperacao_${new Date().toISOString().split('T')[0]}.csv`);}
+function exportAllCSV(){exportCSV(acordosData,'acordos_cooperacao_completo.csv');}
+function exportAnoCSV(){const ano=document.getElementById('anoDownload')?.value;if(!ano){toast('Selecione um ano.',false);return;}const d=acordosData.filter(a=>a.ano===ano);if(!d.length){toast('Nenhum dado para o ano.',false);return;}exportCSV(d,`acordos_cooperacao_${ano}.csv`);}
 
-    try {
-        const resp = await fetch(
-            'https://api.github.com/repos/transparencia-mg/portal_acordos_cooperacao_tecnica/commits?path=dataset/data/acordos_cooperacao_tecnica.csv&per_page=1'
-        );
+function exportVGPDF(){const{jsPDF}=window.jspdf;const doc=new jsPDF('l','mm','a4');doc.setFontSize(12);doc.setTextColor(26,58,92);doc.text('Visão Geral — Acordos de Cooperação Técnica (MG)',14,13);doc.setFontSize(8);doc.setTextColor(100,100,100);doc.text(`Emitido em: ${new Date().toLocaleString('pt-BR')}`,14,20);const g={};filteredData.forEach(a=>{const o=a.orgao_acordo||'N/I';if(!g[o])g[o]={t:0,v:0,e:0,r:0};g[o].t++;if(a.situacao==='VIGENTE')g[o].v++;else if(a.situacao==='ENCERRADO')g[o].e++;else if(a.situacao==='RESCINDIDO')g[o].r++;});doc.autoTable({head:[['Órgão','Total','Vigentes','Encerrados','Rescindidos']],body:Object.entries(g).map(([k,v])=>[k,v.t,v.v,v.e,v.r]),startY:24,headStyles:{fillColor:[32,68,93]},styles:{fontSize:8}});doc.save('visao_geral_acordos.pdf');}
+function exportCIPDF(){const{jsPDF}=window.jspdf;const doc=new jsPDF('l','mm','a4');doc.setFontSize(12);doc.setTextColor(26,58,92);doc.text('Consulta de Acordos de Cooperação Técnica (MG)',14,13);doc.setFontSize(8);doc.setTextColor(100,100,100);doc.text(`Emitido em: ${new Date().toLocaleString('pt-BR')} | ${filteredData.length} registros`,14,20);doc.autoTable({head:[['Ano','Nº Termo','Órgão','Parceiro','Início','Fim','Situação']],body:filteredData.slice(0,200).map(a=>[a.ano,a.numero_termo,(a.orgao_acordo||'-').substring(0,28),(a.parceiro_acordo||'-').substring(0,28),fmtDate(a.inicio_vigencia),fmtDate(a.fim_vigencia),a.situacao]),startY:24,headStyles:{fillColor:[32,68,93]},styles:{fontSize:7}});doc.save('consulta_acordos.pdf');}
 
-        if (!resp.ok) throw new Error('Erro ao buscar commit');
+// ============================================================
+// FILTROS
+// ============================================================
+function getFilteredVG(){const ano=document.getElementById('filtroAnoVG')?.value||'';const sit=document.getElementById('filtroSitVG')?.value||'';const org=(document.getElementById('filtroOrgaoVG')?.value||'').toLowerCase().trim();const par=(document.getElementById('filtroParceiroVG')?.value||'').toLowerCase().trim();return acordosData.filter(a=>{if(ano&&a.ano!==ano)return false;if(sit&&a.situacao!==sit)return false;if(org&&!a.orgao_acordo.toLowerCase().includes(org))return false;if(par&&!a.parceiro_acordo.toLowerCase().includes(par))return false;return true;});}
+function getFilteredCI(){const ano=document.getElementById('filtroAnoCI')?.value||'';const sit=document.getElementById('filtroSitCI')?.value||'';const ter=(document.getElementById('filtroTermo')?.value||'').toLowerCase().trim();const sei=(document.getElementById('filtroSEI')?.value||'').toLowerCase().trim();const org=(document.getElementById('filtroOrgaoCI')?.value||'').toLowerCase().trim();const par=(document.getElementById('filtroParceiroCI')?.value||'').toLowerCase().trim();return acordosData.filter(a=>{if(ano&&a.ano!==ano)return false;if(sit&&a.situacao!==sit)return false;if(ter&&!a.numero_termo.toLowerCase().includes(ter))return false;if(sei&&!a.numero_sei.toLowerCase().includes(sei))return false;if(org&&!a.orgao_acordo.toLowerCase().includes(org))return false;if(par&&!a.parceiro_acordo.toLowerCase().includes(par))return false;return true;});}
 
-        const commits = await resp.json();
-
-        if (commits && commits.length > 0) {
-            const data = commits[0].commit.committer.date;
-            el.textContent = new Date(data).toLocaleDateString('pt-BR');
-            return;
-        }
-
-        el.textContent = 'Não disponível';
-
-    } catch (e) {
-        console.error('Erro ao buscar data:', e);
-        el.textContent = 'Não disponível';
-    }
-}
-
-function updateFilterOptions() {
-    const anos = [...new Set(acordosData.map(a => a.ano))].sort((a,b)=>b-a);
-    const orgaos = [...new Set(acordosData.map(a=>a.orgao_acordo))].filter(Boolean).sort();
-    const parceiros = [...new Set(acordosData.map(a=>a.parceiro_acordo))].filter(Boolean).sort();
-    
-    ['Dashboard1', 'Dashboard2'].forEach(suffix => {
-        const anoSelect = document.getElementById(`ano${suffix}`);
-        if(anoSelect){ 
-            anoSelect.innerHTML = '<option value="">Todos os Anos</option>'; 
-            anos.forEach(ano => { let opt = document.createElement('option'); opt.value = ano; opt.textContent = ano; anoSelect.appendChild(opt); });
-        }
-        const orgaoList = document.getElementById(`orgaosList${suffix}`);
-        if(orgaoList){ orgaoList.innerHTML = ''; orgaos.forEach(o => { let opt = document.createElement('option'); opt.value = o; orgaoList.appendChild(opt); }); }
-        const parceiroList = document.getElementById(`parceirosList${suffix}`);
-        if(parceiroList){ parceiroList.innerHTML = ''; parceiros.forEach(p => { let opt = document.createElement('option'); opt.value = p; parceiroList.appendChild(opt); }); }
-    });
-}
-
-// ==================== COMPARTILHAMENTO ====================
-function toggleShare(id) {
-    document.querySelectorAll('.share-options').forEach(opt => opt.classList.remove('show'));
-    document.getElementById(`shareOptions${id}`)?.classList.toggle('show');
-}
-
-function copiarLink(e) { e?.preventDefault(); navigator.clipboard.writeText(window.location.href).then(() => alert('Link copiado!')); document.querySelectorAll('.share-options').forEach(opt => opt.classList.remove('show')); }
-function compartilharFacebook(e) { e?.preventDefault(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank'); document.querySelectorAll('.share-options').forEach(opt => opt.classList.remove('show')); }
-function compartilharTwitter(e) { e?.preventDefault(); window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent('Acordos de Cooperação Técnica - Governo de Minas Gerais')}`, '_blank'); document.querySelectorAll('.share-options').forEach(opt => opt.classList.remove('show')); }
-function compartilharLinkedIn(e) { e?.preventDefault(); window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank'); document.querySelectorAll('.share-options').forEach(opt => opt.classList.remove('show')); }
-function compartilharWhatsApp(e) { e?.preventDefault(); window.open(`https://wa.me/?text=${encodeURIComponent('Acordos de Cooperação Técnica - Governo de Minas Gerais ' + window.location.href)}`, '_blank'); document.querySelectorAll('.share-options').forEach(opt => opt.classList.remove('show')); }
-
-// ==================== DOWNLOADS ====================
-function downloadFullCSV() {
-    const ano = document.getElementById('anoDownload')?.value;
-    if (!ano) { alert('Selecione um ano para baixar.'); return; }
-    let data = acordosData.filter(a => a.ano === ano);
-    if (!data.length) { alert('Nenhum dado encontrado.'); return; }
-    const headers = ['ano', 'numero_termo', 'numero_sei', 'orgao_acordo', 'parceiro_acordo', 'objeto', 'inicio_vigencia', 'fim_vigencia', 'situacao', 'link_documento', 'numero_documento'];
-    const csv = [headers.join(';'), ...data.map(a => headers.map(h => `"${(a[h] || '').toString().replace(/"/g, '""')}"`).join(';'))].join('\n');
-    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `acordos_cooperacao_${ano}.csv`;
-    link.click();
-    URL.revokeObjectURL(link.href);
-}
-
-function downloadAllCSV() {
-    if (!acordosData.length) { alert('Nenhum dado disponível.'); return; }
-    const headers = ['ano', 'numero_termo', 'numero_sei', 'orgao_acordo', 'parceiro_acordo', 'objeto', 'inicio_vigencia', 'fim_vigencia', 'situacao', 'link_documento', 'numero_documento'];
-    const csv = [headers.join(';'), ...acordosData.map(a => headers.map(h => `"${(a[h] || '').toString().replace(/"/g, '""')}"`).join(';'))].join('\n');
-    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `acordos_cooperacao_completo.csv`;
-    link.click();
-    URL.revokeObjectURL(link.href);
-}
-
-function exportResumoCSV() {
-    const grupos = {};
-    filteredData.forEach(a => { const o = a.orgao_acordo || 'Não Informado'; if(!grupos[o]) grupos[o]={orgao:o,total:0,vigentes:0,encerrados:0,rescindidos:0}; grupos[o].total++; if(a.situacao==='VIGENTE') grupos[o].vigentes++; else if(a.situacao==='ENCERRADO') grupos[o].encerrados++; else if(a.situacao==='RESCINDIDO') grupos[o].rescindidos++; });
-    const data = Object.values(grupos).map(g=>[g.orgao,g.total,g.vigentes,g.encerrados,g.rescindidos]);
-    const csv = ['Órgão;Total;Vigentes;Encerrados;Rescindidos', ...data.map(r=>r.map(c=>`"${c}"`).join(';'))].join('\n');
-    const blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}); const link=document.createElement('a'); link.href=URL.createObjectURL(blob); link.download=`visao_geral_acordos_${new Date().toISOString().split('T')[0]}.csv`; link.click();
-}
-
-function exportAcordosCSV() {
-    const data = filteredData.map(a=>[a.ano,a.numero_termo,a.numero_sei,a.orgao_acordo,a.parceiro_acordo,a.objeto,a.inicio_vigencia,a.fim_vigencia,a.situacao,a.link_documento,a.numero_documento]);
-    const csv = ['ano;numero_termo;numero_sei;orgao_acordo;parceiro_acordo;objeto;inicio_vigencia;fim_vigencia;situacao;link_documento;numero_documento', ...data.map(r=>r.map(c=>`"${c||''}"`).join(';'))].join('\n');
-    const blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}); const link=document.createElement('a'); link.href=URL.createObjectURL(blob); link.download=`acordos_cooperacao_${new Date().toISOString().split('T')[0]}.csv`; link.click();
-}
-
-async function gerarPDF(tabelaId, titulo) {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF('l', 'mm', 'a4');
-    const headers = [];
-    const data = [];
-    if (tabelaId === 'visaoGeral') {
-        const linhas = document.querySelectorAll('#visaoGeralTable tbody tr');
-        headers.push('Órgão', 'Total', 'Vigentes', 'Encerrados', 'Rescindidos');
-        linhas.forEach(linha => { const cols = linha.querySelectorAll('td'); if (cols.length >= 5) data.push([cols[0].innerText, cols[1].innerText, cols[2].innerText, cols[3].innerText, cols[4].innerText]); });
-    } else {
-        const linhas = document.querySelectorAll('#acordosTable tbody tr');
-        headers.push('Ano', 'Nº Termo', 'Órgão', 'Parceiro', 'Início', 'Fim', 'Situação');
-        linhas.forEach(linha => { const cols = linha.querySelectorAll('td'); if (cols.length >= 7) data.push([cols[0].innerText, cols[1].innerText, cols[2].innerText, cols[3].innerText, cols[4].innerText, cols[5].innerText, cols[6].innerText]); });
-    }
-    doc.autoTable({ head: [headers], body: data, startY: 35, styles: { fontSize: 8, cellPadding: 3 }, headStyles: { fillColor: [26, 58, 92], textColor: 255, fontStyle: 'bold' }, margin: { top: 35 } });
-    for (let i = 1; i <= doc.internal.getNumberOfPages(); i++) {
-        doc.setPage(i);
-        doc.setFontSize(8);
-        doc.setTextColor(150,150,150);
-        doc.text(`Documento gerado em: ${new Date().toLocaleString('pt-BR')}`, 14, doc.internal.pageSize.height - 10);
-        doc.text(`Página ${i} de ${doc.internal.getNumberOfPages()}`, doc.internal.pageSize.width - 30, doc.internal.pageSize.height - 10);
-    }
-    doc.save(`${titulo.replace(/ /g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
-}
-
-// ==================== FILTROS ====================
-function applyFilters(dashboard) {
-    let filtered = [...acordosData];
-    if(dashboard === 'dashboard1'){
-        const ano = document.getElementById('anoDashboard1')?.value;
-        const situacao = document.getElementById('situacaoDashboard1')?.value;
-        const orgao = document.getElementById('orgaoDashboard1')?.value;
-        const parceiro = document.getElementById('parceiroDashboard1')?.value;
-        filtered = filtered.filter(a => { if(ano && a.ano !== ano) return false; if(situacao && a.situacao !== situacao) return false; if(orgao && a.orgao_acordo !== orgao) return false; if(parceiro && a.parceiro_acordo !== parceiro) return false; return true; });
-        filteredData = filtered;
-        renderVisaoGeral();
-    } else {
-        const ano = document.getElementById('anoDashboard2')?.value;
-        const situacao = document.getElementById('situacaoDashboard2')?.value;
-        const numeroTermo = document.getElementById('numeroTermo')?.value.toLowerCase();
-        const numeroSEI = document.getElementById('numeroSEI')?.value.toLowerCase();
-        const orgao = document.getElementById('orgaoDashboard2')?.value;
-        const parceiro = document.getElementById('parceiroDashboard2')?.value;
-        filtered = filtered.filter(a => { if(ano && a.ano !== ano) return false; if(situacao && a.situacao !== situacao) return false; if(numeroTermo && !a.numero_termo.toLowerCase().includes(numeroTermo)) return false; if(numeroSEI && !a.numero_sei.toLowerCase().includes(numeroSEI)) return false; if(orgao && a.orgao_acordo !== orgao) return false; if(parceiro && a.parceiro_acordo !== parceiro) return false; return true; });
-        filteredData = filtered;
-        renderConsulta();
-    }
-}
-
-function clearAllFilters() {
-    ['anoDashboard1', 'situacaoDashboard1', 'orgaoDashboard1', 'parceiroDashboard1'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
-    filteredData = [...acordosData];
-    renderVisaoGeral();
-}
-
-function clearDashboard2Filters() {
-    ['anoDashboard2', 'situacaoDashboard2', 'numeroTermo', 'numeroSEI', 'orgaoDashboard2', 'parceiroDashboard2'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
-    const searchInput = document.getElementById('searchAcordos');
-    if(searchInput) searchInput.value = '';
-    filteredData = [...acordosData];
-    renderConsulta();
-}
-
-function filterAcordosTable(term) {
-    if(!term) { renderConsulta(); return; }
-    const filtered = filteredData.filter(a => a.numero_termo.toLowerCase().includes(term) || a.numero_sei.toLowerCase().includes(term) || a.orgao_acordo.toLowerCase().includes(term) || a.parceiro_acordo.toLowerCase().includes(term) || (a.objeto||'').toLowerCase().includes(term));
-    if(filtered.length > 0){ const temp = [...filteredData]; filteredData = filtered; renderConsulta(); filteredData = temp; }
-    else document.getElementById('acordosTableBody').innerHTML = '<tr><td colspan="8" class="text-center">Nenhum acordo encontrado</td></tr>';
-}
-
-function filtrarTabelaVG(valor) { 
-    const linhas = document.querySelectorAll('#visaoGeralTable tbody tr'); 
-    linhas.forEach(tr => { tr.style.display = tr.innerText.toLowerCase().includes(valor.toLowerCase()) ? '' : 'none'; }); 
-}
-
-function limparBusca(el) { 
-    const input = el.parentElement.querySelector('input'); 
-    if(input){ input.value = ''; filtrarTabelaVG(''); } 
-    el.style.display = 'none'; 
-}
-
-function voltarAoTopo() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
-// ==================== PAGINAÇÃO ====================
-function renderPaginacaoVG(total) {
-    const container = document.getElementById('paginacaoContainerVG');
-    if(!container) return;
-    const totalPaginas = Math.ceil(total / itemsPerPageDashboard1);
-    const inicio = (currentPageDashboard1 - 1) * itemsPerPageDashboard1 + 1;
-    const fim = Math.min(currentPageDashboard1 * itemsPerPageDashboard1, total);
-    let html = `<div class="d-flex align-items-center justify-content-center gap-3 w-100"><div class="pagination-info">${inicio}-${fim} de ${total} resultados</div><nav><ul class="pagination mb-0"><li class="page-item ${currentPageDashboard1===1?'disabled':''}"><a class="page-link" href="#" onclick="mudarPaginaVG(${currentPageDashboard1-1})">«</a></li>`;
-    let start = Math.max(1, currentPageDashboard1-2);
-    let end = Math.min(totalPaginas, start+4);
-    for(let i=start; i<=end; i++) html += `<li class="page-item ${i===currentPageDashboard1?'active':''}"><a class="page-link" href="#" onclick="mudarPaginaVG(${i})">${i}</a></li>`;
-    html += `<li class="page-item ${currentPageDashboard1===totalPaginas?'disabled':''}"><a class="page-link" href="#" onclick="mudarPaginaVG(${currentPageDashboard1+1})">»</a></li></ul></nav><select class="items-per-page" onchange="alterarItensPorPaginaVG(this.value)"><option value="100" ${itemsPerPageDashboard1==100?'selected':''}>100</option><option value="150" ${itemsPerPageDashboard1==150?'selected':''}>150</option><option value="200" ${itemsPerPageDashboard1==200?'selected':''}>200</option><option value="300" ${itemsPerPageDashboard1==300?'selected':''}>300</option><option value="500" ${itemsPerPageDashboard1==500?'selected':''}>500</option></select></div>`;
-    container.innerHTML = html;
-}
-
-function renderPaginacaoCI(total) {
-    const container = document.getElementById('paginacaoContainerCI');
-    if(!container) return;
-    const totalPaginas = Math.ceil(total / itemsPerPageDashboard2);
-    const inicio = (currentPageDashboard2 - 1) * itemsPerPageDashboard2 + 1;
-    const fim = Math.min(currentPageDashboard2 * itemsPerPageDashboard2, total);
-    let html = `<div class="d-flex align-items-center justify-content-center gap-3 w-100"><div class="pagination-info">${inicio}-${fim} de ${total} resultados</div><nav><ul class="pagination mb-0"><li class="page-item ${currentPageDashboard2===1?'disabled':''}"><a class="page-link" href="#" onclick="mudarPaginaCI(${currentPageDashboard2-1})">«</a></li>`;
-    let start = Math.max(1, currentPageDashboard2-2);
-    let end = Math.min(totalPaginas, start+4);
-    for(let i=start; i<=end; i++) html += `<li class="page-item ${i===currentPageDashboard2?'active':''}"><a class="page-link" href="#" onclick="mudarPaginaCI(${i})">${i}</a></li>`;
-    html += `<li class="page-item ${currentPageDashboard2===totalPaginas?'disabled':''}"><a class="page-link" href="#" onclick="mudarPaginaCI(${currentPageDashboard2+1})">»</a></li></ul></nav><select class="items-per-page" onchange="alterarItensPorPaginaCI(this.value)"><option value="100" ${itemsPerPageDashboard2==100?'selected':''}>100</option><option value="150" ${itemsPerPageDashboard2==150?'selected':''}>150</option><option value="200" ${itemsPerPageDashboard2==200?'selected':''}>200</option><option value="300" ${itemsPerPageDashboard2==300?'selected':''}>300</option><option value="500" ${itemsPerPageDashboard2==500?'selected':''}>500</option></select></div>`;
-    container.innerHTML = html;
-}
-
-function mudarPaginaVG(p) { currentPageDashboard1 = p; renderVisaoGeral(); }
-function mudarPaginaCI(p) { currentPageDashboard2 = p; renderConsulta(); }
-function alterarItensPorPaginaVG(v) { itemsPerPageDashboard1 = parseInt(v); currentPageDashboard1 = 1; renderVisaoGeral(); }
-function alterarItensPorPaginaCI(v) { itemsPerPageDashboard2 = parseInt(v); currentPageDashboard2 = 1; renderConsulta(); }
-
-function sortTableVisaoGeral(col) {
-    if(currentSortDashboard1.column === col) currentSortDashboard1.order = currentSortDashboard1.order === 'asc' ? 'desc' : 'asc';
-    else { currentSortDashboard1.column = col; currentSortDashboard1.order = 'asc'; }
-    renderVisaoGeral();
-}
-
-function sortTableAcordos(col) {
-    if(currentSortDashboard2.column === col) currentSortDashboard2.order = currentSortDashboard2.order === 'asc' ? 'desc' : 'asc';
-    else { currentSortDashboard2.column = col; currentSortDashboard2.order = 'asc'; }
-    renderConsulta();
-}
-
-// ==================== GRÁFICOS ====================
-function updateCharts1() {
-    const situacoes = { 'VIGENTE': filteredData.filter(a=>a.situacao==='VIGENTE').length, 'ENCERRADO': filteredData.filter(a=>a.situacao==='ENCERRADO').length, 'RESCINDIDO': filteredData.filter(a=>a.situacao==='RESCINDIDO').length };
-    if(charts.situacao) charts.situacao.destroy();
-    charts.situacao = new Chart(document.getElementById('chartSituacao'), { type:'doughnut', data:{ labels:Object.keys(situacoes), datasets:[{ data:Object.values(situacoes), backgroundColor:['#1a3a5c','#2c5f8a','#b93c42'], borderWidth:2, borderColor:'#fff' }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'bottom' } } } });
-    
-    const anos = {}; filteredData.forEach(a=>{ anos[a.ano]=(anos[a.ano]||0)+1; });
-    const anosArray = Object.entries(anos).sort((a,b)=>a[0]-b[0]);
-    if(charts.ano) charts.ano.destroy();
-    charts.ano = new Chart(document.getElementById('chartAno'), { type:'line', data:{ labels:anosArray.map(a=>a[0]), datasets:[{ data:anosArray.map(a=>a[1]), borderColor:'#1a3a5c', backgroundColor:'#2c5f8a33', borderWidth:3, tension:0.3, fill:true }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true } } } });
-}
-
-// ==================== RENDERIZAÇÕES ====================
-function renderVisaoGeral() {
-    const container = document.getElementById('visao-geral-content');
-    if (!container) return;
-    
-    const grupos = {};
-    filteredData.forEach(a => {
-        const orgao = a.orgao_acordo || 'Não Informado';
-        if (!grupos[orgao]) grupos[orgao] = { orgao, total: 0, vigentes: 0, encerrados: 0, rescindidos: 0 };
-        grupos[orgao].total++;
-        if (a.situacao === 'VIGENTE') grupos[orgao].vigentes++;
-        else if (a.situacao === 'ENCERRADO') grupos[orgao].encerrados++;
-        else if (a.situacao === 'RESCINDIDO') grupos[orgao].rescindidos++;
-    });
-    let resumoArray = Object.values(grupos);
-    resumoArray.sort((a, b) => {
-        const order = currentSortDashboard1.order === 'asc' ? 1 : -1;
-        if (currentSortDashboard1.column === 'orgao_acordo') return order * a.orgao.localeCompare(b.orgao);
-        if (currentSortDashboard1.column === 'total_acordos') return order * (a.total - b.total);
-        if (currentSortDashboard1.column === 'vigentes') return order * (a.vigentes - b.vigentes);
-        if (currentSortDashboard1.column === 'encerrados') return order * (a.encerrados - b.encerrados);
-        if (currentSortDashboard1.column === 'rescindidos') return order * (a.rescindidos - b.rescindidos);
-        return 0;
-    });
-    
-    const totalAcordos = resumoArray.reduce((s,i) => s + i.total, 0);
-    const totalVigentes = resumoArray.reduce((s,i) => s + i.vigentes, 0);
-    const totalEncerrados = resumoArray.reduce((s,i) => s + i.encerrados, 0);
-    const totalRescindidos = resumoArray.reduce((s,i) => s + i.rescindidos, 0);
-    
-    const start = (currentPageDashboard1 - 1) * itemsPerPageDashboard1;
-    const end = Math.min(start + itemsPerPageDashboard1, resumoArray.length);
-    const currentData = resumoArray.slice(start, end);
-    
-    container.innerHTML = `
-        <div class="filter-container">
-            <div class="filters-row">
-                <div class="filter-group"><label class="filter-label">Ano</label><select class="form-select" id="anoDashboard1"><option value="">Todos os Anos</option></select></div>
-                <div class="filter-group"><label class="filter-label">Situação</label><select class="form-select" id="situacaoDashboard1"><option value="">Todas</option><option value="VIGENTE">Vigente</option><option value="ENCERRADO">Encerrado</option><option value="RESCINDIDO">Rescindido</option></select></div>
-                <div class="filter-group"><label class="filter-label">Órgão</label><input type="text" class="form-control" list="orgaosListDashboard1" id="orgaoDashboard1" placeholder="Digite ou selecione..."><datalist id="orgaosListDashboard1"></datalist></div>
-                <div class="filter-group"><label class="filter-label">Parceiro</label><input type="text" class="form-control" list="parceirosListDashboard1" id="parceiroDashboard1" placeholder="Digite ou selecione..."><datalist id="parceirosListDashboard1"></datalist></div>
-            </div>
-            <div class="botoes-abaixo"><button class="btn-pesquisa" id="aplicarFiltrosVG">Pesquisar</button><button class="btn-secondary-custom" id="limparFiltrosVG">Limpar</button></div>
+// ============================================================
+// VISÃO GERAL
+// ============================================================
+function renderVisaoGeral(){
+    const container=document.getElementById('visao-geral-content');
+    if(!container)return;
+    const anosDisp=[...new Set(acordosData.map(a=>a.ano))].filter(Boolean).sort((a,b)=>b-a);
+    const orgaosDisp=[...new Set(acordosData.map(a=>a.orgao_acordo))].filter(Boolean).sort();
+    const parceirosDisp=[...new Set(acordosData.map(a=>a.parceiro_acordo))].filter(Boolean).sort();
+    container.innerHTML=`
+    <div class="filter-container">
+        <div class="filter-section-title"><i class="material-icons">filter_alt</i>Filtros de Pesquisa</div>
+        <div class="filters-row">
+            <div class="filter-group"><label class="filter-label">Ano</label><select class="form-select" id="filtroAnoVG"><option value="">Todos os anos</option>${anosDisp.map(a=>`<option value="${a}">${a}</option>`).join('')}</select></div>
+            <div class="filter-group"><label class="filter-label">Situação</label><select class="form-select" id="filtroSitVG"><option value="">Todas</option><option value="VIGENTE">Vigente</option><option value="ENCERRADO">Encerrado</option><option value="RESCINDIDO">Rescindido</option></select></div>
+            <div class="filter-group" style="flex:2;min-width:180px;"><label class="filter-label">Órgão</label><input type="text" class="form-control" id="filtroOrgaoVG" list="listOrgaoVG" placeholder="Digite ou selecione..."><datalist id="listOrgaoVG">${orgaosDisp.map(o=>`<option value="${o}">`).join('')}</datalist></div>
+            <div class="filter-group" style="flex:2;min-width:180px;"><label class="filter-label">Parceiro</label><input type="text" class="form-control" id="filtroParceiroVG" list="listParceiroVG" placeholder="Digite ou selecione..."><datalist id="listParceiroVG">${parceirosDisp.map(p=>`<option value="${p}">`).join('')}</datalist></div>
         </div>
-        <div class="row mb-4">
-            <div class="col-md-3 col-6"><div class="metric-card"><div class="metric-header">Total de Acordos</div><div class="metric-body"><div class="metric-value">${totalAcordos.toLocaleString('pt-BR')}</div></div></div></div>
-            <div class="col-md-3 col-6"><div class="metric-card"><div class="metric-header">Vigentes</div><div class="metric-body"><div class="metric-value">${totalVigentes}</div></div></div></div>
-            <div class="col-md-3 col-6"><div class="metric-card"><div class="metric-header">Encerrados</div><div class="metric-body"><div class="metric-value">${totalEncerrados}</div></div></div></div>
-            <div class="col-md-3 col-6"><div class="metric-card"><div class="metric-header">Parceiros</div><div class="metric-body"><div class="metric-value">${new Set(filteredData.map(a=>a.parceiro_acordo)).size}</div></div></div></div>
+        <div class="botoes-abaixo">
+            <button class="btn-pesquisa" onclick="aplicarFiltrosVG()"><i class="material-icons">search</i> Atualizar Filtros</button>
+            <button class="btn-secondary-custom" onclick="limparFiltrosVG()"><i class="material-icons">clear</i> Limpar</button>
         </div>
-        <div class="row mb-4">
-            <div class="col-md-6"><div class="chart-container"><div class="chart-header"><h4 class="chart-title">Situação dos Acordos</h4></div><div class="chart-wrapper"><canvas id="chartSituacao"></canvas></div></div></div>
-            <div class="col-md-6"><div class="chart-container"><div class="chart-header"><h4 class="chart-title">Evolução por Ano</h4></div><div class="chart-wrapper"><canvas id="chartAno"></canvas></div></div></div>
+    </div>
+    <div class="row g-3 mb-4" id="vgCards"></div>
+    <div class="row g-3 mb-4">
+        <div class="col-md-5"><div class="chart-container"><div class="chart-header"><i class="material-icons">donut_large</i><span class="chart-title">Situação dos Acordos</span></div><div class="chart-wrapper"><canvas id="chartSituacao"></canvas></div></div></div>
+        <div class="col-md-7"><div class="chart-container"><div class="chart-header"><i class="material-icons">bar_chart</i><span class="chart-title">Acordos por Ano</span></div><div class="chart-wrapper"><canvas id="chartAno"></canvas></div></div></div>
+    </div>
+    <div class="toolbar" id="vgToolbar"></div>
+    <div class="table-container">
+        <div class="table-fixed-header-container">
+            <table class="table"><thead><tr>
+                <th class="sortable-header" onclick="sortVGBy('orgao_acordo')">Órgão <i class="material-icons">unfold_more</i></th>
+                <th class="sortable-header text-center" onclick="sortVGBy('total_acordos')">Total <i class="material-icons">unfold_more</i></th>
+                <th class="sortable-header text-center" onclick="sortVGBy('vigentes')">Vigentes <i class="material-icons">unfold_more</i></th>
+                <th class="sortable-header text-center" onclick="sortVGBy('encerrados')">Encerrados <i class="material-icons">unfold_more</i></th>
+                <th class="sortable-header text-center" onclick="sortVGBy('rescindidos')">Rescindidos <i class="material-icons">unfold_more</i></th>
+            </tr></thead><tbody id="vgTableBody"></tbody><tfoot id="vgTableFoot"></tfoot></table>
         </div>
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <div class="d-flex gap-2"><button class="btn-export" onclick="exportResumoCSV()">CSV</button><button class="btn-export" onclick="gerarPDF('visaoGeral', 'Visão_Geral_Acordos')">PDF</button><div class="share-dropdown"><button class="btn-export" onclick="toggleShare(1)">Compartilhar</button><div class="share-options" id="shareOptions1"><a href="#" onclick="copiarLink(event)">Copiar Link</a><a href="#" onclick="compartilharFacebook(event)">Facebook</a><a href="#" onclick="compartilharTwitter(event)">Twitter</a><a href="#" onclick="compartilharLinkedIn(event)">LinkedIn</a><a href="#" onclick="compartilharWhatsApp(event)">WhatsApp</a></div></div></div>
-            <div class="d-flex align-items-center gap-2 ms-auto"><span class="table-badge">${resumoArray.length} órgãos</span><div class="table-search-container"><i class="material-icons" style="font-size:16px;">search</i><input type="text" class="table-search-input" id="buscaTabelaVG" placeholder="Buscar..."><i class="material-icons clear-icon" onclick="limparBusca(this)">close</i></div></div>
-        </div>
-        <div class="table-container"><div class="table-fixed-header-container"><table class="table" id="visaoGeralTable"><thead><tr><th class="sortable-header" onclick="sortTableVisaoGeral('orgao_acordo')">Órgão <i class="material-icons">unfold_more</i></th><th class="sortable-header" onclick="sortTableVisaoGeral('total_acordos')">Total <i class="material-icons">unfold_more</i></th><th class="sortable-header" onclick="sortTableVisaoGeral('vigentes')">Vigentes <i class="material-icons">unfold_more</i></th><th class="sortable-header" onclick="sortTableVisaoGeral('encerrados')">Encerrados <i class="material-icons">unfold_more</i></th><th class="sortable-header" onclick="sortTableVisaoGeral('rescindidos')">Rescindidos <i class="material-icons">unfold_more</i></th></tr></thead><tbody id="resumoTableBody">${currentData.map(i => `<tr><td><a href="#" onclick="filtrarPorOrgao('${i.orgao.replace(/'/g, "\\'")}')" class="orgao-link">${i.orgao}</a></td><td class="text-center">${i.total.toLocaleString()}</td><td class="text-center"><span class="tag-vigente">${i.vigentes}</span></td><td class="text-center"><span class="tag-encerrado">${i.encerrados}</span></td><td class="text-center"><span class="tag-rescindido">${i.rescindidos}</span></td></tr>`).join('')}</tbody><tfoot><tr class="table-total-row"><td><strong>TOTAL GERAL</strong></td><td class="text-center"><strong>${totalAcordos.toLocaleString()}</strong></td><td class="text-center"><strong><span class="tag-vigente">${totalVigentes}</span></strong></td><td class="text-center"><strong><span class="tag-encerrado">${totalEncerrados}</span></strong></td><td class="text-center"><strong><span class="tag-rescindido">${totalRescindidos}</span></strong></td></tr></tfoot></table></div><div class="pagination-container" id="paginacaoContainerVG"></div></div><div style="display: flex; justify-content: flex-end; margin-top: 10px;"><div id="btnTopo" onclick="voltarAoTopo()"><i class="material-icons">arrow_upward</i>Voltar ao topo</div></div>
-    `;
-    updateFilterOptions();
-    updateCharts1();
-    renderPaginacaoVG(resumoArray.length);
-    document.getElementById('aplicarFiltrosVG')?.addEventListener('click', () => applyFilters('dashboard1'));
-    document.getElementById('limparFiltrosVG')?.addEventListener('click', clearAllFilters);
-    document.getElementById('buscaTabelaVG')?.addEventListener('input', (e) => filtrarTabelaVG(e.target.value));
+        <div class="pagination-container" id="vgPag"></div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:12px;"><div id="btnTopo" onclick="voltarAoTopo()"><i class="material-icons">arrow_upward</i> Voltar ao topo</div></div>`;
+    _atualizarVG();
 }
 
-function renderConsulta() {
-    const container = document.getElementById('consulta-content');
-    if (!container) return;
-    
-    let acordosArray = [...filteredData];
-    acordosArray.sort((a, b) => {
-        const order = currentSortDashboard2.order === 'asc' ? 1 : -1;
-        if (currentSortDashboard2.column === 'ano') return order * (parseInt(a.ano) - parseInt(b.ano));
-        if (currentSortDashboard2.column === 'numero_termo') return order * a.numero_termo.localeCompare(b.numero_termo);
-        if (currentSortDashboard2.column === 'orgao_acordo') return order * a.orgao_acordo.localeCompare(b.orgao_acordo);
-        if (currentSortDashboard2.column === 'parceiro_acordo') return order * a.parceiro_acordo.localeCompare(b.parceiro_acordo);
-        if (currentSortDashboard2.column === 'inicio_vigencia') return order * new Date(a.inicio_vigencia) - new Date(b.inicio_vigencia);
-        if (currentSortDashboard2.column === 'fim_vigencia') return order * new Date(a.fim_vigencia || 0) - new Date(b.fim_vigencia || 0);
-        if (currentSortDashboard2.column === 'situacao') return order * a.situacao.localeCompare(b.situacao);
-        return 0;
-    });
-    
-    const start = (currentPageDashboard2 - 1) * itemsPerPageDashboard2;
-    const end = Math.min(start + itemsPerPageDashboard2, acordosArray.length);
-    const currentData = acordosArray.slice(start, end);
-    
-    container.innerHTML = `
-        <div class="filter-container">
-            <div class="consulta-filters-row">
-                <div class="consulta-filter-group"><label class="filter-label">Ano</label><select class="form-select" id="anoDashboard2"><option value="">Todos os Anos</option></select></div>
-                <div class="consulta-filter-group"><label class="filter-label">Situação</label><select class="form-select" id="situacaoDashboard2"><option value="">Todas</option><option value="VIGENTE">Vigente</option><option value="ENCERRADO">Encerrado</option><option value="RESCINDIDO">Rescindido</option></select></div>
-                <div class="consulta-filter-group"><label class="filter-label">Nº Termo</label><input type="text" class="form-control" id="numeroTermo" placeholder="Número do termo..."></div>
-                <div class="consulta-filter-group"><label class="filter-label">Nº SEI</label><input type="text" class="form-control" id="numeroSEI" placeholder="Número SEI..."></div>
-                <div class="consulta-filter-group"><label class="filter-label">Órgão</label><input type="text" class="form-control" list="orgaosListDashboard2" id="orgaoDashboard2" placeholder="Digite ou selecione..."><datalist id="orgaosListDashboard2"></datalist></div>
-                <div class="consulta-filter-group"><label class="filter-label">Parceiro</label><input type="text" class="form-control" list="parceirosListDashboard2" id="parceiroDashboard2" placeholder="Digite ou selecione..."><datalist id="parceirosListDashboard2"></datalist></div>
-            </div>
-            <div class="consulta-buttons-row"><button class="btn-pesquisa" id="pesquisarAcordos">Pesquisar</button><button class="btn-secondary-custom" id="limparFiltrosDashboard2">Limpar</button></div>
+function _atualizarVG(){
+    const dados=getFilteredVG();
+    const g={};
+    dados.forEach(a=>{const o=a.orgao_acordo||'Não Informado';if(!g[o])g[o]={orgao:o,total:0,vigentes:0,encerrados:0,rescindidos:0};g[o].total++;if(a.situacao==='VIGENTE')g[o].vigentes++;else if(a.situacao==='ENCERRADO')g[o].encerrados++;else if(a.situacao==='RESCINDIDO')g[o].rescindidos++;});
+    let arr=Object.values(g);
+    arr.sort((a,b)=>{const m=sortVG.dir==='asc'?1:-1;if(sortVG.col==='orgao_acordo')return m*a.orgao.localeCompare(b.orgao);if(sortVG.col==='total_acordos')return m*(a.total-b.total);if(sortVG.col==='vigentes')return m*(a.vigentes-b.vigentes);if(sortVG.col==='encerrados')return m*(a.encerrados-b.encerrados);if(sortVG.col==='rescindidos')return m*(a.rescindidos-b.rescindidos);return 0;});
+    const tA=dados.length,tV=dados.filter(a=>a.situacao==='VIGENTE').length,tE=dados.filter(a=>a.situacao==='ENCERRADO').length,tR=dados.filter(a=>a.situacao==='RESCINDIDO').length,tP=new Set(dados.map(a=>a.parceiro_acordo)).size;
+    const cards=document.getElementById('vgCards');
+    if(cards)cards.innerHTML=`
+        <div class="col-6 col-md-3"><div class="metric-card"><div class="metric-header"><i class="material-icons">folder_shared</i>Total de Acordos</div><div class="metric-body"><div class="metric-value">${tA.toLocaleString('pt-BR')}</div><div class="metric-sublabel">registros encontrados</div></div></div></div>
+        <div class="col-6 col-md-3"><div class="metric-card"><div class="metric-header"><i class="material-icons">check_circle</i>Vigentes</div><div class="metric-body"><div class="metric-value" style="color:var(--green)">${tV.toLocaleString('pt-BR')}</div><div class="metric-sublabel">em andamento</div></div></div></div>
+        <div class="col-6 col-md-3"><div class="metric-card"><div class="metric-header"><i class="material-icons">archive</i>Encerrados</div><div class="metric-body"><div class="metric-value" style="color:var(--blue)">${tE.toLocaleString('pt-BR')}</div><div class="metric-sublabel">concluídos</div></div></div></div>
+        <div class="col-6 col-md-3"><div class="metric-card"><div class="metric-header"><i class="material-icons">groups</i>Parceiros</div><div class="metric-body"><div class="metric-value">${tP.toLocaleString('pt-BR')}</div><div class="metric-sublabel">instituições distintas</div></div></div></div>`;
+    const ctxS=document.getElementById('chartSituacao')?.getContext('2d');
+    if(ctxS){if(charts.situacao)charts.situacao.destroy();charts.situacao=new Chart(ctxS,{type:'doughnut',data:{labels:['Vigente','Encerrado','Rescindido'],datasets:[{data:[tV,tE,tR],backgroundColor:['#1e9e52','#1a6db5','#b93c42'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:11,family:'Montserrat'},padding:14}}}}});}
+    const anosMap={};dados.forEach(a=>{anosMap[a.ano]=(anosMap[a.ano]||0)+1;});const anosArr=Object.entries(anosMap).sort((a,b)=>a[0]-b[0]);
+    const ctxA=document.getElementById('chartAno')?.getContext('2d');
+    if(ctxA){if(charts.ano)charts.ano.destroy();charts.ano=new Chart(ctxA,{type:'bar',data:{labels:anosArr.map(a=>a[0]),datasets:[{label:'Acordos',data:anosArr.map(a=>a[1]),backgroundColor:'rgba(32,68,93,.75)',borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'#edf1f7'},ticks:{font:{size:10}}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});}
+    const tb=document.getElementById('vgToolbar');
+    if(tb)tb.innerHTML=`
+        <div class="toolbar-left">
+            <button class="btn-export" onclick="exportVGCSV()"><i class="material-icons">description</i> CSV</button>
+            <button class="btn-export" onclick="exportVGPDF()"><i class="material-icons">picture_as_pdf</i> PDF</button>
+            <div class="share-dropdown"><button class="btn-export" onclick="toggleShare('VG')"><i class="material-icons">share</i> Compartilhar</button>
+            <div class="share-options" id="shareOptsVG"><a href="#" onclick="copiarLink(event)"><i class="material-icons">link</i>Copiar link</a><a href="#" onclick="compartilharFacebook(event)"><i class="material-icons">thumb_up</i>Facebook</a><a href="#" onclick="compartilharTwitter(event)"><i class="material-icons">tag</i>Twitter/X</a><a href="#" onclick="compartilharWhatsApp(event)"><i class="material-icons">chat</i>WhatsApp</a></div></div>
         </div>
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <div class="d-flex gap-2"><button class="btn-export" onclick="exportAcordosCSV()">CSV</button><button class="btn-export" onclick="gerarPDF('acordos', 'Consulta_Acordos')">PDF</button><div class="share-dropdown"><button class="btn-export" onclick="toggleShare(2)">Compartilhar</button><div class="share-options" id="shareOptions2"><a href="#" onclick="copiarLink(event)">Copiar Link</a><a href="#" onclick="compartilharFacebook(event)">Facebook</a><a href="#" onclick="compartilharTwitter(event)">Twitter</a><a href="#" onclick="compartilharLinkedIn(event)">LinkedIn</a><a href="#" onclick="compartilharWhatsApp(event)">WhatsApp</a></div></div></div>
-            <div class="d-flex align-items-center gap-2 ms-auto"><span class="table-badge" id="resumoCountDashboard2">${acordosArray.length} acordos</span><div class="table-search-container"><i class="material-icons" style="font-size:16px;">search</i><input type="text" class="table-search-input" id="searchAcordos" placeholder="Buscar..."><i class="material-icons clear-icon" onclick="limparBusca(this)">close</i></div></div>
-        </div>
-        <div class="table-container"><div class="table-fixed-header-container"><table class="table" id="acordosTable"><thead><tr><th class="sortable-header" onclick="sortTableAcordos('ano')">Ano <i class="material-icons">unfold_more</i></th><th class="sortable-header" onclick="sortTableAcordos('numero_termo')">Nº Termo <i class="material-icons">unfold_more</i></th><th class="sortable-header" onclick="sortTableAcordos('orgao_acordo')">Órgão <i class="material-icons">unfold_more</i></th><th class="sortable-header" onclick="sortTableAcordos('parceiro_acordo')">Parceiro <i class="material-icons">unfold_more</i></th><th class="sortable-header" onclick="sortTableAcordos('inicio_vigencia')">Início <i class="material-icons">unfold_more</i></th><th class="sortable-header" onclick="sortTableAcordos('fim_vigencia')">Fim <i class="material-icons">unfold_more</i></th><th class="sortable-header" onclick="sortTableAcordos('situacao')">Situação <i class="material-icons">unfold_more</i></th><th>Ações</th></tr></thead><tbody id="acordosTableBody">${currentData.map(a => `<tr><td><strong>${a.ano}</strong></td><td><strong>${a.numero_termo}</strong></td><td>${a.orgao_acordo}</td><td><div class="text-truncate-multiline" title="${a.parceiro_acordo}">${a.parceiro_acordo}</div></td><td>${formatDate(a.inicio_vigencia)}</td><td>${formatDate(a.fim_vigencia)}</td><td>${getSituacaoBadge(a.situacao)}</td><td class="text-center"><button class="btn-action" onclick="showAcordoDetails('${a.__id}')"><i class="material-icons">visibility</i></button></td></tr>`).join('')}</tbody></table></div><div class="pagination-container" id="paginacaoContainerCI"></div></div><div style="display: flex; justify-content: flex-end; margin-top: 10px;"><div id="btnTopo" onclick="voltarAoTopo()"><i class="material-icons">arrow_upward</i>Voltar ao topo</div></div>
-    `;
-    updateFilterOptions();
-    renderPaginacaoCI(acordosArray.length);
-    document.getElementById('pesquisarAcordos')?.addEventListener('click', () => applyFilters('dashboard2'));
-    document.getElementById('limparFiltrosDashboard2')?.addEventListener('click', clearDashboard2Filters);
-    document.getElementById('searchAcordos')?.addEventListener('input', (e) => filterAcordosTable(e.target.value.toLowerCase()));
+        <div class="toolbar-right">
+            <div class="table-search-container"><i class="material-icons">search</i><input type="text" class="table-search-input" id="buscaVG" placeholder="Buscar órgão..." oninput="buscarTabelaVG(this.value)"><i class="material-icons clear-icon" onclick="limparBuscaVG()">close</i></div>
+            <span class="table-badge" id="vgBadge">${arr.length} órgãos</span>
+        </div>`;
+    const start=(currentPageVG-1)*itensPorPagVG,pageData=arr.slice(start,start+itensPorPagVG);
+    const tbody=document.getElementById('vgTableBody');
+    if(tbody)tbody.innerHTML=pageData.map(i=>`<tr><td><a href="#" class="orgao-link" onclick="irParaConsultaOrgao('${i.orgao.replace(/'/g,"\\'")}');return false;">${i.orgao}</a></td><td class="text-center"><strong>${i.total.toLocaleString('pt-BR')}</strong></td><td class="text-center">${i.vigentes>0?`<span class="tag-vigente">${i.vigentes}</span>`:'<span style="color:#ccc">—</span>'}</td><td class="text-center">${i.encerrados>0?`<span class="tag-encerrado">${i.encerrados}</span>`:'<span style="color:#ccc">—</span>'}</td><td class="text-center">${i.rescindidos>0?`<span class="tag-rescindido">${i.rescindidos}</span>`:'<span style="color:#ccc">—</span>'}</td></tr>`).join('');
+    const tfoot=document.getElementById('vgTableFoot');
+    if(tfoot)tfoot.innerHTML=`<tr><td><strong>TOTAL GERAL</strong></td><td class="text-center"><strong>${tA.toLocaleString('pt-BR')}</strong></td><td class="text-center"><strong>${tV>0?`<span class="tag-vigente">${tV}</span>`:'—'}</strong></td><td class="text-center"><strong>${tE>0?`<span class="tag-encerrado">${tE}</span>`:'—'}</strong></td><td class="text-center"><strong>${tR>0?`<span class="tag-rescindido">${tR}</span>`:'—'}</strong></td></tr>`;
+    _renderPagVG(arr.length);
 }
+function aplicarFiltrosVG(){currentPageVG=1;_atualizarVG();}
+function limparFiltrosVG(){['filtroAnoVG','filtroSitVG','filtroOrgaoVG','filtroParceiroVG'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});currentPageVG=1;_atualizarVG();}
+function sortVGBy(col){if(sortVG.col===col)sortVG.dir=sortVG.dir==='asc'?'desc':'asc';else{sortVG.col=col;sortVG.dir='asc';}_atualizarVG();}
+function buscarTabelaVG(t){const lns=document.querySelectorAll('#vgTableBody tr');lns.forEach(tr=>{tr.style.display=tr.textContent.toLowerCase().includes(t.toLowerCase())?'':'none';});const ci=document.querySelector('#buscaVG~.clear-icon');if(ci)ci.style.display=t?'block':'none';}
+function limparBuscaVG(){const el=document.getElementById('buscaVG');if(el)el.value='';buscarTabelaVG('');}
+function irParaConsultaOrgao(org){document.getElementById('tab-consulta').click();setTimeout(()=>{const el=document.getElementById('filtroOrgaoCI');if(el)el.value=org;aplicarFiltrosCI();},300);}
+function _renderPagVG(total){const c=document.getElementById('vgPag');if(!c||total===0){if(c)c.innerHTML='';return;}const tp=Math.max(1,Math.ceil(total/itensPorPagVG)),ini=(currentPageVG-1)*itensPorPagVG+1,fim=Math.min(currentPageVG*itensPorPagVG,total);let h=`<div class="pagination-info">Mostrando ${ini.toLocaleString('pt-BR')}–${fim.toLocaleString('pt-BR')} de ${total.toLocaleString('pt-BR')}</div><nav><ul class="pagination"><li class="page-item ${currentPageVG===1?'disabled':''}"><a class="page-link" href="#" onclick="mudaPagVG(${currentPageVG-1});return false">«</a></li>`;const s=Math.max(1,currentPageVG-2),e=Math.min(tp,s+4);if(s>1){h+=`<li class="page-item"><a class="page-link" href="#" onclick="mudaPagVG(1);return false">1</a></li>`;if(s>2)h+=`<li class="page-item disabled"><span class="page-link">…</span></li>`;}for(let i=s;i<=e;i++)h+=`<li class="page-item ${i===currentPageVG?'active':''}"><a class="page-link" href="#" onclick="mudaPagVG(${i});return false">${i}</a></li>`;if(e<tp){if(e<tp-1)h+=`<li class="page-item disabled"><span class="page-link">…</span></li>`;h+=`<li class="page-item"><a class="page-link" href="#" onclick="mudaPagVG(${tp});return false">${tp}</a></li>`;}h+=`<li class="page-item ${currentPageVG===tp?'disabled':''}"><a class="page-link" href="#" onclick="mudaPagVG(${currentPageVG+1});return false">»</a></li></ul></nav><select class="items-per-page" onchange="mudaItensPagVG(this.value)"><option value="25" ${itensPorPagVG==25?'selected':''}>25</option><option value="50" ${itensPorPagVG==50?'selected':''}>50</option><option value="100" ${itensPorPagVG==100?'selected':''}>100</option></select>`;c.innerHTML=h;}
+function mudaPagVG(p){if(p<1)return;currentPageVG=p;_atualizarVG();}
+function mudaItensPagVG(v){itensPorPagVG=parseInt(v);currentPageVG=1;_atualizarVG();}
 
-function renderDownloads() {
-    const container = document.getElementById('downloads-content');
-    const anos = [...new Set(acordosData.map(a => a.ano))].sort((a,b)=>b-a);
-    container.innerHTML = `
-        <div class="filter-container">
-            <div class="row align-items-end g-3">
-                <div class="col-md-4">
-                    <label class="filter-label">ANO</label>
-                    <select class="form-select" id="anoDownload">
-                        <option value="">Selecione um ano</option>
-                        ${anos.map(a => `<option value="${a}">${a}</option>`).join('')}
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <button class="btn-primary-custom w-100" id="downloadCSV">Baixar CSV</button>
-                </div>
-                <div class="col-md-4">
-                    <button class="btn-primary-custom w-100" id="downloadTodosCSV">Baixar Todos</button>
-                </div>
-            </div>
+// ============================================================
+// CONSULTA
+// ============================================================
+function renderConsulta(){
+    const container=document.getElementById('consulta-content');
+    if(!container)return;
+    const anosDisp=[...new Set(acordosData.map(a=>a.ano))].filter(Boolean).sort((a,b)=>b-a);
+    const orgaosDisp=[...new Set(acordosData.map(a=>a.orgao_acordo))].filter(Boolean).sort();
+    const parceirosDisp=[...new Set(acordosData.map(a=>a.parceiro_acordo))].filter(Boolean).sort();
+    container.innerHTML=`
+    <div class="filter-container">
+        <div class="filter-section-title"><i class="material-icons">filter_alt</i>Filtros de Pesquisa</div>
+        <div class="consulta-filters-row">
+            <div class="consulta-filter-group"><label class="filter-label">Ano</label><select class="form-select" id="filtroAnoCI"><option value="">Todos os anos</option>${anosDisp.map(a=>`<option value="${a}">${a}</option>`).join('')}</select></div>
+            <div class="consulta-filter-group"><label class="filter-label">Situação</label><select class="form-select" id="filtroSitCI"><option value="">Todas</option><option value="VIGENTE">Vigente</option><option value="ENCERRADO">Encerrado</option><option value="RESCINDIDO">Rescindido</option></select></div>
+            <div class="consulta-filter-group"><label class="filter-label">Nº do Termo</label><input type="text" class="form-control" id="filtroTermo" placeholder="Número do termo..."></div>
+            <div class="consulta-filter-group"><label class="filter-label">Nº SEI</label><input type="text" class="form-control" id="filtroSEI" placeholder="Número SEI..."></div>
+            <div class="consulta-filter-group"><label class="filter-label">Órgão</label><input type="text" class="form-control" id="filtroOrgaoCI" list="listOrgaoCI" placeholder="Digite ou selecione..."><datalist id="listOrgaoCI">${orgaosDisp.map(o=>`<option value="${o}">`).join('')}</datalist></div>
+            <div class="consulta-filter-group"><label class="filter-label">Parceiro</label><input type="text" class="form-control" id="filtroParceiroCI" list="listParceiroCI" placeholder="Digite ou selecione..."><datalist id="listParceiroCI">${parceirosDisp.map(p=>`<option value="${p}">`).join('')}</datalist></div>
         </div>
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <div class="card-stats p-4 bg-white rounded shadow-sm h-100">
-                    <h4 class="fw-bold text-start mb-3"><i class="material-icons me-2"></i> Portal de Dados Abertos</h4>
-                    <p class="text-muted text-justify" style="font-size: 13px; text-align: justify;">
-                        Acesse o conjunto de dados de acordos de cooperação técnica no Dados MG, documentado conforme especificações Frictionless Data.
-
-                    </p>
-                    <div class="mt-4 text-end">
-                        <a href="https://dados.mg.gov.br/dataset/acordos_cooperacao_tecnica" target="_blank" class="btn-export text-decoration-none fw-bold d-inline-block px-4 py-2"><i class="material-icons me-2" style="font-size: 16px;">launch</i>Acessar Portal de Dados MG</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <div class="card-stats p-4 bg-white rounded shadow-sm h-100">
-                    <h4 class="fw-bold text-start mb-3"><i class="material-icons me-2"></i> Legislação</h4>
-                    <p class="text-muted text-justify" style="font-size: 13px; text-align: justify;">
-                        Decreto Estadual nº 48.764, de 22 de janeiro de 2024, que dispõe sobre acordos de cooperação técnica no âmbito da administração pública estadual.
-                    </p>
-                    <div class="mt-4 text-end">
-                        <a href="https://www.almg.gov.br/legislacao-mineira/DEC/48764/2024/" target="_blank" class="btn-export text-decoration-none fw-bold d-inline-block px-4 py-2"><i class="material-icons me-2" style="font-size: 16px;">launch</i>Consultar Legislação</a>
-                    </div>
-                </div>
-            </div>
+        <div class="botoes-abaixo">
+            <button class="btn-pesquisa" onclick="aplicarFiltrosCI()"><i class="material-icons">search</i> Atualizar Filtros</button>
+            <button class="btn-secondary-custom" onclick="limparFiltrosCI()"><i class="material-icons">clear</i> Limpar</button>
         </div>
-        <div class="mt-4">
-            <h5 class="mb-3">Dicionário de Dados (Metadados)</h5>
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead><tr><th>Campo</th><th>Descrição</th><th>Tipo</th></tr></thead>
-                    <tbody>
-                        <tr><td>ano</td><td>Ano do acordo de cooperação</td><td>Texto/Número</td></tr>
-                        <tr><td>numero_termo</td><td>Número do termo de cooperação</td><td>Texto</td></tr>
-                        <tr><td>numero_sei</td><td>Número do processo no SEI</td><td>Texto</td></tr>
-                        <tr><td>orgao_acordo</td><td>Órgão do Governo de Minas Gerais</td><td>Texto</td></tr>
-                        <tr><td>parceiro_acordo</td><td>Instituição parceira</td><td>Texto</td></tr>
-                        <tr><td>objeto</td><td>Objeto do acordo de cooperação</td><td>Texto</td></tr>
-                        <tr><td>inicio_vigencia</td><td>Data de início da vigência</td><td>Data</td></tr>
-                        <tr><td>fim_vigencia</td><td>Data de término da vigência</td><td>Data</td></tr>
-                        <tr><td>situacao</td><td>Situação atual do acordo</td><td>Texto</td></tr>
-                        <tr><td>link_documento</td><td>Link para o documento completo</td><td>URL</td></tr>
-                        <tr><td>numero_documento</td><td>Número do documento relacionado</td><td>Texto</td></tr>
-                    </tbody>
-                </table>
-            </div>
+    </div>
+    <div class="toolbar">
+        <div class="toolbar-left">
+            <button class="btn-export" onclick="exportCICSV()"><i class="material-icons">description</i> CSV</button>
+            <button class="btn-export" onclick="exportCIPDF()"><i class="material-icons">picture_as_pdf</i> PDF</button>
+            <div class="share-dropdown"><button class="btn-export" onclick="toggleShare('CI')"><i class="material-icons">share</i> Compartilhar</button>
+            <div class="share-options" id="shareOptsCI"><a href="#" onclick="copiarLink(event)"><i class="material-icons">link</i>Copiar link</a><a href="#" onclick="compartilharFacebook(event)"><i class="material-icons">thumb_up</i>Facebook</a><a href="#" onclick="compartilharTwitter(event)"><i class="material-icons">tag</i>Twitter/X</a><a href="#" onclick="compartilharWhatsApp(event)"><i class="material-icons">chat</i>WhatsApp</a></div></div>
         </div>
-    `;
-    document.getElementById('downloadCSV')?.addEventListener('click', downloadFullCSV);
-    document.getElementById('downloadTodosCSV')?.addEventListener('click', downloadAllCSV);
+        <div class="toolbar-right">
+            <div class="table-search-container"><i class="material-icons">search</i><input type="text" class="table-search-input" id="buscaCI" placeholder="Buscar acordos..." oninput="buscarTabelaCI(this.value)"><i class="material-icons clear-icon" onclick="limparBuscaCI()">close</i></div>
+            <span class="table-badge" id="ciBadge">${acordosData.length} acordos</span>
+        </div>
+    </div>
+    <div class="table-container">
+        <div class="table-fixed-header-container">
+            <table class="table"><thead><tr>
+                <th class="sortable-header" onclick="sortCIBy('ano')">Ano <i class="material-icons">unfold_more</i></th>
+                <th class="sortable-header" onclick="sortCIBy('numero_termo')">Nº Termo <i class="material-icons">unfold_more</i></th>
+                <th class="sortable-header" onclick="sortCIBy('orgao_acordo')">Órgão <i class="material-icons">unfold_more</i></th>
+                <th class="sortable-header" onclick="sortCIBy('parceiro_acordo')">Parceiro <i class="material-icons">unfold_more</i></th>
+                <th class="sortable-header" onclick="sortCIBy('inicio_vigencia')">Início <i class="material-icons">unfold_more</i></th>
+                <th class="sortable-header" onclick="sortCIBy('fim_vigencia')">Fim <i class="material-icons">unfold_more</i></th>
+                <th class="sortable-header" onclick="sortCIBy('situacao')">Situação <i class="material-icons">unfold_more</i></th>
+                <th class="text-center">Ações</th>
+            </tr></thead><tbody id="ciTableBody"></tbody></table>
+        </div>
+        <div class="pagination-container" id="ciPag"></div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:12px;"><div id="btnTopo" onclick="voltarAoTopo()"><i class="material-icons">arrow_upward</i> Voltar ao topo</div></div>`;
+    filteredData=[...acordosData];_atualizarCI();
 }
+function _atualizarCI(){
+    let arr=[...filteredData];
+    arr.sort((a,b)=>{const m=sortCI.dir==='asc'?1:-1;if(sortCI.col==='ano')return m*(parseInt(a.ano||0)-parseInt(b.ano||0));if(sortCI.col==='numero_termo')return m*(a.numero_termo||'').localeCompare(b.numero_termo||'');if(sortCI.col==='orgao_acordo')return m*(a.orgao_acordo||'').localeCompare(b.orgao_acordo||'');if(sortCI.col==='parceiro_acordo')return m*(a.parceiro_acordo||'').localeCompare(b.parceiro_acordo||'');if(sortCI.col==='situacao')return m*(a.situacao||'').localeCompare(b.situacao||'');if(sortCI.col==='inicio_vigencia')return m*(new Date(a.inicio_vigencia||0)-new Date(b.inicio_vigencia||0));if(sortCI.col==='fim_vigencia')return m*(new Date(a.fim_vigencia||0)-new Date(b.fim_vigencia||0));return 0;});
+    const badge=document.getElementById('ciBadge');if(badge)badge.textContent=`${arr.length} acordos`;
+    const start=(currentPageCI-1)*itensPorPagCI,pageData=arr.slice(start,start+itensPorPagCI);
+    const tbody=document.getElementById('ciTableBody');
+    if(tbody)tbody.innerHTML=pageData.map(a=>`<tr><td><strong>${a.ano||'-'}</strong></td><td><span style="font-weight:600;color:var(--primary)">${a.numero_termo||'-'}</span></td><td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${a.orgao_acordo||''}">${a.orgao_acordo||'-'}</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${a.parceiro_acordo||''}">${a.parceiro_acordo||'-'}</td><td style="white-space:nowrap;">${fmtDate(a.inicio_vigencia)}</td><td style="white-space:nowrap;">${fmtDate(a.fim_vigencia)}</td><td>${getSitBadge(a.situacao)}</td><td class="text-center"><button class="btn-action" onclick="verDetalhes('${a.__id}')" title="Ver detalhes"><i class="material-icons">visibility</i></button></td></tr>`).join('');
+    _renderPagCI(arr.length);
+}
+function aplicarFiltrosCI(){filteredData=getFilteredCI();currentPageCI=1;_atualizarCI();}
+function limparFiltrosCI(){['filtroAnoCI','filtroSitCI','filtroTermo','filtroSEI','filtroOrgaoCI','filtroParceiroCI','buscaCI'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});filteredData=[...acordosData];currentPageCI=1;_atualizarCI();}
+function sortCIBy(col){if(sortCI.col===col)sortCI.dir=sortCI.dir==='asc'?'desc':'asc';else{sortCI.col=col;sortCI.dir='asc';}_atualizarCI();}
+function buscarTabelaCI(t){const base=getFilteredCI();filteredData=t?base.filter(a=>(a.numero_termo+a.numero_sei+a.orgao_acordo+a.parceiro_acordo+(a.objeto||'')).toLowerCase().includes(t.toLowerCase())):base;currentPageCI=1;_atualizarCI();const ci=document.querySelector('#buscaCI~.clear-icon');if(ci)ci.style.display=t?'block':'none';}
+function limparBuscaCI(){const el=document.getElementById('buscaCI');if(el)el.value='';buscarTabelaCI('');}
+function _renderPagCI(total){const c=document.getElementById('ciPag');if(!c||total===0){if(c)c.innerHTML='';return;}const tp=Math.max(1,Math.ceil(total/itensPorPagCI)),ini=(currentPageCI-1)*itensPorPagCI+1,fim=Math.min(currentPageCI*itensPorPagCI,total);let h=`<div class="pagination-info">Mostrando ${ini.toLocaleString('pt-BR')}–${fim.toLocaleString('pt-BR')} de ${total.toLocaleString('pt-BR')}</div><nav><ul class="pagination"><li class="page-item ${currentPageCI===1?'disabled':''}"><a class="page-link" href="#" onclick="mudaPagCI(${currentPageCI-1});return false">«</a></li>`;const s=Math.max(1,currentPageCI-2),e=Math.min(tp,s+4);if(s>1){h+=`<li class="page-item"><a class="page-link" href="#" onclick="mudaPagCI(1);return false">1</a></li>`;if(s>2)h+=`<li class="page-item disabled"><span class="page-link">…</span></li>`;}for(let i=s;i<=e;i++)h+=`<li class="page-item ${i===currentPageCI?'active':''}"><a class="page-link" href="#" onclick="mudaPagCI(${i});return false">${i}</a></li>`;if(e<tp){if(e<tp-1)h+=`<li class="page-item disabled"><span class="page-link">…</span></li>`;h+=`<li class="page-item"><a class="page-link" href="#" onclick="mudaPagCI(${tp});return false">${tp}</a></li>`;}h+=`<li class="page-item ${currentPageCI===tp?'disabled':''}"><a class="page-link" href="#" onclick="mudaPagCI(${currentPageCI+1});return false">»</a></li></ul></nav><select class="items-per-page" onchange="mudaItensPagCI(this.value)"><option value="25" ${itensPorPagCI==25?'selected':''}>25</option><option value="50" ${itensPorPagCI==50?'selected':''}>50</option><option value="100" ${itensPorPagCI==100?'selected':''}>100</option></select>`;c.innerHTML=h;}
+function mudaPagCI(p){if(p<1)return;currentPageCI=p;_atualizarCI();}
+function mudaItensPagCI(v){itensPorPagCI=parseInt(v);currentPageCI=1;_atualizarCI();}
 
-// ==================== DETALHES ====================
-function showAcordoDetails(id) {
-    const acordo = acordosData.find(a=>a.__id===id);
-    if(!acordo) return;
-    const situacao = acordo.situacao||'';
-    let badgeClass = situacao==='VIGENTE'?'tag-vigente':situacao==='ENCERRADO'?'tag-encerrado':situacao==='RESCINDIDO'?'tag-rescindido':'badge-status';
-    document.getElementById('acordoInfo').innerHTML = `
-        <div class="row"><div class="col-md-6"><div class="info-card primary"><div class="info-label">Número do Termo</div><div class="info-value highlight">${acordo.numero_termo}</div><div class="info-label mt-2">Ano</div><div class="info-value">${acordo.ano}</div></div></div>
-        <div class="col-md-6"><div class="info-card"><div class="info-label">Situação</div><div class="${badgeClass}">${situacao}</div><div class="info-label mt-2">Número SEI</div><div class="info-value">${acordo.numero_sei||'-'}</div></div></div>
-        <div class="col-md-6"><div class="info-card"><div class="info-label">Órgão</div><div class="info-value">${acordo.orgao_acordo||'-'}</div></div></div>
-        <div class="col-md-6"><div class="info-card"><div class="info-label">Parceiro</div><div class="info-value">${acordo.parceiro_acordo||'-'}</div></div></div>
-        <div class="col-md-12"><div class="info-card"><div class="info-label">Vigência</div><div class="info-value">${formatDate(acordo.inicio_vigencia)} a ${formatDate(acordo.fim_vigencia)}</div></div></div>
-        <div class="col-md-12"><div class="info-card"><div class="info-label">Objeto</div><div class="info-value">${acordo.objeto||'Objeto não informado.'}</div></div></div>
-        </div>${acordo.link_documento?`<div class="mt-4 text-center"><a href="${acordo.link_documento}" target="_blank" class="btn-primary-custom">Acessar Documento</a></div>`:''}
-    `;
+// ============================================================
+// MODAL DETALHES
+// ============================================================
+function verDetalhes(id){
+    const a=acordosData.find(x=>x.__id===id);if(!a)return;
+    document.getElementById('acordoInfo').innerHTML=`
+        <div class="row g-3">
+            <div class="col-md-6"><div class="info-card"><div class="info-label">Número do Termo</div><div class="info-value highlight">${a.numero_termo||'-'}</div><div class="info-label mt-3">Ano</div><div class="info-value">${a.ano||'-'}</div></div></div>
+            <div class="col-md-6"><div class="info-card"><div class="info-label">Situação</div><div class="mt-1">${getSitBadge(a.situacao)}</div><div class="info-label mt-3">Número SEI</div><div class="info-value">${a.numero_sei||'-'}</div></div></div>
+            <div class="col-md-6"><div class="info-card"><div class="info-label">Órgão</div><div class="info-value">${a.orgao_acordo||'-'}</div></div></div>
+            <div class="col-md-6"><div class="info-card"><div class="info-label">Parceiro</div><div class="info-value">${a.parceiro_acordo||'-'}</div></div></div>
+            <div class="col-12"><div class="info-card"><div class="info-label">Período de Vigência</div><div class="info-value">${fmtDate(a.inicio_vigencia)} — ${fmtDate(a.fim_vigencia)||'Não informado'}</div></div></div>
+            <div class="col-12"><div class="info-card"><div class="info-label">Objeto</div><div class="info-value" style="font-weight:400;line-height:1.7;">${a.objeto||'Não informado.'}</div></div></div>
+            ${a.link_documento?`<div class="col-12 text-center"><a href="${a.link_documento}" target="_blank" class="btn-pesquisa text-decoration-none" style="display:inline-flex;"><i class="material-icons">open_in_new</i> Acessar Documento</a></div>`:''}
+        </div>`;
     new bootstrap.Modal(document.getElementById('detailModal')).show();
 }
 
-function filtrarPorOrgao(orgao) {
-    document.getElementById('dashboard2-tab').click();
-    setTimeout(()=>{ document.getElementById('orgaoDashboard2').value = orgao; applyFilters('dashboard2'); }, 300);
+// ============================================================
+// DICIONÁRIO DE DADOS
+// ============================================================
+const DICIONARIO=[
+    {campo:'ano',             descricao:'Ano de celebração do acordo de cooperação técnica.',                        tipo:'Texto/Número'},
+    {campo:'numero_termo',    descricao:'Número identificador do termo de cooperação.',                              tipo:'Texto'},
+    {campo:'numero_sei',      descricao:'Número do processo eletrônico no SEI (Sistema Eletrônico de Informações).',tipo:'Texto'},
+    {campo:'orgao_acordo',    descricao:'Órgão ou entidade do Governo de Minas Gerais signatário do acordo.',       tipo:'Texto'},
+    {campo:'parceiro_acordo', descricao:'Instituição parceira (pública ou privada) signatária do acordo.',          tipo:'Texto'},
+    {campo:'objeto',          descricao:'Descrição do objeto ou finalidade do acordo de cooperação.',               tipo:'Texto'},
+    {campo:'inicio_vigencia', descricao:'Data de início da vigência do acordo (formato DD/MM/AAAA).',               tipo:'Data'},
+    {campo:'fim_vigencia',    descricao:'Data de término da vigência do acordo (formato DD/MM/AAAA).',              tipo:'Data'},
+    {campo:'situacao',        descricao:'Situação atual do acordo: VIGENTE, ENCERRADO ou RESCINDIDO.',              tipo:'Texto'},
+    {campo:'link_documento',  descricao:'URL para acesso ao documento completo do acordo.',                         tipo:'URL'},
+    {campo:'numero_documento',descricao:'Número do documento relacionado ao acordo.',                               tipo:'Texto'},
+];
+
+function renderDicionario(){
+    const container=document.getElementById('dicionario-content');if(!container)return;
+    container.innerHTML=`
+    <div class="dic-header-box">
+        <div style="display:flex;align-items:center;gap:14px;">
+            <div style="background:#eef3fa;width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="material-icons" style="font-size:28px;color:var(--primary-mid)">menu_book</i></div>
+            <div><h5>Dicionário de Dados</h5><p>Descrição completa das colunas do conjunto de dados de Acordos de Cooperação Técnica do Governo de Minas Gerais.</p></div>
+        </div>
+        <div style="margin-top:14px;display:flex;gap:10px;align-items:center;">
+            <div class="table-search-container" style="border-radius:8px;"><i class="material-icons">search</i><input type="text" class="table-search-input" id="dicBusca" placeholder="Buscar campo ou descrição..." oninput="buscarDic(this.value)" style="width:300px;"><i class="material-icons clear-icon" onclick="limparBuscaDic()">close</i></div>
+        </div>
+    </div>
+    <div class="dic-table-wrap">
+        <div class="dic-table-header"><i class="material-icons">table_chart</i>Acordos de Cooperação Técnica<span class="dic-count">${DICIONARIO.length} campos</span></div>
+        <div style="overflow-x:auto;">
+            <table class="dic-table">
+                <thead><tr><th style="width:200px;">Campo</th><th>Descrição</th><th style="width:130px;">Tipo</th></tr></thead>
+                <tbody id="dicTableBody">${DICIONARIO.map(c=>`<tr class="dic-linha"><td><code>${c.campo}</code></td><td>${c.descricao}</td><td><span class="tipo-badge">${c.tipo}</span></td></tr>`).join('')}</tbody>
+            </table>
+        </div>
+    </div>`;
+}
+function buscarDic(t){const term=(t||'').toLowerCase().trim();const ci=document.querySelector('#dicBusca~.clear-icon');if(ci)ci.style.display=term?'block':'none';document.querySelectorAll('#dicTableBody .dic-linha').forEach(row=>{const match=!term||row.textContent.toLowerCase().includes(term);row.style.display=match?'':'none';row.classList.toggle('dic-row-highlight',!!term&&match);});}
+function limparBuscaDic(){const el=document.getElementById('dicBusca');if(el)el.value='';buscarDic('');}
+
+// ============================================================
+// DOWNLOADS
+// ============================================================
+function renderDownloads(){
+    const container=document.getElementById('downloads-content');if(!container)return;
+    const anos=[...new Set(acordosData.map(a=>a.ano))].filter(Boolean).sort((a,b)=>b-a);
+    container.innerHTML=`
+    <div class="portal-banner">
+        <div class="portal-banner-text"><h5><i class="material-icons" style="font-size:16px;vertical-align:middle;margin-right:4px;">dataset</i> Portal de Dados Abertos</h5><p>Acesse o dataset completo com metadados e histórico de atualizações no Dados MG.</p></div>
+        <a href="https://dados.mg.gov.br/dataset/acordos_cooperacao_tecnica" target="_blank" class="btn-portal"><i class="material-icons">open_in_new</i> Acessar Portal de Dados MG</a>
+    </div>
+    <div class="filter-container" style="margin-bottom:20px;">
+        <div class="filter-section-title"><i class="material-icons">cloud_download</i>Download por Ano</div>
+        <div class="filters-row" style="align-items:flex-end;">
+            <div class="filter-group" style="max-width:220px;"><label class="filter-label">Selecione o ano</label><select class="form-select" id="anoDownload"><option value="">Escolha um ano...</option>${anos.map(a=>`<option value="${a}">${a}</option>`).join('')}</select></div>
+            <div class="filter-group" style="max-width:180px;"><button class="btn-pesquisa" onclick="exportAnoCSV()" style="width:100%;"><i class="material-icons">download</i> Baixar CSV</button></div>
+            <div class="filter-group" style="max-width:220px;"><button class="btn-secondary-custom" onclick="exportAllCSV()" style="width:100%;height:36px;"><i class="material-icons">download_for_offline</i> Baixar Todos os Anos</button></div>
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col-md-6"><div class="download-card"><div class="download-card-icon"><i class="material-icons">gavel</i></div><h5>Legislação</h5><p>Decreto Estadual nº 48.764, de 22 de janeiro de 2024, que dispõe sobre acordos de cooperação técnica no âmbito da administração pública estadual de Minas Gerais.</p><a href="https://www.almg.gov.br/legislacao-mineira/DEC/48764/2024/" target="_blank" class="btn-export" style="display:inline-flex;align-self:flex-start;"><i class="material-icons">open_in_new</i> Consultar Legislação</a></div></div>
+        <div class="col-md-6"><div class="download-card"><div class="download-card-icon"><i class="material-icons">info</i></div><h5>Sobre os Dados</h5><p>Os dados são publicados pela Controladoria-Geral do Estado de Minas Gerais (CGE/MG) e atualizados periodicamente conforme as informações registradas no SEI.</p><a href="https://transparencia.mg.gov.br" target="_blank" class="btn-export" style="display:inline-flex;align-self:flex-start;"><i class="material-icons">open_in_new</i> Portal da Transparência</a></div></div>
+    </div>`;
 }
 
-// ==================== CARREGAMENTO ====================
-async function loadData() {
-    return new Promise((resolve, reject) => {
-        Papa.parse(GITHUB_CSV_URL, {
-            download: true, header: true, delimiter: ";", encoding: "utf-8", skipEmptyLines: true,
-            complete: function(results) {
-                acordosData = results.data.map((row, index) => ({
-                    __id: `${row.ano || 'sem_ano'}_${row.numero_termo || 'sem_numero'}_${index}`,
-                    ano: row.ano || '', numero_termo: row.numero_termo || '', numero_sei: row.numero_sei || '',
-                    orgao_acordo: row.orgao_acordo || row.orgao || '', parceiro_acordo: row.parceiro_acordo || row.parceiro || '',
-                    objeto: row.objeto || '', inicio_vigencia: row.inicio_vigencia || '', fim_vigencia: row.fim_vigencia || '',
-                    situacao: (row.situacao || '').toUpperCase(), link_documento: row.link_documento || '', numero_documento: row.numero_documento || ''
-                })).filter(a => a.numero_termo);
-                acordosData.forEach(acordo => {
-                    const s = acordo.situacao;
-                    if (s.includes('VIGENTE') || s.includes('ATIVO')) acordo.situacao = 'VIGENTE';
-                    else if (s.includes('ENCERRADO') || s.includes('CONCLUÍDO')) acordo.situacao = 'ENCERRADO';
-                    else if (s.includes('RESCINDIDO') || s.includes('CANCELADO')) acordo.situacao = 'RESCINDIDO';
-                });
-                filteredData = [...acordosData];
-                resolve();
-            }, error: reject
+// ============================================================
+// CARREGAMENTO
+// ============================================================
+async function loadData(){
+    return new Promise((resolve,reject)=>{
+        Papa.parse(CSV_URL,{
+            download:true,header:true,delimiter:';',encoding:'utf-8',skipEmptyLines:true,
+            complete(results){
+                acordosData=results.data.map((row,idx)=>({
+                    __id:`${row.ano||'x'}_${row.numero_termo||'x'}_${idx}`,
+                    ano:(row.ano||'').toString().replace(/,0$/,'').trim(),numero_termo:row.numero_termo||'',numero_sei:row.numero_sei||'',
+                    orgao_acordo:row.orgao_acordo||row.orgao||'',parceiro_acordo:row.parceiro_acordo||row.parceiro||'',
+                    objeto:row.objeto||'',inicio_vigencia:row.inicio_vigencia||'',fim_vigencia:row.fim_vigencia||'',
+                    situacao:normSit(row.situacao||''),link_documento:row.link_documento||'',numero_documento:row.numero_documento||''
+                })).filter(a=>a.numero_termo);
+                filteredData=[...acordosData];resolve();
+            },error:reject
         });
     });
 }
 
-// ==================== INICIALIZAÇÃO ====================
-document.addEventListener('DOMContentLoaded', function() {
-    loadData().then(() => {
-        setupAtualizacaoData(); 
-        updateFilterOptions();
-        renderVisaoGeral();
-        renderConsulta();
-        renderDownloads();
-        
-        document.getElementById('dashboard1-tab')?.addEventListener('click', () => setTimeout(() => filtrarTabelaVG(''), 100));
-        document.querySelectorAll('.share-dropdown button').forEach(btn => btn.addEventListener('click', e => e.stopPropagation()));
-        document.addEventListener('click', (e) => { 
-            if (!e.target.closest('.share-dropdown')) 
-                document.querySelectorAll('.share-options').forEach(opt => opt.classList.remove('show')); 
-        });
-    }).catch(console.error);
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded',async()=>{
+    try{await loadData();}catch(e){console.warn('CSV não carregado:',e);}
+    setupDataAtualizacao();
+    renderVisaoGeral();
+    renderConsulta();
+    renderDicionario();
+    renderDownloads();
+    document.addEventListener('click',e=>{if(!e.target.closest('.share-dropdown'))document.querySelectorAll('.share-options').forEach(el=>el.classList.remove('show'));});
 });
 </script>
 </body>
