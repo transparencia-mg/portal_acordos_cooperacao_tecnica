@@ -1,6 +1,6 @@
 {
   "version": "4.16.6",
-  "time": 0.067,
+  "time": 0.086,
   "errors": [],
   "tasks": [
     {
@@ -66,13 +66,13 @@
         "scheme": "file",
         "title": "Acordos de Cooperacao Tecnica",
         "stats": {
-          "hash": "7df63a3d5c862dd763486f40a915043f",
-          "bytes": 429220,
+          "hash": "3ac907aad23c65823362b2a4a8f20878",
+          "bytes": 438048,
           "fields": 11,
-          "rows": 823
+          "rows": 841
         }
       },
-      "time": 0.048,
+      "time": 0.063,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -321,13 +321,13 @@
             "2025,0",
             "1910003220",
             "1190.01.0015400/2024-58",
-            "AGENCIA DE DESENVOLVIMENTO DA REGIAO METROPOLITANA DE BELO HORIZONTE",
-            "SECRETARIA DE ESTADO DE INFRAESTRUTURA E MOBILIDADE; SECRETARIA DE ESTADO DE FAZENDA",
+            "Secretaria de Estado da Fazenda",
+            "SECRETARIA DE ESTADO DE INFRAESTRUTURA E MOBILIDADE",
             "Fornecimento de dados pela SEF/MG à SEINFRA/MG e Agência RMBH, relativos às atividades econômicas desenvolvidas no Estado de Minas Gerias, visando ao desenvolvimento e manutenção dos planos de mobilidade e de infraestrutura do Estado de Minas Gerais. Matriz Origem e Destino de Cargas com dados fiscais",
             "2025-01-18 00:00:00",
             "2030-01-17 00:00:00",
             "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/NqMSDeM5bgjfQSD/download?path=%2FAGENCIA%20ARMBH&files=1190.01.0015400_2024-58.pdf",
+            "https://nuvem.cge.mg.gov.br/index.php/apps/files/files/616181?dir=/FTP_DTA/Acordos%20de%20Coopera%C3%A7%C3%A3o%20T%C3%A9cnica/SEF",
             ""
           ],
           "rowNumber": 8,
@@ -1753,7 +1753,7 @@
             "01/08/2025",
             "16/09/2026",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 54,
@@ -1784,7 +1784,7 @@
             "01/08/2025",
             "16/09/2026",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 54,
@@ -1815,7 +1815,7 @@
             "19/12/2025",
             "19/12/2028",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 55,
@@ -1846,7 +1846,7 @@
             "19/12/2025",
             "19/12/2028",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 55,
@@ -1877,7 +1877,7 @@
             "27/02/2025",
             "26/02/2030",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 56,
@@ -1908,7 +1908,7 @@
             "27/02/2025",
             "26/02/2030",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 56,
@@ -1939,7 +1939,7 @@
             "11/10/2025",
             "29/06/2029",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 57,
@@ -1970,7 +1970,7 @@
             "11/10/2025",
             "29/06/2029",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 57,
@@ -2001,7 +2001,7 @@
             "14/01/2026",
             "13/01/2061",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 58,
@@ -2032,7 +2032,7 @@
             "14/01/2026",
             "13/01/2061",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 58,
@@ -2063,7 +2063,7 @@
             "30/09/2025",
             "30/09/2030",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 59,
@@ -2094,7 +2094,7 @@
             "30/09/2025",
             "30/09/2030",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 59,
@@ -2125,7 +2125,7 @@
             "14/10/2025",
             "14/10/2030",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 60,
@@ -2156,7 +2156,7 @@
             "14/10/2025",
             "14/10/2030",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 60,
@@ -2187,7 +2187,7 @@
             "24/02/2025",
             "24/02/2030",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 61,
@@ -2218,7 +2218,7 @@
             "24/02/2025",
             "24/02/2030",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 61,
@@ -4684,35 +4684,30 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "2024,0",
-          "fieldName": "ano",
-          "fieldNumber": 1,
-          "fieldPosition": 1,
           "cells": [
-            "2024,0",
-            "S/N",
-            "1080.01.0114577/2024-64 ",
-            "ADVOCACIA GERAL DO ESTADO",
-            "ORDEM DOS ADVOGADOS DO BRASIL",
-            "O presente TERMO DE CESSÃO DE USO tem por objeto a cessão, à CESSIONÁRIA, dos bens móveis, de propriedade da CEDENTE alocados/instalados na sede do Escritório Seccional da Advocacia-Geral do Estado em Muriaé, situada na Rua Presidente Artur Bernardes, nº 168, Salas 801 e 802, Centro, Muriaé/MG, CEP: 36.880-005, relacionados no Relatório Fotográfico que faz parte integrante deste instrumento como seu Anexo. ",
-            "2024-10-07 00:00:00",
-            "2029-10-06 00:00:00",
-            "Vigente",
-            "https://advocaciageral.mg.gov.br/wp-content/uploads/2025/01/TCUBM-OAB-MG-E-AGE.pdf",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             ""
           ],
           "rowNumber": 140,
           "rowPosition": 141,
-          "code": "type-error",
-          "name": "Type Error",
+          "code": "blank-row",
+          "name": "Blank Row",
           "tags": [
             "#table",
-            "#row",
-            "#cell"
+            "#row"
           ],
-          "note": "type is \"integer/default\"",
-          "message": "Type error in the cell \"2024,0\" in row \"141\" and field \"ano\" at position \"1\": type is \"integer/default\"",
-          "description": "The value does not match the schema type and format for this field."
+          "note": "",
+          "message": "Row at position \"141\" is completely blank",
+          "description": "This row is empty. A row should contain at least one value."
         },
         {
           "cell": "2024,0",
@@ -5690,7 +5685,7 @@
             "06/07/2024",
             "28/11/2028",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 171,
@@ -5721,7 +5716,7 @@
             "06/07/2024",
             "28/11/2028",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 171,
@@ -5783,7 +5778,7 @@
             "26/06/2024",
             "20/10/2027",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 173,
@@ -5814,7 +5809,7 @@
             "26/06/2024",
             "20/10/2027",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 173,
@@ -5845,7 +5840,7 @@
             "17/05/2024",
             "29/03/2027",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 174,
@@ -5876,7 +5871,7 @@
             "17/05/2024",
             "29/03/2027",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 174,
@@ -6124,7 +6119,7 @@
             "30/06/2022",
             "30/06/2027",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 182,
@@ -6155,7 +6150,7 @@
             "30/06/2022",
             "30/06/2027",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 182,
@@ -6248,7 +6243,7 @@
             "30/11/2024",
             "29/11/2029",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 185,
@@ -6279,7 +6274,7 @@
             "30/11/2024",
             "29/11/2029",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 185,
@@ -24183,12 +24178,12 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "18/03/2026",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
+          "cell": "2026,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
           "cells": [
-            "",
+            "2026,0",
             "8",
             "2320.01.0001847/2026-77",
             "FUNDACAO HEMOMINAS",
@@ -24197,7 +24192,38 @@
             "18/03/2026",
             "31/12/2030",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 761,
+          "rowPosition": 762,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2026,0\" in row \"762\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "18/03/2026",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2026,0",
+            "8",
+            "2320.01.0001847/2026-77",
+            "FUNDACAO HEMOMINAS",
+            "Universidade Federal de Minas Gerais- PRO-Reitoria de Pesquisa-CT Terapias Avançadas UFMG (PRPq-CT Terapias)",
+            "Formação, aperf. e espec. técnica de recursos humanos e desenv. Inst. mediante a disp.de bolsas de sangue total e hemocomponentes",
+            "18/03/2026",
+            "31/12/2030",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 761,
@@ -24228,7 +24254,7 @@
             "28/04/2026",
             "27/04/2027",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
           "rowNumber": 762,
@@ -24243,16 +24269,564 @@
           "note": "type is \"datetime/default\"",
           "message": "Type error in the cell \"28/04/2026\" in row \"763\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2026,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2026,0",
+            "1",
+            "1320.01.0103096/2025-03",
+            "FUNDACAO HEMOMINAS",
+            "Secretraia de Estado da Saúde",
+            "DESCENTRALIZAÇÃO DO COMPONENTE ESPECIALIZADO DA ASSISTÊNCIA FARMACÊUTICA PARA O TRATAMENTO DA DOENÇA FALCIFORME.",
+            "2026-03-30 00:00:00",
+            "2031-03-30 00:00:00",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 824,
+          "rowPosition": 825,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2026,0\" in row \"825\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2026,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2026,0",
+            "",
+            "2320.01.0001009/2018-29",
+            "FUNDACAO HEMOMINAS",
+            "CNPq",
+            "O presente Protocolo de Cooperação Técnica tem por objeto a atuação conjunta do CNPq e da INSTITUIÇÃO, visando propiciar o atendimento da estratégia de governo na realização de projetos de pesquisa científica, tecnológica e/ou de inovação.",
+            "2008-01-17 00:00:00",
+            "Indetermidado",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 825,
+          "rowPosition": 826,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2026,0\" in row \"826\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2021,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2021,0",
+            "20",
+            "2320.01.0001027/2018-82",
+            "FUNDACAO HEMOMINAS",
+            "Fundação Oswaldo Cruz (Fiocruz)",
+            "a conjugação de esforços entre os PARTICIPES para formação, aperfeiçoamento e especialização técnica de recursos humanos e desenvolvimento institucional mediante disponibilização de bolsas de sangria terapêutica, com sorologia negativa, para serem utilizadas em projetos institucionais e/ou atividades de ensino e pesquisa conforme Plano de Trabalho",
+            "2021-08-31 00:00:00",
+            "2026-08-31 00:00:00",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 826,
+          "rowPosition": 827,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2021,0\" in row \"827\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2018,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2018,0",
+            "28",
+            "2320.01.0001122/2018-82",
+            "FUNDACAO HEMOMINAS",
+            "FHEMIG - Hospital Eduardo de Menezes",
+            "Este Termo de Cooperação Técnica tem por objeto a conjugação de esforços entre os PARTÍCIPES visando a realização de testes PCR em tempo real para HTLV-1 e 2, em amostras de sangue de pacientes acompanhados pelo Hospital Eduardo Menezes – HEM/FHEMIG, conforme Plano de Trabalho – Anexo I (doc. SEI nº 2528142), parte integrante do presente Termo de Cooperação",
+            "2018-12-19 00:00:00",
+            "2023-12-19 00:00:00",
+            "Vencido",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 827,
+          "rowPosition": 828,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2018,0\" in row \"828\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2026,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2026,0",
+            "18",
+            "2320.01.0005814/2026-56",
+            "FUNDACAO HEMOMINAS",
+            "FHEMIG - Hospital Eduardo de Menezes",
+            "O Termo de Cooperação Técnica a ser celebrado entre a Fundação Hemominas/Laboratório de Pesquisa e o Hospital Eduardo de Menezes, tem por objeto à realização de testes de PCR em tempo real para HTLV-1 e HTLV-2 nas amostras de sangue encaminhadas pela instituição hospitalar, conforme quantitativo e condições acordados neste instrumento.",
+            "2026-05-27 00:00:00",
+            "2031-05-27 00:00:00",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 828,
+          "rowPosition": 829,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2026,0\" in row \"829\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2021,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2021,0",
+            "22",
+            "2320.01.0007344/2021-83",
+            "FUNDACAO HEMOMINAS",
+            "INSTITUTO DE PREVIDÊNCIA DOS SERVIDORES DO ESTADO DE MINAS GERAIS IPSEMG",
+            "O presente Termo de Cooperação Técnica tem por objeto a coleta de membrana amniótica a ser processada, armazenada, testada e utilizada em processos de validação, projetos de pesquisa ou uso terapêutico regulamentado em diversas especialidades médicas, segundo os protocolos operacionais estabelecidos pelo Cetebio-Fundação Hemominas e de acordo com protocolos baseados na literatura e legislação brasileira vigente, conforme Plano de Trabalho (31507060).",
+            "2021-01-16 00:00:00",
+            "2026-01-15 00:00:00",
+            "Vencido",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 829,
+          "rowPosition": 830,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2021,0\" in row \"830\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2021,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2021,0",
+            "25",
+            "2320.01.0007758/2021-60",
+            "FUNDACAO HEMOMINAS",
+            "FHEMIG - COMPLEXO MGTRANSPLANTES",
+            "O presente Termo de Cooperação Técnica tem por objeto a coleta de pele em doador cadáver a ser processada, armazenada, testada e utilizada em processos de validação e projetos de pesquisa segundo protocolos operacionais estabelecidos pelo Centro de Tecidos Biológicos (Cetebio) - Fundação Hemominas baseados na literatura e legislação brasileira vigente, conforme Plano de Trabalho (30576172).",
+            "2021-10-05 00:00:00",
+            "2026-10-05 00:00:00",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 830,
+          "rowPosition": 831,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2021,0\" in row \"831\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2026,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2026,0",
+            "14",
+            "2320.01.0012666/2025-34",
+            "FUNDACAO HEMOMINAS",
+            "MUNICIPIO ALEM PARAIBA",
+            "O presente Termo de Cooperação Técnica tem por objeto o estabelecimento de mútua cooperação entre os partícipes, objetivando a cessão do servidor LUCAS MACRI RODRIGUES,",
+            "2026-04-17 00:00:00",
+            "2026-12-31 00:00:00",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 831,
+          "rowPosition": 832,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2026,0\" in row \"832\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cells": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          "rowNumber": 832,
+          "rowPosition": 833,
+          "code": "blank-row",
+          "name": "Blank Row",
+          "tags": [
+            "#table",
+            "#row"
+          ],
+          "note": "",
+          "message": "Row at position \"833\" is completely blank",
+          "description": "This row is empty. A row should contain at least one value."
+        },
+        {
+          "cell": "2024,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2024,0",
+            "",
+            "1190.01.0010447/2022-32",
+            "Secretaria de Estado da Fazenda",
+            "SECRETARIA DE ESTADO DE INFRAESTRUTURA E MOBILIDADE",
+            "II TERMO ADITIVO AO TERMO DE DESCENTRALIZAÇÃO DE CRÉDITO ORÇAMENTÁRIO Nº 1910003110, CELEBRADO EM 03/07/2023, ENTRE AS SECRETARIAS DE ESTADO DE FAZENDA – SEF/MG E DE INFRAESTRUTURA, MOBILIDADE E PARCERIAS - SEINFRA/MG",
+            "2024-12-27 00:00:00",
+            "2026-12-31 00:00:00",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/apps/files/files/616181?dir=/FTP_DTA/Acordos%20de%20Coopera%C3%A7%C3%A3o%20T%C3%A9cnica/SEF",
+            ""
+          ],
+          "rowNumber": 833,
+          "rowPosition": 834,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2024,0\" in row \"834\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cells": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          "rowNumber": 834,
+          "rowPosition": 835,
+          "code": "blank-row",
+          "name": "Blank Row",
+          "tags": [
+            "#table",
+            "#row"
+          ],
+          "note": "",
+          "message": "Row at position \"835\" is completely blank",
+          "description": "This row is empty. A row should contain at least one value."
+        },
+        {
+          "cell": "2023,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2023,0",
+            "3",
+            "1370.01.0058316/2022-45",
+            "Secretaria de Estado da Fazenda",
+            "SECRETARIA DE ESTADO DE MEIO AMBIENTE E DESENVOLVIMENTO SUSTENTÁVEL",
+            "Programa AmbientAÇÃO nas edificações onde se instala a SECRETARIA DE ESTADO DE FAZENDA DO ESTADO DE MINAS GERAIS - SEF",
+            "2023-10-03 00:00:00",
+            "Indeterminado",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/apps/files/files/616181?dir=/FTP_DTA/Acordos%20de%20Coopera%C3%A7%C3%A3o%20T%C3%A9cnica/SEF",
+            ""
+          ],
+          "rowNumber": 835,
+          "rowPosition": 836,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2023,0\" in row \"836\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2025,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2025,0",
+            "",
+            "1190.01.0012946/2025-62",
+            "Secretaria de Estado da Fazenda",
+            "SERASA S/A",
+            "Este Acordo de Cooperação Técnica tem por objeto a conjunção de esforços comuns e a fixação de critérios, condições e procedimentos que permitam o acesso direto, pela SERASA, às informações cadastrais de contribuintes do ICMS, já disponibilizadas pelo Sistema SINTEGRA",
+            "2025-11-26 00:00:00",
+            "2030-11-25 00:00:00",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/apps/files/files/616181?dir=/FTP_DTA/Acordos%20de%20Coopera%C3%A7%C3%A3o%20T%C3%A9cnica/SEF",
+            ""
+          ],
+          "rowNumber": 836,
+          "rowPosition": 837,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2025,0\" in row \"837\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2025,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2025,0",
+            "",
+            "1190.01.0009437/2025-36",
+            "Secretaria de Estado da Fazenda",
+            "SECRETARIA DE ESTADO DE SAÚDE – SES/MG",
+            "COOPERAÇÃO TÉCNICA PARA CONTROLE E FISCALIZAÇÃO DAS ATIVIDADES RELATIVAS A INDUSTRIALIZAÇÃO, IMPORTAÇÃO, ARMAZENAMENTO, DISTRIBUIÇÃO, COMERCIALIZAÇÃO E TRANSPORTE DE PRODUTOS SOB CONTROLE SANITÁRIO E SEUS INSUMOS,",
+            "2025-11-06 00:00:00",
+            "2030-11-05 00:00:00",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/apps/files/files/616181?dir=/FTP_DTA/Acordos%20de%20Coopera%C3%A7%C3%A3o%20T%C3%A9cnica/SEF",
+            ""
+          ],
+          "rowNumber": 837,
+          "rowPosition": 838,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2025,0\" in row \"838\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2025,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2025,0",
+            "1910003222",
+            "1190.01.0017062/2024-95",
+            "Secretaria de Estado da Fazenda",
+            "TRIBUNAL DE CONTAS DO ESTADO DE MINAS GERAIS.",
+            "O presente Termo tem por objetivo o intercâmbio de dados e informações entre os partícipes, para o aprimoramento e desenvolvimento de suas atividades",
+            "2025-02-08 00:00:00",
+            "2030-02-07 00:00:00",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/apps/files/files/616181?dir=/FTP_DTA/Acordos%20de%20Coopera%C3%A7%C3%A3o%20T%C3%A9cnica/SEF",
+            ""
+          ],
+          "rowNumber": 838,
+          "rowPosition": 839,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2025,0\" in row \"839\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2022,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2022,0",
+            "15-2022",
+            "2300.01.0032402/2022-19",
+            "DEPARTAMENTO DE ESTRADAS DE RODAGEM DO ESTADO DE MINAS GERAIS - DER-MG",
+            "DETRAN MG",
+            "Constitui objeto deste Termo de Convênio de Cooperação Administrativa, Técnica e Operacional a delegação, pelo DER/MG ao DETRAN/MG, das atividades de remoção e guarda de veículo automotor apreendido em razão de infração de trânsito e a realização dos leilões de veículos apreendidos, visando à implementação das atribuições contidas na Lei nº 9.503, de 23/09/1997, que instituiu o Código de Trânsito Brasileiro (CTB), e normas complementares, segundo diretrizes emanadas pelo CONTRAN e pelo DETRAN/MG e ainda em cumprimento ao Decreto Estadual nº 47.072, de 01/11/2016. ",
+            "",
+            "2027-08-30 00:00:00",
+            "Vigente",
+            "https://www.der.mg.gov.br/transparencia/convenios-e-parcerias-de-saida-de-recursos/2428-convenios/3597-convenios-externos-e-tdcos",
+            ""
+          ],
+          "rowNumber": 839,
+          "rowPosition": 840,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2022,0\" in row \"840\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2019,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2019,0",
+            "DS2022",
+            "1250.01.0000615/2019-32",
+            "DEPARTAMENTO DE ESTRADAS DE RODAGEM DO ESTADO DE MINAS GERAIS - DER-MG",
+            "PMMG",
+            "Cons􀆟tui objeto do presente instrumento a descentralização de créditos orçamentários e financeiros pela Polícia Militar de Minas Gerais/Centro de Serviços Compar",
+            "2019-09-05 00:00:00",
+            "2027-07-08 00:00:00",
+            "Vigente",
+            "https://www.der.mg.gov.br/transparencia/convenios-e-parcerias-de-saida-de-recursos/2428-convenios/3597-convenios-externos-e-tdcos",
+            ""
+          ],
+          "rowNumber": 840,
+          "rowPosition": 841,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2019,0\" in row \"841\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "2021,0",
+          "fieldName": "ano",
+          "fieldNumber": 1,
+          "fieldPosition": 1,
+          "cells": [
+            "2021,0",
+            "01",
+            "1300.01.0004056/2021-26",
+            "DEPARTAMENTO DE ESTRADAS DE RODAGEM DO ESTADO DE MINAS GERAIS - DER-MG",
+            "SEINFRA",
+            "O presente Convênio tem por objeto a formalização de apoio às atividades de fiscalização, monitoramento, verificação e apontamentos técnicos na concessão da prestação de serviço de travessia de balsa no Rio São Francisco, entre os municípios de Manga e Matias Cardoso, pertencente ao escopo do Contrato SETOP nº 002/2015; e; do convênio de delegação da exploração dos serviços de transporte por balsa no Rio São Francisco entre os municípios de São Romão e Ubaí, pertencente ao escopo do Convênio SETOP nº 001/2018.",
+            "2022-04-12 00:00:00",
+            "2027-04-11 00:00:00",
+            "Vigente",
+            "https://www.der.mg.gov.br/transparencia/convenios-e-parcerias-de-saida-de-recursos/2428-convenios/3597-convenios-externos-e-tdcos",
+            ""
+          ],
+          "rowNumber": 841,
+          "rowPosition": 842,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"integer/default\"",
+          "message": "Type error in the cell \"2021,0\" in row \"842\" and field \"ano\" at position \"1\": type is \"integer/default\"",
+          "description": "The value does not match the schema type and format for this field."
         }
       ],
       "stats": {
-        "errors": 779
+        "errors": 798
       },
       "valid": false
     }
   ],
   "stats": {
-    "errors": 779,
+    "errors": 798,
     "tasks": 1
   },
   "valid": false
