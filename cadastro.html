@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro de Acordos – CGE/MG</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+<style>
+:root{
+  --pri:#1a3a5c;--mid:#20445d;--acc:#b93c42;
+  --bg:#f0f3f8;--card:#fff;--bdr:#dde3ec;
+  --txt:#1a2333;--mut:#64748b;--lgt:#94a3b8;
+  --grn:#1e9e52;--grn-bg:#e6f7ee;
+  --blu:#1a6db5;--blu-bg:#e3f0fb;
+  --red:#b93c42;--red-bg:#fdecea;
+  --yel:#d97706;--yel-bg:#fffbeb;
+  --sh:0 2px 10px rgba(26,58,92,.08);
+  --r:8px;--rl:14px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--txt);font-size:13px;}
+.mi{font-family:'Material Icons'!important;font-size:16px;vertical-align:middle;}
+.mi-sm{font-size:14px!important;}
+.mi-lg{font-size:22px!important;}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--pri),var(--mid));box-shadow:0 2px 12px rgba(0,0,0,.18);}
+.hdr-in{max-width:1100px;margin:0 auto;padding:15px 24px;display:flex;align-items:center;gap:13px;}
+.hdr-ico{width:40px;height:40px;background:rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hdr-ico .mi{font-size:22px;color:#fff;}
+.hdr-t h1{color:#fff;font-size:15px;font-weight:700;margin:0;}
+.hdr-t p{color:rgba(255,255,255,.65);font-size:10.5px;margin:2px 0 0;}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.sync-pill{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:5px;border:1px solid rgba(255,255,255,.25);color:#fff;}
+.sync-pill .mi{font-size:13px;}
+.sync-ok{background:rgba(30,158,82,.3);}
+.sync-local{background:rgba(217,119,6,.3);}
+.sync-err{background:rgba(185,60,66,.3);}
+.sync-load{background:rgba(255,255,255,.1);}
+
+/* TABS */
+.tabs-wrap{background:var(--card);border-bottom:1px solid var(--bdr);box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.tabs-in{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;}
+.tab-btn{padding:13px 20px;font-size:12px;font-weight:700;color:var(--mut);border:none;border-bottom:3px solid transparent;background:none;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .2s;font-family:'Montserrat',sans-serif;white-space:nowrap;}
+.tab-btn:hover{color:var(--pri);}
+.tab-btn.active{color:var(--mid);border-bottom-color:var(--mid);}
+
+/* MAIN */
+.main{max-width:1100px;margin:0 auto;padding:22px 24px;}
+
+/* PANEL */
+.panel{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rl);box-shadow:var(--sh);overflow:hidden;margin-bottom:18px;}
+.ph{background:linear-gradient(90deg,var(--pri),var(--mid));padding:12px 20px;display:flex;align-items:center;gap:9px;}
+.ph h2{color:#fff;font-size:13px;font-weight:700;margin:0;flex:1;}
+.ph .mi{font-size:17px;color:rgba(255,255,255,.8);}
+.pb{padding:20px 22px;}
+
+/* LOADING */
+.lbar{height:3px;background:linear-gradient(90deg,var(--mid),var(--acc),var(--mid));background-size:200%;animation:sh 1.5s infinite;}
+@keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.lbar.hide{display:none;}
+
+/* FORM ELEMENTS */
+.flbl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--pri);display:block;margin-bottom:5px;}
+.req{color:var(--acc);}
+.finp{border:1.5px solid var(--bdr);border-radius:var(--r);padding:8px 12px;font-size:12.5px;width:100%;color:var(--txt);font-family:'Montserrat',sans-serif;transition:border-color .2s;background:#fff;height:40px;}
+.finp:focus{border-color:var(--mid);box-shadow:0 0 0 3px rgba(32,68,93,.09);outline:none;}
+.finp::placeholder{color:var(--lgt);}
+textarea.finp{height:auto;resize:vertical;}
+select.finp{cursor:pointer;}
+.ro{background:#f0f3f8!important;color:var(--mut)!important;cursor:not-allowed!important;}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.fg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;}
+.fgrp{margin-bottom:14px;}
+.fhnt{font-size:10.5px;color:var(--mut);margin-top:4px;}
+@media(max-width:580px){.fg2,.fg3{grid-template-columns:1fr;}}
+
+/* BUTTONS */
+.btn-p{background:var(--mid);border:none;height:40px;padding:0 22px;border-radius:var(--r);font-size:12.5px;font-weight:700;color:#fff;display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:all .2s;font-family:'Montserrat',sans-serif;white-space:nowrap;}
+.btn-p:hover{background:var(--acc);}
+.btn-g{background:#fff;border:1.5px solid var(--bdr);height:40px;padding:0 18px;border-radius:var(--r);font-size:12px;font-weight:700;color:var(--pri);display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:all .2s;font-family:'Montserrat',sans-serif;white-space:nowrap;}
+.btn-g:hover{border-color:var(--pri);background:var(--bg);}
+.btn-g.sm{height:34px;font-size:11.5px;padding:0 14px;}
+.btn-edt{background:var(--blu-bg);border:none;height:28px;padding:0 10px;border-radius:6px;font-size:11px;font-weight:700;color:var(--blu);display:inline-flex;align-items:center;gap:3px;cursor:pointer;transition:all .2s;font-family:'Montserrat',sans-serif;}
+.btn-edt:hover{background:var(--blu);color:#fff;}
+.btn-del{background:var(--red-bg);border:none;height:28px;padding:0 10px;border-radius:6px;font-size:11px;font-weight:700;color:var(--red);display:inline-flex;align-items:center;gap:3px;cursor:pointer;transition:all .2s;font-family:'Montserrat',sans-serif;}
+.btn-del:hover{background:var(--red);color:#fff;}
+.btn-novo{background:#fff;color:var(--mid);border:none;height:34px;padding:0 16px;border-radius:var(--r);font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:'Montserrat',sans-serif;transition:all .2s;}
+.btn-novo:hover{background:var(--acc);color:#fff;}
+.btn-trocar{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.28);height:34px;padding:0 14px;border-radius:var(--r);font-size:11.5px;font-weight:700;color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:'Montserrat',sans-serif;transition:all .2s;}
+.btn-trocar:hover{background:rgba(255,255,255,.25);}
+
+/* ÓRGÃO BAR */
+.org-bar{background:linear-gradient(90deg,var(--pri),var(--mid));border-radius:var(--r);padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
+.org-pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;color:#fff;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:6px;}
+.org-lbl{color:rgba(255,255,255,.7);font-size:10.5px;font-weight:600;}
+.org-bar-btns{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+@media(max-width:580px){.stats{grid-template-columns:repeat(2,1fr);}}
+.stat{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 16px;box-shadow:var(--sh);}
+.sv{font-size:24px;font-weight:700;color:var(--pri);line-height:1;}
+.sv.g{color:var(--grn);}.sv.b{color:var(--blu);}.sv.r{color:var(--red);}
+.sl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-top:3px;}
+
+/* AVISO */
+.aviso{border-radius:var(--r);padding:11px 15px;font-size:11.5px;display:flex;align-items:flex-start;gap:9px;margin-bottom:16px;}
+.aviso .mi{font-size:17px;flex-shrink:0;margin-top:1px;}
+.av-yel{background:var(--yel-bg);border:1.5px solid #fde68a;color:#7a5800;}
+.av-yel .mi{color:var(--yel);}
+.av-blu{background:var(--blu-bg);border:1.5px solid #bfdbfe;color:#1e40af;}
+.av-blu .mi{color:var(--blu);}
+.av-grn{background:var(--grn-bg);border:1.5px solid #a7f3d0;color:#065f46;}
+.av-grn .mi{color:var(--grn);}
+
+/* ACTION CARDS */
+.act-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;}
+@media(max-width:680px){.act-row{grid-template-columns:1fr;}}
+.act-card{background:var(--card);border:1.5px solid var(--bdr);border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:9px;}
+.act-ico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;}
+.ac-b .act-ico{background:var(--blu-bg);} .ac-b .act-ico .mi{color:var(--blu);}
+.ac-g .act-ico{background:var(--grn-bg);} .ac-g .act-ico .mi{color:var(--grn);}
+.ac-r .act-ico{background:var(--red-bg);} .ac-r .act-ico .mi{color:var(--red);}
+.act-card h4{font-size:12.5px;font-weight:700;color:var(--pri);margin:0;}
+.act-card p{font-size:11.5px;color:var(--mut);flex:1;line-height:1.55;margin:0;}
+.act-btns{display:flex;gap:7px;flex-wrap:wrap;}
+
+/* UPLOAD ZONE */
+.upzone{border:2px dashed var(--bdr);border-radius:var(--r);padding:14px;text-align:center;cursor:pointer;transition:all .2s;background:#fafbfd;}
+.upzone:hover,.upzone.drag{border-color:var(--mid);background:#eef3fa;}
+.upzone .mi{font-size:24px;color:var(--mut);display:block;margin-bottom:3px;}
+.upzone p{font-size:11px;color:var(--mut);margin:0;}
+#fileInput{display:none;}
+
+/* TOOLBAR */
+.tbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+.tbar-l{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.cnt{background:var(--pri);color:#fff;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;}
+.srch{display:flex;align-items:center;gap:5px;background:#fff;border:1.5px solid var(--bdr);border-radius:20px;padding:4px 12px;height:32px;transition:border-color .2s;}
+.srch:focus-within{border-color:var(--mid);}
+.srch .mi{font-size:14px;color:var(--mut);}
+.srch input{border:none;outline:none;background:transparent;font-size:12px;width:150px;color:var(--txt);font-family:'Montserrat',sans-serif;}
+.srch input::placeholder{color:var(--lgt);}
+
+/* TABELA */
+.tbl-scroll{overflow-x:auto;max-height:520px;overflow-y:auto;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead th{background:#3d5a73;color:#fff;padding:10px 12px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;position:sticky;top:0;z-index:5;}
+tbody tr{background:#fff;}
+tbody tr:nth-child(even){background:#f7f9fc;}
+tbody tr:hover{background:#eef3fa;}
+tbody td{padding:9px 12px;border-bottom:1px solid #edf1f7;vertical-align:middle;}
+tbody tr.row-new td{border-left:3px solid var(--grn);}
+tbody tr.row-new td:first-child{padding-left:9px;}
+.tdact{display:flex;gap:5px;white-space:nowrap;}
+.bdg{display:inline-block;padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:700;}
+.bv{background:var(--grn-bg);color:var(--grn);}
+.be{background:var(--blu-bg);color:var(--blu);}
+.br{background:var(--red-bg);color:var(--red);}
+.bn{background:#f0f3f8;color:var(--mut);}
+.tag-novo{background:#dcfce7;color:#166534;font-size:9.5px;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:4px;vertical-align:middle;}
+.tag-edit{background:#dbeafe;color:#1e40af;font-size:9.5px;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:4px;vertical-align:middle;}
+
+/* EMPTY */
+.empty{text-align:center;padding:44px 20px;}
+.empty .mi{font-size:48px;color:var(--bdr);display:block;margin-bottom:12px;}
+.empty p{color:var(--mut);font-size:13px;}
+
+/* TOAST */
+.toast-t{position:fixed;top:20px;right:20px;z-index:9999;background:#fff;border-radius:10px;box-shadow:0 4px 18px rgba(0,0,0,.15);padding:12px 18px;display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:600;color:var(--pri);transform:translateX(130%);transition:transform .3s;max-width:340px;}
+
+/* MODAL */
+.mc .modal-content{border:none;border-radius:var(--rl);overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.18);}
+.mc .modal-header{background:linear-gradient(135deg,var(--pri),var(--mid));padding:15px 22px;border:none;}
+.mc .modal-title{color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;}
+.mc .modal-header .btn-close{filter:brightness(0) invert(1);opacity:1;}
+.mc .modal-body{padding:22px;background:#f7f9fc;}
+.mc .modal-footer{background:#fff;border-top:1px solid var(--bdr);padding:13px 22px;gap:10px;}
+
+/* CONFIG */
+.cfg-note{background:var(--yel-bg);border:1.5px solid #fde68a;border-radius:var(--r);padding:11px 15px;font-size:11.5px;color:#7a5800;display:flex;gap:9px;align-items:flex-start;margin-bottom:16px;}
+.cfg-note .mi{font-size:17px;color:var(--yel);flex-shrink:0;margin-top:1px;}
+.gh-stat{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:20px;}
+.ghs-ok{background:var(--grn-bg);color:var(--grn);}
+.ghs-fail{background:var(--red-bg);color:var(--red);}
+.ghs-pend{background:var(--yel-bg);color:var(--yel);}
+
+/* FOOTER */
+.ft{text-align:center;padding:20px;color:var(--mut);font-size:11px;border-top:1px solid var(--bdr);}
+.ft a{color:var(--pri);text-decoration:none;font-weight:600;}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <div class="hdr-ico"><i class="mi">handshake</i></div>
+    <div class="hdr-t">
+      <h1>Cadastro de Acordos de Cooperação Técnica</h1>
+      <p>Governo do Estado de Minas Gerais · CGE/MG</p>
+    </div>
+    <div class="hdr-right">
+      <div class="sync-pill sync-load" id="syncPill"><i class="mi">cloud</i><span id="syncTxt">Aguardando</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="tabs-wrap">
+  <div class="tabs-in">
+    <button class="tab-btn active" id="tb1" onclick="goTab(1)"><i class="mi">account_balance</i> Identificação</button>
+    <button class="tab-btn" id="tb2" onclick="goTab(2)"><i class="mi">list_alt</i> Seus Acordos</button>
+    <button class="tab-btn" id="tb3" onclick="goTab(3)"><i class="mi">settings</i> Configuração</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- PANE 1 -->
+  <div id="p1">
+    <div class="panel">
+      <div class="ph"><i class="mi">account_balance</i><h2>Selecione seu órgão</h2></div>
+      <div id="lbar" class="lbar"></div>
+      <div class="pb">
+        <p style="color:var(--mut);font-size:12.5px;margin-bottom:16px;line-height:1.6;">
+          Selecione seu órgão para visualizar todos os seus acordos existentes e gerenciar inclusões, edições e exclusões.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end;">
+          <div>
+            <label class="flbl">Órgão <span class="req">*</span></label>
+            <select class="finp" id="orgSel"><option value="">Carregando...</option></select>
+          </div>
+          <button class="btn-p" onclick="entrar()"><i class="mi">login</i> Acessar</button>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--bdr);">
+          <span style="background:var(--bg);border:1px solid var(--bdr);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--mut);display:inline-flex;align-items:center;gap:5px;"><i class="mi" style="font-size:13px;color:var(--acc);">lock</i> Dados isolados por órgão</span>
+          <span style="background:var(--bg);border:1px solid var(--bdr);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--mut);display:inline-flex;align-items:center;gap:5px;"><i class="mi" style="font-size:13px;color:var(--acc);">sync</i> Órgãos carregados do CSV oficial</span>
+          <span style="background:var(--bg);border:1px solid var(--bdr);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--mut);display:inline-flex;align-items:center;gap:5px;"><i class="mi" style="font-size:13px;color:var(--acc);">cloud_done</i> Salvo no GitHub por órgão</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANE 2 -->
+  <div id="p2" style="display:none;">
+    <div class="org-bar">
+      <div>
+        <div class="org-lbl">Órgão ativo</div>
+        <div class="org-pill"><i class="mi">verified</i><span id="orgNome">—</span></div>
+      </div>
+      <div class="org-bar-btns">
+        <button class="btn-trocar" onclick="trocar()"><i class="mi mi-sm">swap_horiz</i> Trocar órgão</button>
+        <button class="btn-novo" onclick="abrirNovo()"><i class="mi mi-sm">add</i> Novo Acordo</button>
+      </div>
+    </div>
+
+    <!-- AVISO DE STATUS -->
+    <div id="avisoStatus" style="display:none;"></div>
+
+    <!-- STATS -->
+    <div class="stats" id="statsRow"></div>
+
+    <!-- ACTION CARDS -->
+    <div class="act-row">
+      <div class="act-card ac-b">
+        <div class="act-ico"><i class="mi mi-lg">file_download</i></div>
+        <h4>Baixar CSV do Órgão</h4>
+        <p>Baixe todos os acordos do seu órgão em CSV para editar offline. Depois suba o arquivo atualizado.</p>
+        <div class="act-btns">
+          <button class="btn-g sm" onclick="expCSV()"><i class="mi mi-sm">download</i> Baixar CSV</button>
+          <button class="btn-g sm" onclick="expJSON()"><i class="mi mi-sm">data_object</i> JSON</button>
+        </div>
+      </div>
+      <div class="act-card ac-g">
+        <div class="act-ico"><i class="mi mi-lg">upload_file</i></div>
+        <h4>Importar CSV Atualizado</h4>
+        <p>Suba o CSV editado. Registros novos são <strong>adicionados</strong>; existentes (mesmo ano + nº termo) são <strong>atualizados</strong>.</p>
+        <div class="upzone" id="upzone" onclick="document.getElementById('fileInput').click()"
+          ondragover="dov(event)" ondragleave="dlv()" ondrop="ddr(event)">
+          <i class="mi">cloud_upload</i>
+          <p><strong>Clique ou arraste</strong> o CSV aqui</p>
+        </div>
+        <input type="file" id="fileInput" accept=".csv" onchange="importarCSV(this)">
+      </div>
+      <div class="act-card ac-r">
+        <div class="act-ico"><i class="mi mi-lg">cloud_sync</i></div>
+        <h4>Salvar no GitHub</h4>
+        <p>Grava o arquivo <code style="font-size:10.5px;background:#f0f3f8;padding:1px 5px;border-radius:4px;">cadastros/ORGAO.json</code> no repositório. Requer token configurado.</p>
+        <div class="act-btns">
+          <button class="btn-g sm" onclick="salvarGitHub()"><i class="mi mi-sm">cloud_upload</i> Salvar no GitHub</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABELA -->
+    <div class="panel">
+      <div class="ph"><i class="mi">list_alt</i><h2 id="tblTitulo">Acordos</h2>
+        <div id="legendas" style="display:flex;gap:6px;margin-left:auto;">
+          <span style="background:rgba(255,255,255,.15);border-radius:20px;padding:2px 10px;font-size:10.5px;color:#fff;display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#4ade80;display:inline-block;"></span>Novo</span>
+          <span style="background:rgba(255,255,255,.15);border-radius:20px;padding:2px 10px;font-size:10.5px;color:#fff;display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#93c5fd;display:inline-block;"></span>Editado</span>
+        </div>
+      </div>
+      <div class="pb" style="padding:14px 16px;">
+        <div class="tbar">
+          <div class="tbar-l">
+            <span class="cnt" id="cntBdg">0</span>
+            <div class="srch"><i class="mi">search</i><input type="text" placeholder="Buscar..." oninput="filtrar(this.value)" id="srchInp"></div>
+          </div>
+          <button class="btn-novo" style="background:var(--mid);color:#fff;height:34px;" onclick="abrirNovo()"><i class="mi mi-sm">add</i> Novo Acordo</button>
+        </div>
+        <div class="tbl-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Ano</th><th>Nº Termo</th><th>Nº SEI</th>
+                <th>Parceiro</th><th style="min-width:200px;">Objeto</th>
+                <th>Início</th><th>Fim</th><th>Situação</th>
+                <th>Doc.</th><th style="min-width:110px;">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+        <div class="empty" id="emptyDiv" style="display:none;">
+          <i class="mi">add_circle_outline</i>
+          <p>Nenhum acordo encontrado.<br>Clique em <strong>Novo Acordo</strong> para começar.</p>
+        </div>
+        <div style="padding:8px 2px 0;font-size:11px;color:var(--mut);" id="tblFooter"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANE 3 -->
+  <div id="p3" style="display:none;">
+    <div class="panel">
+      <div class="ph"><i class="mi">settings</i><h2>Configuração — GitHub</h2></div>
+      <div class="pb">
+        <div class="cfg-note">
+          <i class="mi">warning</i>
+          <div>
+            <strong>Token seguro:</strong> o Personal Access Token (PAT) fica salvo apenas no seu navegador local, nunca é enviado a terceiros.
+            Gere um token com permissão <strong>Contents: Write</strong> em
+            <a href="https://github.com/settings/tokens/new" target="_blank" style="color:var(--pri);font-weight:700;">github.com/settings/tokens/new</a>.
+          </div>
+        </div>
+        <div class="fg2" style="margin-bottom:14px;">
+          <div class="fgrp" style="margin:0;">
+            <label class="flbl">Repositório (owner/repo)</label>
+            <input type="text" class="finp" id="cfgRepo" placeholder="transparencia-mg/portal_acordos_cooperacao_tecnica">
+          </div>
+          <div class="fgrp" style="margin:0;">
+            <label class="flbl">Branch</label>
+            <input type="text" class="finp" id="cfgBranch" placeholder="main">
+          </div>
+        </div>
+        <div class="fgrp">
+          <label class="flbl">Pasta de destino</label>
+          <input type="text" class="finp" id="cfgPath" placeholder="cadastros/">
+          <div class="fhnt">Cada órgão terá um arquivo separado. Ex: <code>cadastros/SEAPA.json</code></div>
+        </div>
+        <div class="fgrp">
+          <label class="flbl">Personal Access Token (GitHub)</label>
+          <input type="password" class="finp" id="cfgToken" placeholder="ghp_xxxxxxxxxxxx">
+          <div class="fhnt">Salvo apenas localmente. Nunca compartilhe.</div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px;">
+          <button class="btn-p" onclick="salvarCfg()"><i class="mi mi-sm">save</i> Salvar Configuração</button>
+          <button class="btn-g" onclick="testar()"><i class="mi mi-sm">wifi_tethering</i> Testar Conexão</button>
+          <div id="testRes"></div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--bdr);margin-bottom:18px;">
+
+        <h3 style="font-size:13px;font-weight:700;color:var(--pri);margin-bottom:6px;display:flex;align-items:center;gap:7px;">
+          <i class="mi">list</i> URL do CSV oficial
+        </h3>
+        <div class="fgrp">
+          <input type="text" class="finp" id="cfgCsvUrl">
+          <div class="fhnt">Fonte dos acordos existentes e da lista de órgãos.</div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn-p" onclick="salvarCsvUrl()"><i class="mi mi-sm">save</i> Salvar URL</button>
+          <button class="btn-g" onclick="recarregar()"><i class="mi mi-sm">refresh</i> Recarregar agora</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="ft">
+  CGE/MG · Cadastro de Acordos ·
+  <a href="index.html">Dashboard público</a> ·
+  <a href="https://github.com/transparencia-mg/portal_acordos_cooperacao_tecnica" target="_blank">GitHub</a>
+</footer>
+
+<!-- MODAL FORMULÁRIO -->
+<div class="modal fade" id="mForm" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content mc">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mTit"><i class="mi">add_circle</i> Novo Acordo</h5>
+        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="fIdx">
+        <div class="fg2" style="margin-bottom:13px;">
+          <div><label class="flbl">Ano <span class="req">*</span></label><input type="number" class="finp" id="fAno" placeholder="Ex: 2025" min="2000" max="2099"></div>
+          <div><label class="flbl">Número do Termo <span class="req">*</span></label><input type="text" class="finp" id="fTermo" placeholder="Ex: 001/2025"></div>
+        </div>
+        <div class="fg2" style="margin-bottom:13px;">
+          <div><label class="flbl">Número SEI</label><input type="text" class="finp" id="fSei" placeholder="Ex: 1500.01.0001234/2025-00"></div>
+          <div><label class="flbl">Órgão</label><input type="text" class="finp ro" id="fOrg" readonly></div>
+        </div>
+        <div class="fgrp"><label class="flbl">Parceiro do Acordo <span class="req">*</span></label><input type="text" class="finp" id="fParc" placeholder="Nome da entidade parceira"></div>
+        <div class="fgrp"><label class="flbl">Objeto <span class="req">*</span></label><textarea class="finp" id="fObj" rows="3" placeholder="Descrição do objeto do acordo..."></textarea></div>
+        <div class="fg3" style="margin-bottom:13px;">
+          <div><label class="flbl">Início da Vigência <span class="req">*</span></label><input type="date" class="finp" id="fIni"></div>
+          <div><label class="flbl">Fim da Vigência</label><input type="date" class="finp" id="fFim"></div>
+          <div><label class="flbl">Situação <span class="req">*</span></label>
+            <select class="finp" id="fSit">
+              <option value="">Selecione...</option>
+              <option value="VIGENTE">VIGENTE</option>
+              <option value="ENCERRADO">ENCERRADO</option>
+              <option value="RESCINDIDO">RESCINDIDO</option>
+            </select>
+          </div>
+        </div>
+        <div><label class="flbl">Link do Documento</label><input type="url" class="finp" id="fLink" placeholder="https://..."><div class="fhnt">URL completa para o documento no SEI ou portal.</div></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-g" data-bs-dismiss="modal"><i class="mi mi-sm">close</i> Cancelar</button>
+        <button class="btn-p" onclick="salvar()"><i class="mi mi-sm">save</i> Salvar Acordo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EXCLUIR -->
+<div class="modal fade" id="mDel" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content mc">
+      <div class="modal-header" style="background:var(--acc);">
+        <h5 class="modal-title"><i class="mi">warning</i> Confirmar exclusão</h5>
+        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" style="text-align:center;padding:22px 18px 10px;">
+        <i class="mi" style="font-size:44px;color:var(--red);display:block;margin-bottom:10px;">delete_forever</i>
+        <h6 style="font-size:14px;font-weight:700;margin-bottom:7px;">Excluir este acordo?</h6>
+        <p style="font-size:12px;color:var(--mut);">O registro será removido. Salve no GitHub para confirmar.</p>
+      </div>
+      <div class="modal-footer" style="justify-content:center;">
+        <button class="btn-g" data-bs-dismiss="modal">Cancelar</button>
+        <button id="btnDel" style="background:var(--red);color:#fff;border:none;height:36px;padding:0 18px;border-radius:var(--r);font-size:12.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-family:'Montserrat',sans-serif;">
+          <i class="mi mi-sm">delete</i> Excluir
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ================================================================
+// CONFIG & ESTADO
+// ================================================================
+const CSV_URL_DEF = 'https://raw.githubusercontent.com/transparencia-mg/portal_acordos_cooperacao_tecnica/main/dataset/data/acordos_cooperacao_tecnica.csv';
+const COLS = ['ano','numero_termo','numero_sei','orgao_acordo','parceiro_acordo','objeto','inicio_vigencia','fim_vigencia','situacao','link_documento'];
+const K_ORG='cad_org'; const K_PRE='cad_d_'; const K_CFG='cad_cfg'; const K_CSV='cad_csv';
+
+let orgAtivo=null, dados=[], filtrados=[], idxDel=null;
+let orgaosCSV=[], csvCarregado=false;
+// Rastreia quais registros foram alterados localmente
+// _origem: 'csv' | 'novo' | 'editado'
+
+// ================================================================
+// UTILS
+// ================================================================
+function toast(msg,ok=true){
+  document.querySelectorAll('.toast-t').forEach(t=>t.remove());
+  const el=document.createElement('div');el.className='toast-t';
+  el.style.borderLeft=`4px solid ${ok?'var(--grn)':'var(--red)'}`;
+  el.innerHTML=`<i class="mi" style="color:${ok?'var(--grn)':'var(--red)'};font-size:18px;">${ok?'check_circle':'error'}</i><span>${msg}</span>`;
+  document.body.appendChild(el);
+  setTimeout(()=>el.style.transform='translateX(0)',60);
+  setTimeout(()=>{el.style.transform='translateX(130%)';setTimeout(()=>el.remove(),300);},3500);
+}
+function fmtD(s){if(!s)return'—';try{return new Date(s+'T12:00:00').toLocaleDateString('pt-BR');}catch{return s;}}
+function bdg(sit){const u=(sit||'').toUpperCase();if(u==='VIGENTE')return`<span class="bdg bv">VIGENTE</span>`;if(u==='ENCERRADO')return`<span class="bdg be">ENCERRADO</span>`;if(u==='RESCINDIDO')return`<span class="bdg br">RESCINDIDO</span>`;return`<span class="bdg bn">${u||'N/A'}</span>`;}
+function slug(o){return(o||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]/g,'_').substring(0,60);}
+function setCfg(c){localStorage.setItem(K_CFG,JSON.stringify(c));}
+function getCfg(){try{return JSON.parse(localStorage.getItem(K_CFG)||'{}')}catch{return{};}}
+function getCsvUrl(){return localStorage.getItem(K_CSV)||CSV_URL_DEF;}
+
+// ================================================================
+// SYNC STATUS PILL
+// ================================================================
+function setSyncPill(estado,txt){
+  const p=document.getElementById('syncPill');
+  const t=document.getElementById('syncTxt');
+  p.className='sync-pill';
+  if(estado==='ok'){p.classList.add('sync-ok');p.querySelector('.mi').textContent='cloud_done';}
+  else if(estado==='local'){p.classList.add('sync-local');p.querySelector('.mi').textContent='save';}
+  else if(estado==='err'){p.classList.add('sync-err');p.querySelector('.mi').textContent='cloud_off';}
+  else{p.querySelector('.mi').textContent='cloud';}
+  t.textContent=txt;
+}
+
+// ================================================================
+// CARREGAR CSV OFICIAL → extrair órgãos + dados do órgão ativo
+// ================================================================
+async function carregarCSV(){
+  document.getElementById('lbar').classList.remove('hide');
+  setSyncPill('','Carregando CSV...');
+  const url=getCsvUrl();
+  return new Promise(res=>{
+    Papa.parse(url,{
+      download:true,header:true,delimiter:';',skipEmptyLines:true,
+      complete(r){
+        // Extrai órgãos únicos
+        orgaosCSV=[...new Set(r.data.map(row=>(row['orgao_acordo']||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+        csvCarregado=true;
+        // Se já tem órgão ativo, carrega os dados dele do CSV
+        if(orgAtivo){
+          const doCSV=r.data.filter(row=>(row['orgao_acordo']||'').trim()===orgAtivo).map(row=>({
+            ano:(row.ano||'').toString().replace(/,0$/,'').trim(),
+            numero_termo:(row.numero_termo||'').trim(),
+            numero_sei:(row.numero_sei||'').trim(),
+            orgao_acordo:orgAtivo,
+            parceiro_acordo:(row.parceiro_acordo||'').trim(),
+            objeto:(row.objeto||'').trim(),
+            inicio_vigencia:(row.inicio_vigencia||'').trim().split(' ')[0],
+            fim_vigencia:(row.fim_vigencia||'').trim().split(' ')[0],
+            situacao:(row.situacao||'').trim().toUpperCase(),
+            link_documento:(row.link_documento||'').trim(),
+            _origem:'csv'
+          }));
+          mergeDados(doCSV);
+        }
+        document.getElementById('lbar').classList.add('hide');
+        popularSelect();
+        res();
+      },
+      error(){
+        document.getElementById('lbar').classList.add('hide');
+        setSyncPill('err','Erro ao carregar CSV');
+        popularSelect();
+        res();
+      }
+    });
+  });
+}
+
+// Merge: CSV oficial é base, dados locais adicionam/sobrepõem por ano+numero_termo
+function mergeDados(doCSV){
+  const locais=getDadosLocal();
+  const mapa=new Map();
+  // 1. Insere todos do CSV
+  doCSV.forEach(r=>mapa.set(`${r.ano}|${r.numero_termo}`,r));
+  // 2. Dados locais sobrepõem (edições, novos)
+  locais.forEach(r=>mapa.set(`${r.ano}|${r.numero_termo}`,r));
+  dados=[...mapa.values()];
+}
+
+// ================================================================
+// PERSISTÊNCIA LOCAL (só dados que o órgão alterou/criou)
+// ================================================================
+function getDadosLocal(){try{return JSON.parse(localStorage.getItem(K_PRE+slug(orgAtivo))||'[]');}catch{return[];}}
+function setDadosLocal(){
+  // Salva só os registros que não vieram puros do CSV (novos + editados)
+  const alterados=dados.filter(d=>d._origem!=='csv');
+  try{localStorage.setItem(K_PRE+slug(orgAtivo),JSON.stringify(alterados));return true;}
+  catch(e){toast('Erro ao salvar local: '+e.message,false);return false;}
+}
+
+// ================================================================
+// TABS
+// ================================================================
+function goTab(n){
+  if(n===2&&!orgAtivo){toast('Selecione um órgão primeiro.',false);return;}
+  [1,2,3].forEach(i=>{
+    document.getElementById('p'+i).style.display=i===n?'':'none';
+    document.getElementById('tb'+i).classList.toggle('active',i===n);
+  });
+  if(n===2)renderTabela();
+  if(n===3)preencherCfg();
+}
+
+// ================================================================
+// IDENTIFICAÇÃO
+// ================================================================
+function popularSelect(){
+  const sel=document.getElementById('orgSel');
+  const prev=orgAtivo||sel.value;
+  sel.innerHTML='<option value="">Selecione seu órgão...</option>'+
+    orgaosCSV.map(o=>`<option value="${o}"${o===prev?' selected':''}>${o}</option>`).join('');
+}
+
+async function entrar(){
+  const sel=document.getElementById('orgSel');
+  if(!sel.value){toast('Selecione um órgão.',false);return;}
+  orgAtivo=sel.value;
+  localStorage.setItem(K_ORG,orgAtivo);
+  document.getElementById('orgNome').textContent=orgAtivo;
+  // Recarrega para filtrar dados do órgão
+  await carregarCSV();
+  // Carrega dados locais adicionais (novos e editados do navegador)
+  mergeDados(dados.filter(d=>d._origem==='csv'));
+  atualizarStatus();
+  goTab(2);
+}
+
+function trocar(){
+  if(!confirm('Deseja trocar de órgão? Seus alterações locais estão salvas.'))return;
+  orgAtivo=null;localStorage.removeItem(K_ORG);dados=[];
+  setSyncPill('','Aguardando');
+  goTab(1);
+}
+
+function atualizarStatus(){
+  const alterados=dados.filter(d=>d._origem!=='csv');
+  const el=document.getElementById('avisoStatus');
+  if(alterados.length){
+    el.style.display='';
+    el.innerHTML=`<div class="aviso av-yel"><i class="mi">info</i><div>Você tem <strong>${alterados.length} alteração(ões) local(is)</strong> (novos ou editados) ainda não salvas no GitHub. Clique em <strong>Salvar no GitHub</strong> para confirmar.</div></div>`;
+    setSyncPill('local',`${alterados.length} alteração(ões) local(is)`);
+  } else {
+    el.style.display='none';
+    setSyncPill('ok','Sincronizado');
+  }
+}
+
+// ================================================================
+// TABELA
+// ================================================================
+function renderStats(){
+  const d=dados;
+  document.getElementById('statsRow').innerHTML=`
+    <div class="stat"><div class="sv">${d.length}</div><div class="sl">Total</div></div>
+    <div class="stat"><div class="sv g">${d.filter(x=>x.situacao==='VIGENTE').length}</div><div class="sl">Vigentes</div></div>
+    <div class="stat"><div class="sv b">${d.filter(x=>x.situacao==='ENCERRADO').length}</div><div class="sl">Encerrados</div></div>
+    <div class="stat"><div class="sv r">${d.filter(x=>x.situacao==='RESCINDIDO').length}</div><div class="sl">Rescindidos</div></div>`;
+  document.getElementById('tblTitulo').textContent=`Acordos — ${orgAtivo}`;
+}
+
+function renderTabela(filtro=''){
+  renderStats();
+  const f=filtro.toLowerCase().trim();
+  filtrados=f?dados.filter(d=>COLS.some(c=>(d[c]||'').toString().toLowerCase().includes(f))):[...dados];
+  const tbody=document.getElementById('tbody');
+  const empty=document.getElementById('emptyDiv');
+  const novos=dados.filter(d=>d._origem==='novo').length;
+  const editados=dados.filter(d=>d._origem==='editado').length;
+  document.getElementById('cntBdg').textContent=`${filtrados.length} acordo${filtrados.length!==1?'s':''}`;
+  document.getElementById('tblFooter').textContent=dados.length?`Total: ${dados.length} registro(s) · ${novos} novo(s) · ${editados} editado(s)`:'' ;
+  if(!filtrados.length){tbody.innerHTML='';empty.style.display='';}
+  else{
+    empty.style.display='none';
+    tbody.innerHTML=filtrados.map(d=>{
+      const ri=dados.indexOf(d);
+      const isNovo=d._origem==='novo', isEdit=d._origem==='editado';
+      const cls=isNovo?'row-new':isEdit?'row-edit':'';
+      const tag=isNovo?'<span class="tag-novo">NOVO</span>':isEdit?'<span class="tag-edit">EDITADO</span>':'';
+      return`<tr class="${cls}">
+        <td>${d.ano||'—'}</td>
+        <td><strong>${d.numero_termo||'—'}</strong>${tag}</td>
+        <td style="font-size:11px;color:var(--mut);">${d.numero_sei||'—'}</td>
+        <td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${(d.parceiro_acordo||'').replace(/"/g,"'")}">${d.parceiro_acordo||'—'}</td>
+        <td style="max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${(d.objeto||'').replace(/"/g,"'")}">${d.objeto?d.objeto.substring(0,80)+(d.objeto.length>80?'…':''):'—'}</td>
+        <td style="white-space:nowrap;">${fmtD(d.inicio_vigencia)}</td>
+        <td style="white-space:nowrap;">${fmtD(d.fim_vigencia)}</td>
+        <td>${bdg(d.situacao)}</td>
+        <td>${d.link_documento?`<a href="${d.link_documento}" target="_blank" style="color:var(--blu);font-size:11px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:3px;"><i class="mi" style="font-size:12px;">open_in_new</i>Ver</a>`:'—'}</td>
+        <td><div class="tdact">
+          <button class="btn-edt" onclick="abrirEditar(${ri})"><i class="mi mi-sm">edit</i> Editar</button>
+          <button class="btn-del" onclick="confDel(${ri})"><i class="mi mi-sm">delete</i></button>
+        </div></td>
+      </tr>`;
+    }).join('');
+  }
+}
+
+function filtrar(v){renderTabela(v);}
+
+// ================================================================
+// FORMULÁRIO NOVO / EDITAR
+// ================================================================
+function limparForm(){
+  ['fIdx','fAno','fTermo','fSei','fParc','fObj','fIni','fFim','fLink'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fSit').value='VIGENTE';
+  document.getElementById('fOrg').value=orgAtivo||'';
+}
+function abrirNovo(){
+  limparForm();
+  document.getElementById('fAno').value=new Date().getFullYear();
+  document.getElementById('mTit').innerHTML='<i class="mi">add_circle</i> Novo Acordo';
+  new bootstrap.Modal(document.getElementById('mForm')).show();
+}
+function abrirEditar(idx){
+  const d=dados[idx];if(!d)return;
+  document.getElementById('fIdx').value=idx;
+  document.getElementById('mTit').innerHTML='<i class="mi">edit</i> Editar Acordo';
+  document.getElementById('fAno').value=d.ano||'';
+  document.getElementById('fTermo').value=d.numero_termo||'';
+  document.getElementById('fSei').value=d.numero_sei||'';
+  document.getElementById('fOrg').value=orgAtivo;
+  document.getElementById('fParc').value=d.parceiro_acordo||'';
+  document.getElementById('fObj').value=d.objeto||'';
+  document.getElementById('fIni').value=d.inicio_vigencia||'';
+  document.getElementById('fFim').value=d.fim_vigencia||'';
+  document.getElementById('fSit').value=d.situacao||'VIGENTE';
+  document.getElementById('fLink').value=d.link_documento||'';
+  new bootstrap.Modal(document.getElementById('mForm')).show();
+}
+function salvar(){
+  const ano=document.getElementById('fAno').value.trim();
+  const termo=document.getElementById('fTermo').value.trim();
+  const parc=document.getElementById('fParc').value.trim();
+  const obj=document.getElementById('fObj').value.trim();
+  const ini=document.getElementById('fIni').value;
+  const sit=document.getElementById('fSit').value;
+  if(!ano||!termo||!parc||!obj||!ini||!sit){toast('Preencha todos os campos obrigatórios (*)',false);return;}
+  const reg={
+    ano,numero_termo:termo,
+    numero_sei:document.getElementById('fSei').value.trim(),
+    orgao_acordo:orgAtivo,
+    parceiro_acordo:parc,objeto:obj,
+    inicio_vigencia:ini,
+    fim_vigencia:document.getElementById('fFim').value,
+    situacao:sit,
+    link_documento:document.getElementById('fLink').value.trim(),
+    _atualizado_em:new Date().toISOString()
+  };
+  const idxStr=document.getElementById('fIdx').value;
+  if(idxStr!==''){
+    reg._origem='editado';
+    dados[parseInt(idxStr)]=reg;
+    toast('Acordo atualizado!',true);
+  } else {
+    reg._origem='novo';
+    dados.push(reg);
+    toast('Acordo adicionado!',true);
+  }
+  setDadosLocal();
+  atualizarStatus();
+  bootstrap.Modal.getInstance(document.getElementById('mForm')).hide();
+  renderTabela(document.getElementById('srchInp').value);
+}
+
+// ================================================================
+// EXCLUSÃO
+// ================================================================
+function confDel(idx){idxDel=idx;new bootstrap.Modal(document.getElementById('mDel')).show();}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('btnDel').onclick=()=>{
+    if(idxDel===null)return;
+    dados.splice(idxDel,1);
+    setDadosLocal();
+    atualizarStatus();
+    bootstrap.Modal.getInstance(document.getElementById('mDel')).hide();
+    toast('Acordo excluído.',true);
+    renderTabela(document.getElementById('srchInp').value);
+    idxDel=null;
+  };
+});
+
+// ================================================================
+// IMPORTAR CSV — novos adicionados, existentes atualizados
+// ================================================================
+function importarCSV(input){
+  const file=input.files[0];if(!file)return;
+  Papa.parse(file,{
+    header:true,delimiter:';',skipEmptyLines:true,encoding:'utf-8',
+    complete(r){
+      if(!r.data.length){toast('Arquivo vazio ou formato inválido.',false);return;}
+      const novos=r.data.map(row=>({
+        ano:(row.ano||row.ANO||'').toString().trim(),
+        numero_termo:(row.numero_termo||row.NUMERO_TERMO||'').trim(),
+        numero_sei:(row.numero_sei||row.NUMERO_SEI||'').trim(),
+        orgao_acordo:orgAtivo,
+        parceiro_acordo:(row.parceiro_acordo||row.PARCEIRO_ACORDO||'').trim(),
+        objeto:(row.objeto||row.OBJETO||'').trim(),
+        inicio_vigencia:(row.inicio_vigencia||row.INICIO_VIGENCIA||'').trim().split(' ')[0],
+        fim_vigencia:(row.fim_vigencia||row.FIM_VIGENCIA||'').trim().split(' ')[0],
+        situacao:(row.situacao||row.SITUACAO||'VIGENTE').trim().toUpperCase(),
+        link_documento:(row.link_documento||row.LINK_DOCUMENTO||'').trim(),
+        _origem:'editado',
+        _atualizado_em:new Date().toISOString()
+      })).filter(x=>x.numero_termo);
+      if(!novos.length){toast('Nenhum registro válido encontrado.',false);return;}
+      // Merge: sobrepõe por chave ano+numero_termo
+      const mapa=new Map(dados.map(d=>[`${d.ano}|${d.numero_termo}`,d]));
+      let adicionados=0,atualizados=0;
+      novos.forEach(n=>{
+        const chave=`${n.ano}|${n.numero_termo}`;
+        if(mapa.has(chave))atualizados++; else adicionados++;
+        mapa.set(chave,n);
+      });
+      dados=[...mapa.values()];
+      setDadosLocal();
+      atualizarStatus();
+      renderTabela();
+      toast(`Importado: ${adicionados} novo(s), ${atualizados} atualizado(s).`,true);
+      input.value='';
+    },
+    error(){toast('Erro ao ler o arquivo CSV.',false);}
+  });
+}
+function dov(e){e.preventDefault();document.getElementById('upzone').classList.add('drag');}
+function dlv(){document.getElementById('upzone').classList.remove('drag');}
+function ddr(e){e.preventDefault();dlv();const f=e.dataTransfer.files[0];if(f)importarCSV({files:[f],value:''});}
+
+// ================================================================
+// EXPORTAR
+// ================================================================
+function expCSV(){
+  if(!dados.length){toast('Nenhum dado para exportar.',false);return;}
+  const csv=[COLS.join(';'),...dados.map(r=>COLS.map(c=>`"${(r[c]||'').toString().replace(/"/g,'""')}"`).join(';'))].join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=`acordos_${slug(orgAtivo)}_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();URL.revokeObjectURL(a.href);
+  toast('CSV exportado!',true);
+}
+function expJSON(){
+  if(!dados.length){toast('Nenhum dado para exportar.',false);return;}
+  const blob=new Blob([JSON.stringify(dados,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=`acordos_${slug(orgAtivo)}_${new Date().toISOString().split('T')[0]}.json`;
+  a.click();URL.revokeObjectURL(a.href);
+  toast('JSON exportado!',true);
+}
+
+// ================================================================
+// GITHUB — salva arquivo separado por órgão
+// ================================================================
+async function salvarGitHub(){
+  const cfg=getCfg();
+  if(!cfg.token||!cfg.repo){toast('Configure o repositório e token na aba Configuração.',false);goTab(3);return;}
+  if(!dados.length){toast('Nenhum dado para salvar.',false);return;}
+  setSyncPill('','Salvando no GitHub...');
+  // Salva o estado COMPLETO do órgão — assim exclusões também são refletidas.
+  const payload=dados.map(d=>{const r={};COLS.forEach(c=>r[c]=d[c]||'');return r;});
+  const meta={orgao:orgAtivo,total:payload.length,atualizado_em:new Date().toISOString(),registros:payload};
+  const path=(cfg.path||'cadastros/')+slug(orgAtivo)+'.json';
+  // Usa meta com estado completo para que exclusões sejam refletidas
+  const content=btoa(unescape(encodeURIComponent(JSON.stringify(meta,null,2))));
+  const url=`https://api.github.com/repos/${cfg.repo}/contents/${path}`;
+  const headers={'Authorization':`token ${cfg.token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
+  try{
+    let sha=null;
+    const check=await fetch(url,{headers});
+    if(check.ok){const ex=await check.json();sha=ex.sha;}
+    const body={
+      message:`Cadastro: ${orgAtivo} — ${new Date().toLocaleDateString('pt-BR')} (${payload.length} registros)`,
+      content,branch:cfg.branch||'main'
+    };
+    if(sha)body.sha=sha;
+    const res=await fetch(url,{method:'PUT',headers,body:JSON.stringify(body)});
+    if(res.ok){
+      toast(`Salvo no GitHub! ${payload.length} registro(s) gravados.`,true);
+      setSyncPill('ok','GitHub sincronizado');
+      // Estado completo no GitHub — limpa cache local para evitar conflito
+      dados=dados.map(d=>({...d,_origem:'csv'}));
+      localStorage.removeItem(K_PRE+slug(orgAtivo));
+      atualizarStatus();
+      renderTabela(document.getElementById('srchInp').value);
+    } else {
+      const err=await res.json();
+      toast('Erro GitHub: '+(err.message||res.status),false);
+      setSyncPill('err','Erro no GitHub');
+    }
+  }catch(e){toast('Erro de conexão: '+e.message,false);setSyncPill('err','Sem conexão');}
+}
+
+// ================================================================
+// CONFIGURAÇÃO
+// ================================================================
+function preencherCfg(){
+  const cfg=getCfg();
+  document.getElementById('cfgRepo').value=cfg.repo||'transparencia-mg/portal_acordos_cooperacao_tecnica';
+  document.getElementById('cfgBranch').value=cfg.branch||'main';
+  document.getElementById('cfgPath').value=cfg.path||'cadastros/';
+  document.getElementById('cfgToken').value=cfg.token||'';
+  document.getElementById('cfgCsvUrl').value=getCsvUrl();
+}
+function salvarCfg(){
+  const cfg={
+    repo:document.getElementById('cfgRepo').value.trim(),
+    branch:document.getElementById('cfgBranch').value.trim()||'main',
+    path:document.getElementById('cfgPath').value.trim()||'cadastros/',
+    token:document.getElementById('cfgToken').value.trim()
+  };
+  if(!cfg.repo){toast('Informe o repositório.',false);return;}
+  setCfg(cfg);toast('Configuração salva!',true);
+}
+async function testar(){
+  const cfg={repo:document.getElementById('cfgRepo').value.trim(),token:document.getElementById('cfgToken').value.trim()};
+  const el=document.getElementById('testRes');
+  el.innerHTML=`<span class="gh-stat ghs-pend"><i class="mi mi-sm">hourglass_empty</i> Testando...</span>`;
+  try{
+    const r=await fetch(`https://api.github.com/repos/${cfg.repo}`,{headers:{'Authorization':`token ${cfg.token}`,'Accept':'application/vnd.github.v3+json'}});
+    if(r.ok){const d=await r.json();el.innerHTML=`<span class="gh-stat ghs-ok"><i class="mi mi-sm">check_circle</i> ${d.full_name}</span>`;toast('Conexão OK!',true);}
+    else{el.innerHTML=`<span class="gh-stat ghs-fail"><i class="mi mi-sm">error</i> Erro ${r.status}</span>`;toast('Falha. Verifique token e repositório.',false);}
+  }catch(e){el.innerHTML=`<span class="gh-stat ghs-fail"><i class="mi mi-sm">wifi_off</i> Sem conexão</span>`;}
+}
+function salvarCsvUrl(){
+  const url=document.getElementById('cfgCsvUrl').value.trim();
+  if(!url){toast('URL inválida.',false);return;}
+  localStorage.setItem(K_CSV,url);
+  toast('URL salva! Recarregando...',true);
+  carregarCSV();
+}
+async function recarregar(){toast('Recarregando...',true);await carregarCSV();toast(`${orgaosCSV.length} órgão(s) carregado(s).`,true);}
+
+// ================================================================
+// INIT
+// ================================================================
+document.addEventListener('DOMContentLoaded',async()=>{
+  preencherCfg();
+  const saved=localStorage.getItem(K_ORG);
+  if(saved){
+    orgAtivo=saved;
+    document.getElementById('orgNome').textContent=orgAtivo;
+  }
+  await carregarCSV();
+  if(orgAtivo){
+    atualizarStatus();
+    goTab(2);
+  }
+});
+</script>
+</body>
+</html>
