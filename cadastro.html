@@ -244,6 +244,31 @@ tbody tr.row-new td:first-child{padding-left:9px;}
           <span style="background:var(--bg);border:1px solid var(--bdr);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--mut);display:inline-flex;align-items:center;gap:5px;"><i class="mi" style="font-size:13px;color:var(--acc);">sync</i> Órgãos carregados do CSV oficial</span>
           <span style="background:var(--bg);border:1px solid var(--bdr);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600;color:var(--mut);display:inline-flex;align-items:center;gap:5px;"><i class="mi" style="font-size:13px;color:var(--acc);">cloud_done</i> Salvo no GitHub por órgão</span>
         </div>
+
+        <!-- ÓRGÃO NÃO LISTADO -->
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--bdr);">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;cursor:pointer;" onclick="toggleOrgaoManual()">
+            <i class="mi" style="font-size:15px;color:var(--acc);">add_circle_outline</i>
+            <span style="font-size:12px;font-weight:700;color:var(--pri);">Meu órgão não está na lista</span>
+            <i class="mi" style="font-size:14px;color:var(--mut);margin-left:auto;" id="toggleIcon">expand_more</i>
+          </div>
+          <div id="orgaoManualWrap" style="display:none;">
+            <div class="aviso av-blu" style="margin-bottom:12px;">
+              <i class="mi">info</i>
+              <span>Digite o nome completo do órgão exatamente como deve aparecer nos registros. Ele será salvo para uso futuro neste navegador.</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;">
+              <div>
+                <label class="flbl">Nome do órgão</label>
+                <input type="text" class="finp" id="novoOrgaoInp" placeholder="Ex: SECRETARIA DE ESTADO DA EDUCAÇÃO (SEE)"
+                  onkeydown="if(event.key==='Enter')adicionarOrgaoManual()">
+              </div>
+              <button class="btn-p" style="height:40px;" onclick="adicionarOrgaoManual()">
+                <i class="mi mi-sm">add</i> Adicionar e Acessar
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -381,8 +406,13 @@ tbody tr.row-new td:first-child{padding-left:9px;}
           <i class="mi">list</i> URL do CSV oficial
         </h3>
         <div class="fgrp">
-          <input type="text" class="finp" id="cfgCsvUrl">
-          <div class="fhnt">Fonte dos acordos existentes e da lista de órgãos. Se não houver URL disponível, faça o upload dos dados na <a href="https://nuvem.cge.mg.gov.br/index.php/s/NqMSDeM5bgjfQSD" target="_blank" style="color:var(--pri);font-weight:700;">Nuvem CGE</a> e cole o link direto do arquivo aqui.</div>
+          <div style="display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin-bottom:6px;">
+            <input type="text" class="finp" id="cfgCsvUrl" style="margin:0;">
+            <a href="https://nuvem.cge.mg.gov.br/index.php/s/NqMSDeM5bgjfQSD" target="_blank" class="btn-g" style="height:40px;text-decoration:none;white-space:nowrap;">
+              <i class="mi mi-sm">cloud_upload</i> Upload Nuvem CGE
+            </a>
+          </div>
+          <div class="fhnt">Fonte dos acordos existentes e da lista de órgãos. Se não houver URL, faça o upload do arquivo na Nuvem CGE e cole aqui o link direto de download.</div>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
           <button class="btn-p" onclick="salvarCsvUrl()"><i class="mi mi-sm">save</i> Salvar URL</button>
@@ -422,7 +452,17 @@ tbody tr.row-new td:first-child{padding-left:9px;}
         <div class="fgrp"><label class="flbl">Objeto <span class="req">*</span></label><textarea class="finp" id="fObj" rows="3" placeholder="Descrição do objeto do acordo..."></textarea></div>
         <div class="fg3" style="margin-bottom:13px;">
           <div><label class="flbl">Início da Vigência <span class="req">*</span></label><input type="date" class="finp" id="fIni"></div>
-          <div><label class="flbl">Fim da Vigência</label><input type="date" class="finp" id="fFim"></div>
+          <div>
+            <label class="flbl">Fim da Vigência</label>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <input type="date" class="finp" id="fFim" style="margin:0;">
+              <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:11.5px;font-weight:600;color:var(--mut);user-select:none;">
+                <input type="checkbox" id="fFimIndet" onchange="toggleIndeterminado(this)"
+                  style="width:15px;height:15px;cursor:pointer;accent-color:var(--mid);">
+                Vigência indeterminada
+              </label>
+            </div>
+          </div>
           <div><label class="flbl">Situação <span class="req">*</span></label>
             <select class="finp" id="fSit">
               <option value="">Selecione...</option>
@@ -490,7 +530,11 @@ function toast(msg,ok=true){
   setTimeout(()=>el.style.transform='translateX(0)',60);
   setTimeout(()=>{el.style.transform='translateX(130%)';setTimeout(()=>el.remove(),300);},3500);
 }
-function fmtD(s){if(!s)return'—';try{return new Date(s+'T12:00:00').toLocaleDateString('pt-BR');}catch{return s;}}
+function fmtD(s){
+  if(!s)return'—';
+  if(s==='INDETERMINADO')return'<span style="font-size:10.5px;font-weight:700;color:var(--mut);background:#f0f3f8;padding:2px 8px;border-radius:10px;">INDET.</span>';
+  try{return new Date(s+'T12:00:00').toLocaleDateString('pt-BR');}catch{return s;}
+}
 function bdg(sit){const u=(sit||'').toUpperCase();if(u==='VIGENTE')return`<span class="bdg bv">VIGENTE</span>`;if(u==='ENCERRADO')return`<span class="bdg be">ENCERRADO</span>`;if(u==='RESCINDIDO')return`<span class="bdg br">RESCINDIDO</span>`;return`<span class="bdg bn">${u||'N/A'}</span>`;}
 function slug(o){return(o||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]/g,'_').substring(0,60);}
 function setCfg(c){localStorage.setItem(K_CFG,JSON.stringify(c));}
@@ -593,11 +637,48 @@ function goTab(n){
 function popularSelect(){
   const sel=document.getElementById('orgSel');
   const prev=orgAtivo||sel.value;
+  // Inclui órgãos adicionados manualmente
+  const extras=JSON.parse(localStorage.getItem('cad_orgaos_extras')||'[]');
+  const todos=[...new Set([...orgaosCSV,...extras])].sort((a,b)=>a.localeCompare(b,'pt-BR'));
   sel.innerHTML='<option value="">Selecione seu órgão...</option>'+
-    orgaosCSV.map(o=>`<option value="${o}"${o===prev?' selected':''}>${o}</option>`).join('');
+    todos.map(o=>`<option value="${o}"${o===prev?' selected':''}>${o}</option>`).join('');
 }
 
-async function entrar(){
+async function toggleOrgaoManual(){
+  const wrap=document.getElementById('orgaoManualWrap');
+  const icon=document.getElementById('toggleIcon');
+  const aberto=wrap.style.display==='block';
+  wrap.style.display=aberto?'none':'block';
+  icon.textContent=aberto?'expand_more':'expand_less';
+  if(!aberto)setTimeout(()=>document.getElementById('novoOrgaoInp').focus(),100);
+}
+
+function adicionarOrgaoManual(){
+  const inp=document.getElementById('novoOrgaoInp');
+  const nome=inp.value.trim();
+  if(!nome){toast('Digite o nome do órgão.',false);return;}
+  // Salva no localStorage para persistir
+  const K_EXTRAS='cad_orgaos_extras';
+  const extras=JSON.parse(localStorage.getItem(K_EXTRAS)||'[]');
+  if(!extras.includes(nome)){
+    extras.push(nome);
+    localStorage.setItem(K_EXTRAS,JSON.stringify(extras));
+    // Adiciona à lista de órgãos em memória
+    if(!orgaosCSV.includes(nome)){
+      orgaosCSV.push(nome);
+      orgaosCSV.sort((a,b)=>a.localeCompare(b,'pt-BR'));
+    }
+    popularSelect();
+  }
+  // Seleciona e acessa diretamente
+  document.getElementById('orgSel').value=nome;
+  inp.value='';
+  document.getElementById('orgaoManualWrap').style.display='none';
+  document.getElementById('toggleIcon').textContent='expand_more';
+  entrar();
+}
+
+function entrar(){
   const sel=document.getElementById('orgSel');
   if(!sel.value){toast('Selecione um órgão.',false);return;}
   orgAtivo=sel.value;
@@ -690,6 +771,21 @@ function limparForm(){
   ['fIdx','fAno','fTermo','fSei','fParc','fObj','fIni','fFim','fLink'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('fSit').value='VIGENTE';
   document.getElementById('fOrg').value=orgAtivo||'';
+  document.getElementById('fFimIndet').checked=false;
+  document.getElementById('fFim').disabled=false;
+  document.getElementById('fFim').style.opacity='1';
+}
+
+function toggleIndeterminado(cb){
+  const campo=document.getElementById('fFim');
+  if(cb.checked){
+    campo.value='';
+    campo.disabled=true;
+    campo.style.opacity='.4';
+  } else {
+    campo.disabled=false;
+    campo.style.opacity='1';
+  }
 }
 function abrirNovo(){
   limparForm();
@@ -708,7 +804,11 @@ function abrirEditar(idx){
   document.getElementById('fParc').value=d.parceiro_acordo||'';
   document.getElementById('fObj').value=d.objeto||'';
   document.getElementById('fIni').value=d.inicio_vigencia||'';
-  document.getElementById('fFim').value=d.fim_vigencia||'';
+  const isIndet=d.fim_vigencia==='INDETERMINADO';
+  document.getElementById('fFimIndet').checked=isIndet;
+  document.getElementById('fFim').value=isIndet?'':d.fim_vigencia||'';
+  document.getElementById('fFim').disabled=isIndet;
+  document.getElementById('fFim').style.opacity=isIndet?'.4':'1';
   document.getElementById('fSit').value=d.situacao||'VIGENTE';
   document.getElementById('fLink').value=d.link_documento||'';
   new bootstrap.Modal(document.getElementById('mForm')).show();
@@ -727,7 +827,7 @@ function salvar(){
     orgao_acordo:orgAtivo,
     parceiro_acordo:parc,objeto:obj,
     inicio_vigencia:ini,
-    fim_vigencia:document.getElementById('fFim').value,
+    fim_vigencia:document.getElementById('fFimIndet').checked?'INDETERMINADO':document.getElementById('fFim').value,
     situacao:sit,
     link_documento:document.getElementById('fLink').value.trim(),
     _atualizado_em:new Date().toISOString()
