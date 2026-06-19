@@ -289,7 +289,7 @@ tbody tr.row-new td:first-child{padding-left:9px;}
       <div class="act-card ac-r">
         <div class="act-ico"><i class="mi mi-lg">cloud_sync</i></div>
         <h4>Salvar no GitHub</h4>
-        <p>Grava o arquivo <code style="font-size:10.5px;background:#f0f3f8;padding:1px 5px;border-radius:4px;">cadastros/ORGAO.json</code> no repositório. Requer token configurado.</p>
+        <p>Grava o arquivo <code style="font-size:10.5px;background:#f0f3f8;padding:1px 5px;border-radius:4px;">cadastros/ORGAO.csv</code> no repositório. Requer token configurado.</p>
         <div class="act-btns">
           <button class="btn-g sm" onclick="salvarGitHub()"><i class="mi mi-sm">cloud_upload</i> Salvar no GitHub</button>
         </div>
@@ -360,7 +360,7 @@ tbody tr.row-new td:first-child{padding-left:9px;}
         <div class="fgrp">
           <label class="flbl">Pasta de destino</label>
           <input type="text" class="finp" id="cfgPath" placeholder="cadastros/">
-          <div class="fhnt">Cada órgão terá um arquivo separado. Ex: <code>cadastros/SEAPA.json</code></div>
+          <div class="fhnt">Cada órgão terá um arquivo separado. Ex: <code>cadastros/SEAPA.csv</code></div>
         </div>
         <div class="fgrp">
           <label class="flbl">Personal Access Token (GitHub)</label>
@@ -841,9 +841,10 @@ async function salvarGitHub(){
   // Salva o estado COMPLETO do órgão — assim exclusões também são refletidas.
   const payload=dados.map(d=>{const r={};COLS.forEach(c=>r[c]=d[c]||'');return r;});
   const meta={orgao:orgAtivo,total:payload.length,atualizado_em:new Date().toISOString(),registros:payload};
-  const path=(cfg.path||'cadastros/')+slug(orgAtivo)+'.json';
-  // Usa meta com estado completo para que exclusões sejam refletidas
-  const content=btoa(unescape(encodeURIComponent(JSON.stringify(meta,null,2))));
+  const path=(cfg.path||'cadastros/')+slug(orgAtivo)+'.csv';
+  // Gera CSV completo do órgão (mais fácil para a CGE consolidar)
+  const csvLinhas=[COLS.join(';'),...payload.map(r=>COLS.map(c=>`"${(r[c]||'').toString().replace(/"/g,'""')}"`).join(';'))].join('\n');
+  const content=btoa(unescape(encodeURIComponent('\uFEFF'+csvLinhas)));
   const url=`https://api.github.com/repos/${cfg.repo}/contents/${path}`;
   const headers={'Authorization':`token ${cfg.token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
   try{
