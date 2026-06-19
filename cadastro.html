@@ -228,6 +228,7 @@ tbody tr.row-new td:first-child{padding-left:9px;}
     <div class="panel">
       <div class="ph"><i class="mi">account_balance</i><h2>Selecione seu órgão</h2></div>
       <div id="lbar" class="lbar"></div>
+
       <div class="pb">
         <p style="color:var(--mut);font-size:12.5px;margin-bottom:16px;line-height:1.6;">
           Selecione seu órgão para visualizar todos os seus acordos existentes e gerenciar inclusões, edições e exclusões.
@@ -406,13 +407,8 @@ tbody tr.row-new td:first-child{padding-left:9px;}
           <i class="mi">list</i> URL do CSV oficial
         </h3>
         <div class="fgrp">
-          <div style="display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin-bottom:6px;">
-            <input type="text" class="finp" id="cfgCsvUrl" style="margin:0;">
-            <a href="https://nuvem.cge.mg.gov.br/index.php/s/NqMSDeM5bgjfQSD" target="_blank" class="btn-g" style="height:40px;text-decoration:none;white-space:nowrap;">
-              <i class="mi mi-sm">cloud_upload</i> Upload Nuvem CGE
-            </a>
-          </div>
-          <div class="fhnt">Fonte dos acordos existentes e da lista de órgãos. Se não houver URL, faça o upload do arquivo na Nuvem CGE e cole aqui o link direto de download.</div>
+          <input type="text" class="finp" id="cfgCsvUrl">
+          <div class="fhnt">URL do CSV oficial com os acordos existentes e a lista de órgãos.</div>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
           <button class="btn-p" onclick="salvarCsvUrl()"><i class="mi mi-sm">save</i> Salvar URL</button>
@@ -472,7 +468,28 @@ tbody tr.row-new td:first-child{padding-left:9px;}
             </select>
           </div>
         </div>
-        <div><label class="flbl">Link do Documento</label><input type="url" class="finp" id="fLink" placeholder="https://..."><div class="fhnt">URL completa para o documento no SEI ou portal.</div></div>
+        <div>
+          <label class="flbl">Link do Documento</label>
+          <input type="url" class="finp" id="fLink" placeholder="https://...">
+          <div style="margin-top:8px;display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;">
+            <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:11.5px;font-weight:600;color:var(--mut);user-select:none;">
+              <input type="checkbox" id="usarNuvem" onchange="toggleNuvem(this)"
+                style="width:15px;height:15px;cursor:pointer;accent-color:var(--mid);">
+              Não tenho link — quero fazer upload na Nuvem CGE
+            </label>
+          </div>
+          <div id="nuvemInfo" style="display:none;margin-top:10px;background:#e3f0fb;border:1.5px solid #bfdbfe;border-radius:var(--r);padding:12px 14px;">
+            <p style="font-size:12px;color:#1e40af;font-weight:600;margin-bottom:8px;">
+              <i class="mi" style="font-size:15px;vertical-align:middle;">cloud_upload</i>
+              Faça o upload do documento na Nuvem CGE, copie o link gerado e cole no campo acima.
+            </p>
+            <a href="https://nuvem.cge.mg.gov.br/index.php/s/NqMSDeM5bgjfQSD" target="_blank"
+              class="btn-p" style="text-decoration:none;display:inline-flex;">
+              <i class="mi mi-sm">open_in_new</i> Abrir Nuvem CGE para upload
+            </a>
+          </div>
+          <div class="fhnt" style="margin-top:6px;">URL do documento no SEI, portal do órgão ou Nuvem CGE.</div>
+        </div>
       </div>
       <div class="modal-footer">
         <button class="btn-g" data-bs-dismiss="modal"><i class="mi mi-sm">close</i> Cancelar</button>
@@ -558,42 +575,70 @@ function setSyncPill(estado,txt){
 // ================================================================
 // CARREGAR CSV OFICIAL → extrair órgãos + dados do órgão ativo
 // ================================================================
+function processarDadosCSV(r){
+  orgaosCSV=[...new Set(r.data.map(row=>(row['orgao_acordo']||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+  csvCarregado=true;
+  if(orgAtivo){
+    const doCSV=r.data.filter(row=>(row['orgao_acordo']||'').trim()===orgAtivo).map(row=>({
+      ano:(row.ano||'').toString().replace(/,0$/,'').trim(),
+      numero_termo:(row.numero_termo||'').trim(),
+      numero_sei:(row.numero_sei||'').trim(),
+      orgao_acordo:orgAtivo,
+      parceiro_acordo:(row.parceiro_acordo||'').trim(),
+      objeto:(row.objeto||'').trim(),
+      inicio_vigencia:(row.inicio_vigencia||'').trim().split(' ')[0],
+      fim_vigencia:(row.fim_vigencia||'').trim().split(' ')[0],
+      situacao:(row.situacao||'').trim().toUpperCase(),
+      link_documento:(row.link_documento||'').trim(),
+      _origem:'csv'
+    }));
+    mergeDados(doCSV);
+  }
+  document.getElementById('lbar').classList.add('hide');
+  popularSelect();
+}
+
 async function carregarCSV(){
   document.getElementById('lbar').classList.remove('hide');
   setSyncPill('','Carregando CSV...');
   const url=getCsvUrl();
-  try{
-    // Fetch manual garante download completo antes de parsear
-    const resp=await fetch(url);
-    if(!resp.ok)throw new Error('HTTP '+resp.status);
-    const text=await resp.text();
-    const r=Papa.parse(text,{header:true,delimiter:';',skipEmptyLines:true});
-    // Extrai órgãos únicos
-    orgaosCSV=[...new Set(r.data.map(row=>(row['orgao_acordo']||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
-    csvCarregado=true;
-    // Se já tem órgão ativo, carrega os dados dele do CSV
-    if(orgAtivo){
-      const doCSV=r.data.filter(row=>(row['orgao_acordo']||'').trim()===orgAtivo).map(row=>({
-        ano:(row.ano||'').toString().replace(/,0$/,'').trim(),
-        numero_termo:(row.numero_termo||'').trim(),
-        numero_sei:(row.numero_sei||'').trim(),
-        orgao_acordo:orgAtivo,
-        parceiro_acordo:(row.parceiro_acordo||'').trim(),
-        objeto:(row.objeto||'').trim(),
-        inicio_vigencia:(row.inicio_vigencia||'').trim().split(' ')[0],
-        fim_vigencia:(row.fim_vigencia||'').trim().split(' ')[0],
-        situacao:(row.situacao||'').trim().toUpperCase(),
-        link_documento:(row.link_documento||'').trim(),
-        _origem:'csv'
-      }));
-      mergeDados(doCSV);
-    }
-  }catch(e){
-    console.warn('Erro ao carregar CSV:',e);
-    setSyncPill('err','Erro ao carregar CSV');
-  }
-  document.getElementById('lbar').classList.add('hide');
-  popularSelect();
+  // Usa PapaParse com download:true — contorna CORS corretamente
+  // chunkSize garante que arquivos grandes sejam lidos por completo
+  return new Promise(res=>{
+    let todasLinhas=[];
+    let cabecalho=null;
+    Papa.parse(url,{
+      download:true,
+      header:true,
+      delimiter:';',
+      skipEmptyLines:true,
+      skipFirstNLines:0,
+      transformHeader(h){
+        // Remove BOM e espaços do nome das colunas
+        return h.replace(/^﻿/,'').trim();
+      },
+      chunk(results){
+        todasLinhas=todasLinhas.concat(results.data);
+      },
+      complete(){
+        processarDadosCSV({data:todasLinhas});
+        res();
+      },
+      error(e){
+        console.warn('Erro PapaParse:',e);
+        setSyncPill('err','Erro ao carregar CSV');
+        document.getElementById('lbar').classList.add('hide');
+        popularSelect();
+        res();
+      }
+    });
+  });
+}
+
+function resetarCSV(){
+  localStorage.removeItem(K_CSV);
+  toast('URL redefinida. Recarregando...',true);
+  carregarCSV();
 }
 
 // Merge: CSV oficial é base, dados locais adicionam/sobrepõem por ano+numero_sei
@@ -767,6 +812,19 @@ function filtrar(v){renderTabela(v);}
 // ================================================================
 // FORMULÁRIO NOVO / EDITAR
 // ================================================================
+function toggleNuvem(cb){
+  const campo=document.getElementById('fLink');
+  const info=document.getElementById('nuvemInfo');
+  if(cb.checked){
+    info.style.display='block';
+    campo.placeholder='Cole aqui o link após fazer o upload na Nuvem CGE...';
+    campo.focus();
+  } else {
+    info.style.display='none';
+    campo.placeholder='https://...';
+  }
+}
+
 function limparForm(){
   ['fIdx','fAno','fTermo','fSei','fParc','fObj','fIni','fFim','fLink'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('fSit').value='VIGENTE';
@@ -774,6 +832,9 @@ function limparForm(){
   document.getElementById('fFimIndet').checked=false;
   document.getElementById('fFim').disabled=false;
   document.getElementById('fFim').style.opacity='1';
+  document.getElementById('usarNuvem').checked=false;
+  document.getElementById('nuvemInfo').style.display='none';
+  document.getElementById('fLink').placeholder='https://...';
 }
 
 function toggleIndeterminado(cb){
