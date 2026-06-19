@@ -1,0 +1,55 @@
+{
+  "orgao": "ADVOCACIA GERAL DO ESTADO",
+  "total": 4,
+  "atualizado_em": "2026-06-19T17:46:42.015Z",
+  "registros": [
+    {
+      "ano": "2025",
+      "numero_termo": "89",
+      "numero_sei": "5140.01.0002999/2025-89",
+      "orgao_acordo": "ADVOCACIA GERAL DO ESTADO",
+      "parceiro_acordo": "COMPANHIA DE TECNOLOGIA DA INFORMAÇÃO DO ESTADO DE MINAS GERAIS - PRODEMGE",
+      "objeto": "Celebrar o Acordo entre os Partícipes, para execução do projeto de Pesquisa, Desenvolvimento e Inovação (PD&I) para pesquisa de dados no sistema ARGOS – Cisão de Empresas, através do desenvolvimento de um protótipo funcional de um Agente Analítico de Inteligência Artificial Generativa na identificação de cisões fraudulentas, a ser desenvolvido em conjunto com uma Instituição Acadêmica Parceira.",
+      "inicio_vigencia": "2025-09-10",
+      "fim_vigencia": "2026-09-10",
+      "situacao": "VIGENTE",
+      "link_documento": "https://advocaciageral.mg.gov.br/wp-content/uploads/2025/09/ACT-AGE-PRODEMGE.pdf"
+    },
+    {
+      "ano": "2025",
+      "numero_termo": "1",
+      "numero_sei": "1080.01.0114577/2024-64",
+      "orgao_acordo": "ADVOCACIA GERAL DO ESTADO",
+      "parceiro_acordo": "ORDEM DOS ADVOGADOS DO BRASIL - SEÇÃO DE MINAS GERAIS - OAB-MG",
+      "objeto": "O presente TERMO DE CESSÃO DE USO tem por objeto a cessão, à CESSIONÁRIA, dos bens móveis, de propriedade da CEDENTE alocados/instalados na sede do Escritório Seccional da Advocacia-Geral do Estado em Muriaé, situada na Rua Presidente Artur Bernardes, nº 168, Salas 801 e 802, Centro, Muriaé/MG, CEP: 36.880-005, relacionados no Relatório Fotográfico que faz parte integrante deste instrumento como seu Anexo.",
+      "inicio_vigencia": "2025-01-22",
+      "fim_vigencia": "2030-01-22",
+      "situacao": "VIGENTE",
+      "link_documento": "https://advocaciageral.mg.gov.br/wp-content/uploads/2025/01/TCUBM-OAB-MG-E-AGE.pdf"
+    },
+    {
+      "ano": "2024",
+      "numero_termo": "S/N",
+      "numero_sei": "1080.01.0039945/2024-50",
+      "orgao_acordo": "ADVOCACIA GERAL DO ESTADO",
+      "parceiro_acordo": "FUNDACAO HOSPITALAR DO ESTADO DE MINAS GERAIS",
+      "objeto": "O presente Termo de Cooperação Técnica tem por objeto o estabelecimento de mútua cooperação e intercâmbio entre os signatários para o atendimento aos seus interesses operacionais ou estratégicos, visando a permitir, no âmbito da Administração Pública Estadual, o estabelecimento dos critérios de compartilhamento das atividades jurídicas entre os órgãos, notadamente a representação judicial dos processos oriundos da FHEMIG, em que tal entidade for interessada, como autora, ré, assistente, litisconsorte ou opoente, em qualquer instância, juízo ou tribunal.",
+      "inicio_vigencia": "2023-11-24",
+      "fim_vigencia": "2028-11-23",
+      "situacao": "VIGENTE",
+      "link_documento": "https://advocaciageral.mg.gov.br/wp-content/uploads/2024/07/TCTO-FHEMIG.pdf"
+    },
+    {
+      "ano": "2024",
+      "numero_termo": "1",
+      "numero_sei": "1080.01.0010737/2019-71",
+      "orgao_acordo": "ADVOCACIA GERAL DO ESTADO",
+      "parceiro_acordo": "INSTITUTO MINEIRO DE AGROPECUARIA",
+      "objeto": "O compartilhamento pelo IMA dos registros de propriedades rurais, produtores e estabelecimentos agroindustriais do estado, bem como informações sobre o trânsito e estoque de vegetais, semoventes e materiais genéticos correlatos.",
+      "inicio_vigencia": "2024-07-16",
+      "fim_vigencia": "2029-07-15",
+      "situacao": "VIGENTE",
+      "link_documento": "https://advocaciageral.mg.gov.br/wp-content/uploads/2024/07/ACT-IMA.pdf"
+    }
+  ]
+}
