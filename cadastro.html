@@ -193,9 +193,12 @@ tbody tr.row-new td:first-child{padding-left:9px;}
 /* FOOTER */
 .ft{text-align:center;padding:20px;color:var(--mut);font-size:11px;border-top:1px solid var(--bdr);}
 .ft a{color:var(--pri);text-decoration:none;font-weight:600;}
+
+.login-error .mi{font-size:16px;flex-shrink:0;}
 </style>
 </head>
 <body>
+
 
 <header class="hdr">
   <div class="hdr-in">
@@ -214,7 +217,7 @@ tbody tr.row-new td:first-child{padding-left:9px;}
   <div class="tabs-in">
     <button class="tab-btn active" id="tb1" onclick="goTab(1)"><i class="mi">account_balance</i> Identificação</button>
     <button class="tab-btn" id="tb2" onclick="goTab(2)"><i class="mi">list_alt</i> Seus Acordos</button>
-    <button class="tab-btn" id="tb3" onclick="goTab(3)"><i class="mi">settings</i> Configuração</button>
+    <button class="tab-btn" id="tb3" onclick="abrirConfig()"><i class="mi">settings</i> Configuração <i class="mi" style="font-size:12px;opacity:.6;margin-left:2px;">lock</i></button>
   </div>
 </div>
 
@@ -272,7 +275,6 @@ tbody tr.row-new td:first-child{padding-left:9px;}
         <p>Baixe todos os acordos do seu órgão em CSV para editar offline. Depois suba o arquivo atualizado.</p>
         <div class="act-btns">
           <button class="btn-g sm" onclick="expCSV()"><i class="mi mi-sm">download</i> Baixar CSV</button>
-          <button class="btn-g sm" onclick="expJSON()"><i class="mi mi-sm">data_object</i> JSON</button>
         </div>
       </div>
       <div class="act-card ac-g">
@@ -380,7 +382,7 @@ tbody tr.row-new td:first-child{padding-left:9px;}
         </h3>
         <div class="fgrp">
           <input type="text" class="finp" id="cfgCsvUrl">
-          <div class="fhnt">Fonte dos acordos existentes e da lista de órgãos.</div>
+          <div class="fhnt">Fonte dos acordos existentes e da lista de órgãos. Se não houver URL disponível, faça o upload dos dados na <a href="https://nuvem.cge.mg.gov.br/index.php/s/NqMSDeM5bgjfQSD" target="_blank" style="color:var(--pri);font-weight:700;">Nuvem CGE</a> e cole o link direto do arquivo aqui.</div>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
           <button class="btn-p" onclick="salvarCsvUrl()"><i class="mi mi-sm">save</i> Salvar URL</button>
@@ -550,14 +552,14 @@ async function carregarCSV(){
   popularSelect();
 }
 
-// Merge: CSV oficial é base, dados locais adicionam/sobrepõem por ano+numero_termo
+// Merge: CSV oficial é base, dados locais adicionam/sobrepõem por ano+numero_sei
 function mergeDados(doCSV){
   const locais=getDadosLocal();
   const mapa=new Map();
   // 1. Insere todos do CSV
-  doCSV.forEach(r=>mapa.set(`${r.ano}|${r.numero_termo}`,r));
+  doCSV.forEach(r=>mapa.set(`${r.ano}|${r.numero_sei}`,r));
   // 2. Dados locais sobrepõem (edições, novos)
-  locais.forEach(r=>mapa.set(`${r.ano}|${r.numero_termo}`,r));
+  locais.forEach(r=>mapa.set(`${r.ano}|${r.numero_sei}`,r));
   dados=[...mapa.values()];
 }
 
@@ -785,13 +787,13 @@ function importarCSV(input){
         link_documento:(row.link_documento||row.LINK_DOCUMENTO||'').trim(),
         _origem:'editado',
         _atualizado_em:new Date().toISOString()
-      })).filter(x=>x.numero_termo);
+      })).filter(x=>x.numero_sei||x.numero_termo);
       if(!novos.length){toast('Nenhum registro válido encontrado.',false);return;}
-      // Merge: sobrepõe por chave ano+numero_termo
-      const mapa=new Map(dados.map(d=>[`${d.ano}|${d.numero_termo}`,d]));
+      // Merge: sobrepõe por chave ano+numero_sei
+      const mapa=new Map(dados.map(d=>[`${d.ano}|${d.numero_sei}`,d]));
       let adicionados=0,atualizados=0;
       novos.forEach(n=>{
-        const chave=`${n.ano}|${n.numero_termo}`;
+        const chave=`${n.ano}|${n.numero_sei}`;
         if(mapa.has(chave))atualizados++; else adicionados++;
         mapa.set(chave,n);
       });
@@ -821,14 +823,7 @@ function expCSV(){
   a.click();URL.revokeObjectURL(a.href);
   toast('CSV exportado!',true);
 }
-function expJSON(){
-  if(!dados.length){toast('Nenhum dado para exportar.',false);return;}
-  const blob=new Blob([JSON.stringify(dados,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
-  a.download=`acordos_${slug(orgAtivo)}_${new Date().toISOString().split('T')[0]}.json`;
-  a.click();URL.revokeObjectURL(a.href);
-  toast('JSON exportado!',true);
-}
+
 
 // ================================================================
 // GITHUB — salva arquivo separado por órgão
@@ -916,7 +911,46 @@ async function recarregar(){toast('Recarregando...',true);await carregarCSV();to
 // ================================================================
 // INIT
 // ================================================================
-document.addEventListener('DOMContentLoaded',async()=>{
+
+// ================================================================
+// PROTEÇÃO DA ABA CONFIGURAÇÃO
+// ================================================================
+const USUARIOS = {
+  'kbomfa':       'cge@2025',
+  'silvianafaria':'cge@2025'
+};
+const SESSION_KEY = 'cad_auth_cfg';
+
+function sessaoAtiva(){
+  try{
+    const s=JSON.parse(sessionStorage.getItem(SESSION_KEY)||'{}');
+    return s.user && s.ts && (Date.now()-s.ts)<8*60*60*1000;
+  }catch{return false;}
+}
+
+function abrirConfig(){
+  if(sessaoAtiva()){goTab(3);return;}
+  new bootstrap.Modal(document.getElementById('mLogin')).show();
+  setTimeout(()=>document.getElementById('loginUser').focus(),300);
+}
+
+function fazerLogin(){
+  const user=document.getElementById('loginUser').value.trim().toLowerCase();
+  const pass=document.getElementById('loginPass').value;
+  const err=document.getElementById('loginError');
+  err.style.display='none';
+  if(USUARIOS[user]&&USUARIOS[user]===pass){
+    sessionStorage.setItem(SESSION_KEY,JSON.stringify({user,ts:Date.now()}));
+    bootstrap.Modal.getInstance(document.getElementById('mLogin')).hide();
+    goTab(3);
+  } else {
+    err.style.display='flex';
+    document.getElementById('loginPass').value='';
+    document.getElementById('loginPass').focus();
+  }
+}
+
+async function iniciarSistema(){
   preencherCfg();
   const saved=localStorage.getItem(K_ORG);
   if(saved){
@@ -924,11 +958,43 @@ document.addEventListener('DOMContentLoaded',async()=>{
     document.getElementById('orgNome').textContent=orgAtivo;
   }
   await carregarCSV();
-  if(orgAtivo){
-    atualizarStatus();
-    goTab(2);
-  }
-});
+  if(orgAtivo){atualizarStatus();goTab(2);}
+}
+
+document.addEventListener('DOMContentLoaded',()=>{iniciarSistema();});
 </script>
+
+<!-- MODAL LOGIN CONFIGURAÇÃO -->
+<div class="modal fade" id="mLogin" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content mc">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="mi">admin_panel_settings</i> Acesso restrito</h5>
+        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:12px;color:var(--mut);margin-bottom:16px;">A aba de Configuração é restrita a administradores CGE/MG.</p>
+        <div id="loginError" style="background:var(--red-bg);border:1.5px solid #fca5a5;border-radius:var(--r);padding:9px 13px;font-size:12px;color:var(--red);font-weight:600;display:none;align-items:center;gap:7px;margin-bottom:14px;">
+          <i class="mi" style="font-size:15px;">error</i><span>Usuário ou senha incorretos.</span>
+        </div>
+        <div class="fgrp">
+          <label class="flbl">Usuário</label>
+          <input type="text" class="finp" id="loginUser" placeholder="Digite seu usuário" autocomplete="username"
+            onkeydown="if(event.key==='Enter')document.getElementById('loginPass').focus()">
+        </div>
+        <div class="fgrp" style="margin-bottom:0;">
+          <label class="flbl">Senha</label>
+          <input type="password" class="finp" id="loginPass" placeholder="Digite sua senha" autocomplete="current-password"
+            onkeydown="if(event.key==='Enter')fazerLogin()">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-g" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn-p" onclick="fazerLogin()"><i class="mi mi-sm">login</i> Entrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
