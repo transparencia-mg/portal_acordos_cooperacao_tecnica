@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script>/* @license
 Papa Parse
 v5.5.3
@@ -223,7 +224,7 @@ tbody tr.row-new td:first-child{padding-left:9px;}
   <div class="tabs-in">
     <button class="tab-btn active" id="tb1" onclick="goTab(1)"><i class="mi">account_balance</i> Identificação</button>
     <button class="tab-btn" id="tb2" onclick="goTab(2)"><i class="mi">list_alt</i> Seus Acordos</button>
-    <button class="tab-btn" id="tb3" onclick="abrirConfig()"><i class="mi">settings</i> Configuração <i class="mi" style="font-size:12px;opacity:.6;margin-left:2px;">lock</i></button>
+    <button class="tab-btn" id="tb3" onclick="goTab(3)"><i class="mi">settings</i> Configuração</button>
   </div>
 </div>
 
@@ -279,16 +280,16 @@ tbody tr.row-new td:first-child{padding-left:9px;}
         <div class="act-ico"><i class="mi mi-lg">file_download</i></div>
         <h4>Baixar CSV do Órgão</h4>
         <p>Baixe todos os acordos em CSV para editar offline.</p>
-        <div class="act-btns"><button class="btn-g sm" onclick="expCSV()"><i class="mi mi-sm">download</i> Baixar CSV</button></div>
+        <div class="act-btns"><button class="btn-g sm" onclick="expXLSX()"><i class="mi mi-sm">table_view</i> Baixar XLSX</button></div>
       </div>
       <div class="act-card ac-g">
         <div class="act-ico"><i class="mi mi-lg">upload_file</i></div>
         <h4>Importar CSV Atualizado</h4>
         <p>Suba o CSV editado. Novos são adicionados; existentes são atualizados.</p>
         <div class="upzone" id="upzone" onclick="document.getElementById('fileInput').click()" ondragover="dov(event)" ondragleave="dlv()" ondrop="ddr(event)">
-          <i class="mi">cloud_upload</i><p><strong>Clique ou arraste</strong> o CSV aqui</p>
+          <i class="mi">cloud_upload</i><p><strong>Clique ou arraste</strong> o XLSX aqui</p>
         </div>
-        <input type="file" id="fileInput" accept=".csv" onchange="importarCSV(this)">
+        <input type="file" id="fileInput" accept=".xlsx" onchange="importarArquivo(this)">
       </div>
       <div class="act-card ac-r">
         <div class="act-ico"><i class="mi mi-lg">cloud_sync</i></div>
@@ -419,14 +420,38 @@ tbody tr.row-new td:first-child{padding-left:9px;}
 <script>
 const CSV_URL = 'https://raw.githubusercontent.com/transparencia-mg/portal_acordos_cooperacao_tecnica/main/dataset/data/acordos_cooperacao_tecnica.csv';
 const COLS = ['ano','numero_termo','numero_sei','orgao_acordo','parceiro_acordo','objeto','inicio_vigencia','fim_vigencia','situacao','link_documento'];
-const K_ORG='cad_org', K_PRE='cad_d_', K_CFG='cad_cfg', K_EXTRAS='cad_extras', SESSION_KEY='cad_auth_cfg';
+const K_ORG='cad_org', K_PRE='cad_d_', K_CFG='cad_cfg', K_EXTRAS='cad_extras';
 const ORGAOS_BASE = ["ADVOCACIA GERAL DO ESTADO","AGENCIA DE DESENVOLVIMENTO DA REGIAO METROPOLITANA DE BELO HORIZONTE","AGENCIA DE DESENVOLVIMENTO DA REGIAO METROPOLITANA DO VALE DO AÇO","CONTROLADORIA GERAL DO ESTADO","DEPARTAMENTO DE ESTRADAS DE RODAGEM DO ESTADO DE MINAS GERAIS - DER-MG","DEPARTAMENTO ESTADUAL DE TRANSITO DE MINAS GERAIS","EMPRESA DE ASSISTÊNCIA TÉCNICA E EXTENSÃO RURAL DO ESTADO DE MINAS GERAIS (EMATER-MG)","EMPRESA MINEIRA DE COMUNICACAO LTDA","ESCOLA DE SAUDE PUBLICA DO ESTADO DE MINAS GERAIS","FUNDACAO CLOVIS SALGADO","FUNDACAO DE AMPARO A PESQUISA DO ESTADO DE MINAS GERAIS","FUNDACAO HEMOMINAS","FUNDACAO HOSPITALAR DO ESTADO DE MINAS GERAIS","FUNDACAO JOAO PINHEIRO","FUNDACAO TV MINAS CULTURAL E EDUCATIVA","GABINETE MILITAR DO GOVERNADOR","INSTITUTO DE DESENVOLVIMENTO DO NORTE E NORDESTE DE MINAS GERAIS","INSTITUTO DE PREVIDENCIA DO SERVIDORES DO ESTADO DE MINAS GERAIS","INSTITUTO ESTADUAL DE FLORESTAS","INSTITUTO ESTADUAL DO PATRIMONIO HISTORICO E ARTISTICO DE MINAS GERAIS","INSTITUTO MINEIRO DE AGROPECUARIA","INSTITUTO MINEIRO DE GESTAO DAS AGUAS","JUNTA COMERCIAL DO ESTADO DE MINAS GERAIS","LOTERIA DO ESTADO DE MINAS GERAIS","OUVIDORIA GERAL DO ESTADO","POLICIA CIVIL DO ESTADO DE MINAS GERAIS","POLICIA MILITAR DE MINAS GERAIS","SECRETARIA DE ESTADO DA FAZENDA","SECRETARIA DE ESTADO DE CULTURA E TURISMO","SECRETARIA DE ESTADO DE DESENVOLVIMENTO SOCIAL","SECRETARIA DE ESTADO DE JUSTICA E SEGURANÇA PUBLICA","SECRETARIA DE ESTADO DE MEIO AMBIENTE E DESENVOLVIMENTO SUSTENTAVEL","SECRETARIA DE ESTADO DE PLANEJAMENTO E GESTAO","SECRETARIA GERAL DO ESTADO DE MINAS GERAIS","UNIVERSIDADE ESTADUAL DE MINAS GERAIS","UNIVERSIDADE ESTADUAL DE MONTES CLAROS"];
-const USUARIOS = {'kbomfa':'cge@2025','silvianafaria':'cge@2025'};
+const GITHUB_TOKEN = 'COLE_SEU_TOKEN_AQUI'; // Token fixo — não exige senha
 
 let orgAtivo=null, dados=[], filtrados=[], idxDel=null;
 let orgaosCSV=[...ORGAOS_BASE];
 
 // UTILS
+// Normaliza data para yyyy-mm-dd aceitando dd/mm/yyyy, dd/mm/yy, yyyy-mm-dd, ou texto livre
+function parseDateBR(s){
+  s=(s||'').trim();
+  if(!s||s.toUpperCase()==='INDETERMINADO')return s.toUpperCase()==='INDETERMINADO'?'INDETERMINADO':'';
+  // dd/mm/yyyy ou dd/mm/yy
+  var m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+  if(m){
+    var y=m[3].length===2?'20'+m[3]:m[3];
+    return y+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0');
+  }
+  // yyyy-mm-dd já ok
+  if(/^\d{4}-\d{2}-\d{2}$/.test(s))return s;
+  // texto como "Indeterminado"
+  if(/indet/i.test(s))return 'INDETERMINADO';
+  return s;
+}
+function normalizeSituacao(s){
+  s=(s||'').trim().toUpperCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  if(s==='VIGENTE'||s==='ATIVO'||s==='ATIVA')return 'VIGENTE';
+  if(s==='ENCERRADO'||s==='ENCERRADA'||s==='CONCLUIDO'||s==='CONCLUIDA')return 'ENCERRADO';
+  if(s==='RESCINDIDO'||s==='RESCINDIDA')return 'RESCINDIDO';
+  return s||'VIGENTE';
+}
 function toast(msg,ok){
   ok = ok !== false;
   document.querySelectorAll('.toast-t').forEach(function(t){t.remove();});
@@ -454,11 +479,19 @@ function setDadosLocal(){
   try{localStorage.setItem(K_PRE+slug(orgAtivo),JSON.stringify(alt));return true;}
   catch(e){toast('Erro ao salvar: '+e.message,false);return false;}
 }
+function chaveUnica(r){
+  // Se tem SEI: chave = sei + numero_termo (mesmo SEI com termo diferente = termo aditivo distinto)
+  // Se não tem SEI: chave = ano + numero_termo
+  var sei=(r.numero_sei||'').trim();
+  var termo=(r.numero_termo||'').trim();
+  var ano=(r.ano||'').trim();
+  return sei ? (sei+'|'+termo) : (ano+'|'+termo);
+}
 function mergeDados(doCSV){
   var locais=getDadosLocal();
   var mapa=new Map();
-  doCSV.forEach(function(r){mapa.set(r.ano+'|'+r.numero_sei,r);});
-  locais.forEach(function(r){mapa.set(r.ano+'|'+r.numero_sei,r);});
+  doCSV.forEach(function(r){mapa.set(chaveUnica(r),r);});
+  locais.forEach(function(r){mapa.set(chaveUnica(r),r);});
   dados=[...mapa.values()];
 }
 
@@ -486,6 +519,7 @@ function carregarOrgaosCSV(){
     download:true,
     header:true,
     delimiter:';',
+    encoding:'UTF-8',
     skipEmptyLines:true,
     transformHeader:function(h){return h.trim().replace(/^\ufeff/,'');},
     chunk:function(results){
@@ -520,6 +554,7 @@ function carregarCSV(){
     download:true,
     header:true,
     delimiter:';',
+    encoding:'UTF-8',
     skipEmptyLines:true,
     transformHeader:function(h){return h.trim().replace(/^\ufeff/,'');},
     chunk:function(results){
@@ -540,9 +575,9 @@ function carregarCSV(){
             orgao_acordo:orgAtivo,
             parceiro_acordo:(r.parceiro_acordo||'').trim(),
             objeto:(r.objeto||'').trim(),
-            inicio_vigencia:(r.inicio_vigencia||'').trim().split(' ')[0],
-            fim_vigencia:fim==='INDETERMINADO'?'INDETERMINADO':fim,
-            situacao:(r.situacao||'').trim().toUpperCase(),
+            inicio_vigencia:parseDateBR((r.inicio_vigencia||'').trim().split(' ')[0]),
+            fim_vigencia:parseDateBR((r.fim_vigencia||'').trim().split(' ')[0]),
+            situacao:normalizeSituacao(r.situacao||''),
             link_documento:(r.link_documento||'').trim(),
             _origem:'csv'
           };
@@ -762,43 +797,74 @@ function executarDel(){
 }
 
 // IMPORT/EXPORT
-function importarCSV(input){
+function processarLinhas(linhas){
+  var novos=linhas.map(function(row){
+    return {
+      ano:(row.ano||row.ANO||'').toString().trim(),
+      numero_termo:(row.numero_termo||row.NUMERO_TERMO||'').trim(),
+      numero_sei:(row.numero_sei||row.NUMERO_SEI||'').trim(),
+      orgao_acordo:orgAtivo,
+      parceiro_acordo:(row.parceiro_acordo||row.PARCEIRO_ACORDO||'').trim(),
+      objeto:(row.objeto||row.OBJETO||'').trim(),
+      inicio_vigencia:parseDateBR((row.inicio_vigencia||row.INICIO_VIGENCIA||'').toString().trim().split(' ')[0]),
+      fim_vigencia:parseDateBR((row.fim_vigencia||row.FIM_VIGENCIA||'').toString().trim().split(' ')[0]),
+      situacao:normalizeSituacao(row.situacao||row.SITUACAO||''),
+      link_documento:(row.link_documento||row.LINK_DOCUMENTO||'').trim(),
+      _origem:'editado', _atualizado_em:new Date().toISOString()
+    };
+  }).filter(function(x){return x.numero_sei||x.numero_termo;});
+  if(!novos.length){toast('Nenhum registro válido.',false);return;}
+  var mapa=new Map(dados.map(function(d){return [chaveUnica(d),d];}));
+  var add=0,upd=0;
+  novos.forEach(function(n){var k=chaveUnica(n);if(mapa.has(k))upd++;else add++;mapa.set(k,n);});
+  dados=[...mapa.values()];
+  setDadosLocal();atualizarStatus();renderTabela();
+  toast(add+' novo(s), '+upd+' atualizado(s).',true);
+}
+function importarArquivo(input){
   var file=input.files[0]; if(!file)return;
-  Papa.parse(file,{
-    header:true,delimiter:';',skipEmptyLines:true,
-    transformHeader:function(h){return h.trim().replace(/^\ufeff/,'');},
-    complete:function(r){
-      var novos=r.data.map(function(row){
-        var fim=(row.fim_vigencia||row.FIM_VIGENCIA||'').trim();
-        return {
-          ano:(row.ano||row.ANO||'').toString().trim(),
-          numero_termo:(row.numero_termo||row.NUMERO_TERMO||'').trim(),
-          numero_sei:(row.numero_sei||row.NUMERO_SEI||'').trim(),
-          orgao_acordo:orgAtivo,
-          parceiro_acordo:(row.parceiro_acordo||row.PARCEIRO_ACORDO||'').trim(),
-          objeto:(row.objeto||row.OBJETO||'').trim(),
-          inicio_vigencia:(row.inicio_vigencia||row.INICIO_VIGENCIA||'').trim().split(' ')[0],
-          fim_vigencia:fim==='INDETERMINADO'?'INDETERMINADO':fim.split(' ')[0],
-          situacao:(row.situacao||row.SITUACAO||'VIGENTE').trim().toUpperCase(),
-          link_documento:(row.link_documento||row.LINK_DOCUMENTO||'').trim(),
-          _origem:'editado', _atualizado_em:new Date().toISOString()
-        };
-      }).filter(function(x){return x.numero_sei||x.numero_termo;});
-      if(!novos.length){toast('Nenhum registro válido.',false);return;}
-      var mapa=new Map(dados.map(function(d){return [d.ano+'|'+d.numero_sei,d];}));
-      var add=0,upd=0;
-      novos.forEach(function(n){var k=n.ano+'|'+n.numero_sei;if(mapa.has(k))upd++;else add++;mapa.set(k,n);});
-      dados=[...mapa.values()];
-      setDadosLocal();atualizarStatus();renderTabela();
-      toast(add+' novo(s), '+upd+' atualizado(s).',true);
-      input.value='';
-    },
-    error:function(){toast('Erro ao ler CSV.',false);}
-  });
+  var nome=file.name.toLowerCase();
+  if(nome.endsWith('.xlsx')){
+    var reader=new FileReader();
+    reader.onload=function(e){
+      try{
+        var wb=XLSX.read(e.target.result,{type:'array',cellDates:true});
+        var ws=wb.Sheets[wb.SheetNames[0]];
+        var linhas=XLSX.utils.sheet_to_json(ws,{defval:''});
+        // Normaliza nomes de colunas (remove acentos, espaços, maiúsculas)
+        linhas=linhas.map(function(row){
+          var n={};
+          Object.keys(row).forEach(function(k){
+            var kn=k.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'_');
+            var v=row[k];
+            // XLSX pode retornar Date objects
+            if(v instanceof Date){
+              var dd=String(v.getDate()).padStart(2,'0');
+              var mm=String(v.getMonth()+1).padStart(2,'0');
+              var yyyy=v.getFullYear();
+              v=yyyy+'-'+mm+'-'+dd;
+            }
+            n[kn]=v!==null&&v!==undefined?String(v):'';
+          });
+          return n;
+        });
+        processarLinhas(linhas);
+      }catch(e){toast('Erro ao ler XLSX: '+e.message,false);}
+    };
+    reader.readAsArrayBuffer(file);
+  } else {
+    Papa.parse(file,{
+      header:true,delimiter:';',skipEmptyLines:true,encoding:'UTF-8',
+      transformHeader:function(h){return h.trim().replace(/^\ufeff/,'');},
+      complete:function(r){processarLinhas(r.data);},
+      error:function(){toast('Erro ao ler CSV.',false);}
+    });
+  }
+  input.value='';
 }
 function dov(e){e.preventDefault();document.getElementById('upzone').classList.add('drag');}
 function dlv(){document.getElementById('upzone').classList.remove('drag');}
-function ddr(e){e.preventDefault();dlv();var f=e.dataTransfer.files[0];if(f)importarCSV({files:[f],value:''});}
+function ddr(e){e.preventDefault();dlv();var f=e.dataTransfer.files[0];if(f)importarArquivo({files:[f],value:''});}
 function expCSV(){
   if(!dados.length){toast('Nenhum dado.',false);return;}
   var csv=[COLS.join(';')].concat(dados.map(function(r){return COLS.map(function(c){return '"'+((r[c]||'').toString().replace(/"/g,'""'))+'"';}).join(';');})).join('\n');
@@ -808,19 +874,34 @@ function expCSV(){
   a.click();URL.revokeObjectURL(a.href);
   toast('CSV exportado!',true);
 }
+function expXLSX(){
+  if(!dados.length){toast('Nenhum dado.',false);return;}
+  var linhas=dados.map(function(d){var r={};COLS.forEach(function(c){r[c]=d[c]||'';});return r;});
+  var ws=XLSX.utils.json_to_sheet(linhas,{header:COLS});
+  var wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'Acordos');
+  XLSX.writeFile(wb,'acordos_'+slug(orgAtivo)+'_'+new Date().toISOString().split('T')[0]+'.xlsx');
+  toast('XLSX exportado!',true);
+}
 
 // GITHUB
 async function salvarGitHub(){
   var cfg=getCfg();
-  if(!cfg.token||!cfg.repo){toast('Configure repositório e token.',false);abrirConfig();return;}
+  var token=GITHUB_TOKEN||cfg.token;
+  if(!token||!cfg.repo){toast('Configure o repositório na aba Configuração.',false);goTab(3);return;}
   if(!dados.length){toast('Nenhum dado.',false);return;}
   setSyncPill('','Salvando...');
   var payload=dados.map(function(d){var r={};COLS.forEach(function(c){r[c]=d[c]||'';});return r;});
   var csv=[COLS.join(';')].concat(payload.map(function(r){return COLS.map(function(c){return '"'+((r[c]||'').replace(/"/g,'""'))+'"';}).join(';');})).join('\n');
   var path=(cfg.path||'cadastros/')+slug(orgAtivo)+'.csv';
-  var content=btoa(unescape(encodeURIComponent('\ufeff'+csv)));
+  // Codificação correta UTF-8 → Base64 sem corromper acentos
+  var csvComBOM='\ufeff'+csv;
+  var bytes=new TextEncoder().encode(csvComBOM);
+  var binary='';
+  bytes.forEach(function(b){binary+=String.fromCharCode(b);});
+  var content=btoa(binary);
   var url='https://api.github.com/repos/'+cfg.repo+'/contents/'+path;
-  var headers={'Authorization':'token '+cfg.token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
+  var headers={'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
   try{
     var sha=null;
     var check=await fetch(url,{headers:headers});
@@ -855,7 +936,7 @@ function salvarCfg(){
   setCfg(cfg);toast('Configuração salva!',true);
 }
 async function testar(){
-  var cfg={repo:document.getElementById('cfgRepo').value.trim(),token:document.getElementById('cfgToken').value.trim()};
+  var cfg={repo:document.getElementById('cfgRepo').value.trim(),token:GITHUB_TOKEN||document.getElementById('cfgToken').value.trim()};
   var el=document.getElementById('testRes');
   el.innerHTML='<span class="gh-stat ghs-pend"><i class="mi mi-sm">hourglass_empty</i> Testando...</span>';
   try{
@@ -872,24 +953,9 @@ function remExtra(idx){
   toast('Removido.',true);
 }
 
-// LOGIN
-function sessaoAtiva(){try{var s=JSON.parse(sessionStorage.getItem(SESSION_KEY)||'{}');return s.user&&s.ts&&(Date.now()-s.ts)<8*60*60*1000;}catch(e){return false;}}
-function abrirConfig(){
-  if(sessaoAtiva()){goTab(3);return;}
-  new bootstrap.Modal(document.getElementById('mLogin')).show();
-  setTimeout(function(){document.getElementById('loginUser').focus();},300);
-}
-function fazerLogin(){
-  var user=document.getElementById('loginUser').value.trim().toLowerCase();
-  var pass=document.getElementById('loginPass').value;
-  var err=document.getElementById('loginError');
-  err.style.display='none';
-  if(USUARIOS[user]&&USUARIOS[user]===pass){
-    sessionStorage.setItem(SESSION_KEY,JSON.stringify({user:user,ts:Date.now()}));
-    bootstrap.Modal.getInstance(document.getElementById('mLogin')).hide();
-    goTab(3);
-  }else{err.style.display='flex';document.getElementById('loginPass').value='';document.getElementById('loginPass').focus();}
-}
+// CONFIG — acesso direto, sem login
+function abrirConfig(){goTab(3);}
+function sessaoAtiva(){return true;}
 
 // INIT
 window.addEventListener('load', function(){
