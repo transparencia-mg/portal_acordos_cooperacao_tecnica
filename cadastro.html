@@ -327,18 +327,11 @@ tbody tr.row-new td:first-child{padding-left:9px;}
 
   <div id="p3" style="display:none;">
     <div class="panel">
-      <div class="ph"><i class="mi">settings</i><h2>Configuração — GitHub</h2></div>
+      <div class="ph"><i class="mi">settings</i><h2>Configuração</h2></div>
       <div class="pb">
-        <div class="cfg-note"><i class="mi">warning</i><div>Token salvo apenas localmente. Gere em <a href="https://github.com/settings/tokens/new" target="_blank" style="color:var(--pri);font-weight:700;">github.com/settings/tokens/new</a> com permissão <strong>repo</strong>.</div></div>
-        <div class="fg2" style="margin-bottom:14px;">
-          <div><label class="flbl">Repositório (owner/repo)</label><input type="text" class="finp" id="cfgRepo"></div>
-          <div><label class="flbl">Branch</label><input type="text" class="finp" id="cfgBranch"></div>
-        </div>
-        <div class="fgrp"><label class="flbl">Pasta de destino</label><input type="text" class="finp" id="cfgPath"><div class="fhnt">Ex: <code>cadastros/SEAPA.csv</code></div></div>
-        <div class="fgrp"><label class="flbl">Personal Access Token</label><input type="password" class="finp" id="cfgToken"></div>
+        <div class="cfg-note"><i class="mi">info</i><div>Os dados são salvos diretamente no repositório via Worker seguro. Nenhum token é necessário aqui.</div></div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px;">
-          <button class="btn-p" onclick="salvarCfg()"><i class="mi mi-sm">save</i> Salvar</button>
-          <button class="btn-g" onclick="testar()"><i class="mi mi-sm">wifi_tethering</i> Testar Conexão</button>
+          <button class="btn-g" onclick="testar()"><i class="mi mi-sm">wifi_tethering</i> Testar Conexão com Worker</button>
           <div id="testRes"></div>
         </div>
         <hr style="border:none;border-top:1px solid var(--bdr);margin-bottom:18px;">
@@ -418,11 +411,11 @@ tbody tr.row-new td:first-child{padding-left:9px;}
 </div>
 
 <script>
-const CSV_URL = 'https://raw.githubusercontent.com/transparencia-mg/portal_acordos_cooperacao_tecnica/main/dataset/data/acordos_cooperacao_tecnica.csv';
+const XLSX_URL = 'https://raw.githubusercontent.com/transparencia-mg/portal_acordos_cooperacao_tecnica/main/upload/acordos_cooperacao_tecnica.xlsx';
 const COLS = ['ano','numero_termo','numero_sei','orgao_acordo','parceiro_acordo','objeto','inicio_vigencia','fim_vigencia','situacao','link_documento'];
 const K_ORG='cad_org', K_PRE='cad_d_', K_CFG='cad_cfg', K_EXTRAS='cad_extras';
 const ORGAOS_BASE = ["ADVOCACIA GERAL DO ESTADO","AGENCIA DE DESENVOLVIMENTO DA REGIAO METROPOLITANA DE BELO HORIZONTE","AGENCIA DE DESENVOLVIMENTO DA REGIAO METROPOLITANA DO VALE DO AÇO","CONTROLADORIA GERAL DO ESTADO","DEPARTAMENTO DE ESTRADAS DE RODAGEM DO ESTADO DE MINAS GERAIS - DER-MG","DEPARTAMENTO ESTADUAL DE TRANSITO DE MINAS GERAIS","EMPRESA DE ASSISTÊNCIA TÉCNICA E EXTENSÃO RURAL DO ESTADO DE MINAS GERAIS (EMATER-MG)","EMPRESA MINEIRA DE COMUNICACAO LTDA","ESCOLA DE SAUDE PUBLICA DO ESTADO DE MINAS GERAIS","FUNDACAO CLOVIS SALGADO","FUNDACAO DE AMPARO A PESQUISA DO ESTADO DE MINAS GERAIS","FUNDACAO HEMOMINAS","FUNDACAO HOSPITALAR DO ESTADO DE MINAS GERAIS","FUNDACAO JOAO PINHEIRO","FUNDACAO TV MINAS CULTURAL E EDUCATIVA","GABINETE MILITAR DO GOVERNADOR","INSTITUTO DE DESENVOLVIMENTO DO NORTE E NORDESTE DE MINAS GERAIS","INSTITUTO DE PREVIDENCIA DO SERVIDORES DO ESTADO DE MINAS GERAIS","INSTITUTO ESTADUAL DE FLORESTAS","INSTITUTO ESTADUAL DO PATRIMONIO HISTORICO E ARTISTICO DE MINAS GERAIS","INSTITUTO MINEIRO DE AGROPECUARIA","INSTITUTO MINEIRO DE GESTAO DAS AGUAS","JUNTA COMERCIAL DO ESTADO DE MINAS GERAIS","LOTERIA DO ESTADO DE MINAS GERAIS","OUVIDORIA GERAL DO ESTADO","POLICIA CIVIL DO ESTADO DE MINAS GERAIS","POLICIA MILITAR DE MINAS GERAIS","SECRETARIA DE ESTADO DA FAZENDA","SECRETARIA DE ESTADO DE CULTURA E TURISMO","SECRETARIA DE ESTADO DE DESENVOLVIMENTO SOCIAL","SECRETARIA DE ESTADO DE JUSTICA E SEGURANÇA PUBLICA","SECRETARIA DE ESTADO DE MEIO AMBIENTE E DESENVOLVIMENTO SUSTENTAVEL","SECRETARIA DE ESTADO DE PLANEJAMENTO E GESTAO","SECRETARIA GERAL DO ESTADO DE MINAS GERAIS","UNIVERSIDADE ESTADUAL DE MINAS GERAIS","UNIVERSIDADE ESTADUAL DE MONTES CLAROS"];
-const GITHUB_TOKEN = 'COLE_SEU_TOKEN_AQUI'; // Token fixo — não exige senha
+const WORKER_URL = 'https://cadastro-acordos.SEU-SUBDOMINIO.workers.dev'; // URL do seu Cloudflare Worker
 
 let orgAtivo=null, dados=[], filtrados=[], idxDel=null;
 let orgaosCSV=[...ORGAOS_BASE];
@@ -510,91 +503,103 @@ function setSyncPill(estado,txt){
 }
 
 // CARREGAR LISTA DE ÓRGÃOS (para popular o select na tela de entrada)
-function carregarOrgaosCSV(){
+// Cache do XLSX para não baixar duas vezes
+var _xlsxCache = null;
+
+function _normalizarColunas(row){
+  var n={};
+  Object.keys(row).forEach(function(k){
+    var kn=k.trim().toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/\s+/g,'_');
+    var v=row[k];
+    if(v instanceof Date){
+      var dd=String(v.getDate()).padStart(2,'0');
+      var mm=String(v.getMonth()+1).padStart(2,'0');
+      var yyyy=v.getFullYear();
+      v=yyyy+'-'+mm+'-'+dd;
+    }
+    n[kn]=v!==null&&v!==undefined?String(v):'';
+  });
+  return n;
+}
+
+function _carregarXLSX(callback){
+  if(_xlsxCache){callback(null,_xlsxCache);return;}
   var lbar=document.getElementById('lbar');
   if(lbar) lbar.classList.remove('hide');
-  setSyncPill('','Carregando órgãos...');
-  var orgaosEncontrados=[];
-  Papa.parse(CSV_URL,{
-    download:true,
-    header:true,
-    delimiter:';',
-    encoding:'UTF-8',
-    skipEmptyLines:true,
-    transformHeader:function(h){return h.trim().replace(/^\ufeff/,'');},
-    chunk:function(results){
-      results.data.forEach(function(r){
-        var o=(r['orgao_acordo']||'').trim();
-        if(o) orgaosEncontrados.push(o);
-      });
-    },
-    complete:function(){
-      var unique=[...new Set(orgaosEncontrados)].sort(function(a,b){return a.localeCompare(b,'pt-BR');});
-      if(unique.length>0) orgaosCSV=unique;
-      popularSelect();
+  setSyncPill('','Carregando planilha...');
+  fetch(XLSX_URL)
+    .then(function(r){
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.arrayBuffer();
+    })
+    .then(function(buf){
+      var wb=XLSX.read(buf,{type:'array',cellDates:true});
+      var ws=wb.Sheets[wb.SheetNames[0]];
+      var linhas=XLSX.utils.sheet_to_json(ws,{defval:''});
+      _xlsxCache=linhas.map(_normalizarColunas);
       if(lbar) lbar.classList.add('hide');
-      setSyncPill('ok','Órgãos carregados');
-    },
-    error:function(e){
-      console.warn('CSV error (órgãos):',e);
-      popularSelect();
+      callback(null,_xlsxCache);
+    })
+    .catch(function(e){
+      console.warn('XLSX error:',e);
       if(lbar) lbar.classList.add('hide');
+      callback(e,null);
+    });
+}
+
+// CARREGAR LISTA DE ÓRGÃOS (para popular o select na tela de entrada)
+function carregarOrgaosCSV(){
+  _carregarXLSX(function(err,linhas){
+    if(err){
+      popularSelect();
       setSyncPill('err','Erro ao carregar lista');
+      return;
     }
+    var orgaosEncontrados=linhas.map(function(r){return (r['orgao_acordo']||'').trim();}).filter(Boolean);
+    var unique=[...new Set(orgaosEncontrados)].sort(function(a,b){return a.localeCompare(b,'pt-BR');});
+    if(unique.length>0) orgaosCSV=unique;
+    popularSelect();
+    setSyncPill('ok','Órgãos carregados');
   });
 }
 
-// CARREGAR CSV COMPLETO (acordos do órgão ativo)
+// CARREGAR XLSX COMPLETO (acordos do órgão ativo)
 function carregarCSV(){
-  var lbar=document.getElementById('lbar');
-  if(lbar) lbar.classList.remove('hide');
-  setSyncPill('','Carregando acordos...');
-  var todasLinhas=[];
-  Papa.parse(CSV_URL,{
-    download:true,
-    header:true,
-    delimiter:';',
-    encoding:'UTF-8',
-    skipEmptyLines:true,
-    transformHeader:function(h){return h.trim().replace(/^\ufeff/,'');},
-    chunk:function(results){
-      results.data.forEach(function(r){todasLinhas.push(r);});
-    },
-    complete:function(){
-      var doCSV=todasLinhas.map(function(r){return (r['orgao_acordo']||'').trim();}).filter(Boolean);
-      var unique=[...new Set(doCSV)].sort(function(a,b){return a.localeCompare(b,'pt-BR');});
-      if(unique.length>0) orgaosCSV=unique;
+  // Invalida cache para sempre pegar versão mais recente ao trocar de órgão
+  _xlsxCache=null;
+  _carregarXLSX(function(err,linhas){
+    if(err){
       popularSelect();
-      if(orgAtivo){
-        var filtrado=todasLinhas.filter(function(r){return (r['orgao_acordo']||'').trim()===orgAtivo;}).map(function(r){
-          var fim=(r.fim_vigencia||'').trim().split(' ')[0];
-          return {
-            ano:(r.ano||'').toString().replace(/,0$/,'').trim(),
-            numero_termo:(r.numero_termo||'').trim(),
-            numero_sei:(r.numero_sei||'').trim(),
-            orgao_acordo:orgAtivo,
-            parceiro_acordo:(r.parceiro_acordo||'').trim(),
-            objeto:(r.objeto||'').trim(),
-            inicio_vigencia:parseDateBR((r.inicio_vigencia||'').trim().split(' ')[0]),
-            fim_vigencia:parseDateBR((r.fim_vigencia||'').trim().split(' ')[0]),
-            situacao:normalizeSituacao(r.situacao||''),
-            link_documento:(r.link_documento||'').trim(),
-            _origem:'csv'
-          };
-        });
-        mergeDados(filtrado);
-        renderTabela();
-        atualizarStatus();
-      }
-      if(lbar) lbar.classList.add('hide');
-      setSyncPill('ok','Carregado');
-    },
-    error:function(e){
-      console.warn('CSV error:',e);
-      popularSelect();
-      if(lbar) lbar.classList.add('hide');
       setSyncPill('err','Erro ao carregar');
+      return;
     }
+    var doXLSX=linhas.map(function(r){return (r['orgao_acordo']||'').trim();}).filter(Boolean);
+    var unique=[...new Set(doXLSX)].sort(function(a,b){return a.localeCompare(b,'pt-BR');});
+    if(unique.length>0) orgaosCSV=unique;
+    popularSelect();
+    if(orgAtivo){
+      var filtrado=linhas.filter(function(r){return (r['orgao_acordo']||'').trim()===orgAtivo;}).map(function(r){
+        return {
+          ano:(r.ano||'').toString().replace(/\.0$/,'').trim(),
+          numero_termo:(r.numero_termo||'').trim(),
+          numero_sei:(r.numero_sei||'').trim(),
+          orgao_acordo:orgAtivo,
+          parceiro_acordo:(r.parceiro_acordo||'').trim(),
+          objeto:(r.objeto||'').trim(),
+          inicio_vigencia:parseDateBR((r.inicio_vigencia||'').trim().split(' ')[0]),
+          fim_vigencia:parseDateBR((r.fim_vigencia||'').trim().split(' ')[0]),
+          situacao:normalizeSituacao(r.situacao||''),
+          link_documento:(r.link_documento||'').trim(),
+          _origem:'csv'
+        };
+      });
+      mergeDados(filtrado);
+      renderTabela();
+      atualizarStatus();
+    }
+    setSyncPill('ok','Carregado');
   });
 }
 
@@ -632,9 +637,14 @@ function entrar(){
 }
 function trocar(){
   if(!confirm('Deseja trocar de órgão? Suas alterações locais continuarão salvas.'))return;
-  orgAtivo=null;localStorage.removeItem(K_ORG);dados=[];
+  orgAtivo=null;localStorage.removeItem(K_ORG);dados=[];filtrados=[];
+  _xlsxCache=null;
   setSyncPill('','Aguardando');
+  document.getElementById('tbody').innerHTML='';
+  document.getElementById('emptyDiv').style.display='none';
+  document.getElementById('statsRow').innerHTML='';
   goTab(1);
+  carregarOrgaosCSV();
 }
 function toggleOrgaoManual(){
   var w=document.getElementById('orgaoManualWrap');
@@ -887,156 +897,80 @@ function expXLSX(){
 // GITHUB
 async function salvarGitHub() {
 
-  var cfg = getCfg();
-  var token = cfg.token; // <-- CORRIGIDO
+  if (!dados.length) { toast('Nenhum dado.', false); return; }
 
-  if (!token || !cfg.repo) {
-    toast('Configure o repositório na aba Configuração.', false);
-    goTab(3);
-    return;
-  }
-
-  if (!dados.length) {
-    toast('Nenhum dado.', false);
+  if (!WORKER_URL || WORKER_URL.includes('SEU-SUBDOMINIO')) {
+    toast('Configure a URL do Worker no código.', false);
     return;
   }
 
   setSyncPill('', 'Salvando...');
 
   var payload = dados.map(function(d){
-    var r = {};
-    COLS.forEach(function(c){
-      r[c] = d[c] || '';
-    });
-    return r;
+    var r = {}; COLS.forEach(function(c){ r[c] = d[c] || ''; }); return r;
   });
 
   var csv = [COLS.join(';')]
-    .concat(
-      payload.map(function(r){
-        return COLS.map(function(c){
-          return '"' + ((r[c] || '').replace(/"/g,'""')) + '"';
-        }).join(';');
-      })
-    )
-    .join('\n');
+    .concat(payload.map(function(r){
+      return COLS.map(function(c){
+        return '"' + ((r[c] || '').replace(/"/g,'""')) + '"';
+      }).join(';');
+    })).join('\n');
 
-  var path = (cfg.path || 'cadastros/') + slug(orgAtivo) + '.csv';
-
-  // UTF-8 + BOM
   var csvComBOM = '\ufeff' + csv;
   var bytes = new TextEncoder().encode(csvComBOM);
   var binary = '';
-
-  bytes.forEach(function(b){
-    binary += String.fromCharCode(b);
-  });
-
+  bytes.forEach(function(b){ binary += String.fromCharCode(b); });
   var content = btoa(binary);
 
-  var url = 'https://api.github.com/repos/' +
-            cfg.repo +
-            '/contents/' +
-            path;
-
-  var headers = {
-    'Authorization': 'Bearer ' + token,
-    'Accept': 'application/vnd.github+json',
-    'Content-Type': 'application/json'
-  };
+  var path = 'cadastros/' + slug(orgAtivo) + '.csv';
+  var message = 'Cadastro: ' + orgAtivo + ' (' + payload.length + ' registros)';
 
   try {
-
-    var sha = null;
-
-    // verifica se arquivo existe
-    var check = await fetch(url, {
-      headers: headers
+    var res = await fetch(WORKER_URL + '/commit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, content, message })
     });
 
-    if (check.ok) {
-      var ex = await check.json();
-      sha = ex.sha;
-    }
+    var json = await res.json();
 
-    var body = {
-      message: 'Cadastro: ' + orgAtivo + ' (' + payload.length + ' registros)',
-      content: content,
-      branch: cfg.branch || 'main'
-    };
-
-    if (sha) {
-      body.sha = sha;
-    }
-
-    var res = await fetch(url, {
-      method: 'PUT',
-      headers: headers,
-      body: JSON.stringify(body)
-    });
-
-    if (res.ok) {
-
+    if (json.ok) {
       toast('Salvo! ' + payload.length + ' registro(s).', true);
       setSyncPill('ok', 'GitHub sincronizado');
-
-      dados = dados.map(function(d){
-        return Object.assign({}, d, {
-          _origem: 'csv'
-        });
-      });
-
+      dados = dados.map(function(d){ return Object.assign({}, d, { _origem: 'csv' }); });
       localStorage.removeItem(K_PRE + slug(orgAtivo));
-
       atualizarStatus();
       renderTabela(document.getElementById('srchInp').value);
-
     } else {
-
-      var erroTexto = await res.text();
-
-      console.error('STATUS:', res.status);
-      console.error('ERRO:', erroTexto);
-
-      toast('Erro GitHub: ' + res.status, false);
+      toast('Erro: ' + (json.error || 'desconhecido'), false);
       setSyncPill('err', 'Erro');
-
     }
-
-  } catch (e) {
-
+  } catch(e) {
     console.error(e);
-
-    toast('Erro de conexão.', false);
+    toast('Erro de conexão com o Worker.', false);
     setSyncPill('err', 'Sem conexão');
-
   }
 
 }
 
 // CONFIGURAÇÃO
 function preencherCfg(){
-  var cfg=getCfg();
-  document.getElementById('cfgRepo').value=cfg.repo||'transparencia-mg/portal_acordos_cooperacao_tecnica';
-  document.getElementById('cfgBranch').value=cfg.branch||'main';
-  document.getElementById('cfgPath').value=cfg.path||'cadastros/';
-  document.getElementById('cfgToken').value=cfg.token||'';
   var extras=JSON.parse(localStorage.getItem(K_EXTRAS)||'[]');
   var el=document.getElementById('extrasLista');
   el.innerHTML=extras.length?extras.map(function(o,i){return '<div style="display:flex;align-items:center;gap:8px;padding:5px 8px;border-bottom:1px solid var(--bdr);"><span style="flex:1;">'+o+'</span><button onclick="remExtra('+i+')" style="background:none;border:none;cursor:pointer;color:var(--red);"><i class="mi" style="font-size:15px;">remove_circle_outline</i></button></div>';}).join(''):'<div style="padding:10px;color:var(--mut);">Nenhum órgão adicionado manualmente.</div>';
 }
-function salvarCfg(){
-  var cfg={repo:document.getElementById('cfgRepo').value.trim(),branch:document.getElementById('cfgBranch').value.trim()||'main',path:document.getElementById('cfgPath').value.trim()||'cadastros/',token:document.getElementById('cfgToken').value.trim()};
-  if(!cfg.repo){toast('Informe o repositório.',false);return;}
-  setCfg(cfg);toast('Configuração salva!',true);
-}
+function salvarCfg(){ /* configuração agora é feita no Worker */ }
 async function testar(){
-  var cfg={repo:document.getElementById('cfgRepo').value.trim(),token:GITHUB_TOKEN||document.getElementById('cfgToken').value.trim()};
   var el=document.getElementById('testRes');
   el.innerHTML='<span class="gh-stat ghs-pend"><i class="mi mi-sm">hourglass_empty</i> Testando...</span>';
+  if(!WORKER_URL||WORKER_URL.includes('SEU-SUBDOMINIO')){
+    el.innerHTML='<span class="gh-stat ghs-fail"><i class="mi mi-sm">error</i> Worker URL não configurada</span>';
+    return;
+  }
   try{
-    var r=await fetch('https://api.github.com/repos/'+cfg.repo,{headers:{'Authorization':'token '+cfg.token,'Accept':'application/vnd.github.v3+json'}});
-    if(r.ok){var d=await r.json();el.innerHTML='<span class="gh-stat ghs-ok"><i class="mi mi-sm">check_circle</i> '+d.full_name+'</span>';toast('Conexão OK!',true);}
+    var r=await fetch(WORKER_URL+'/ping');
+    if(r.ok){el.innerHTML='<span class="gh-stat ghs-ok"><i class="mi mi-sm">check_circle</i> Worker OK</span>';toast('Conexão OK!',true);}
     else{el.innerHTML='<span class="gh-stat ghs-fail"><i class="mi mi-sm">error</i> Erro '+r.status+'</span>';toast('Falha.',false);}
   }catch(e){el.innerHTML='<span class="gh-stat ghs-fail"><i class="mi mi-sm">wifi_off</i> Sem conexão</span>';}
 }
