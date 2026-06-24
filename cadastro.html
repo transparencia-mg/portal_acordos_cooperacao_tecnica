@@ -885,38 +885,133 @@ function expXLSX(){
 }
 
 // GITHUB
-async function salvarGitHub(){
-  var cfg=getCfg();
-  var token=GITHUB_TOKEN||cfg.token;
-  if(!token||!cfg.repo){toast('Configure o repositório na aba Configuração.',false);goTab(3);return;}
-  if(!dados.length){toast('Nenhum dado.',false);return;}
-  setSyncPill('','Salvando...');
-  var payload=dados.map(function(d){var r={};COLS.forEach(function(c){r[c]=d[c]||'';});return r;});
-  var csv=[COLS.join(';')].concat(payload.map(function(r){return COLS.map(function(c){return '"'+((r[c]||'').replace(/"/g,'""'))+'"';}).join(';');})).join('\n');
-  var path=(cfg.path||'cadastros/')+slug(orgAtivo)+'.csv';
-  // Codificação correta UTF-8 → Base64 sem corromper acentos
-  var csvComBOM='\ufeff'+csv;
-  var bytes=new TextEncoder().encode(csvComBOM);
-  var binary='';
-  bytes.forEach(function(b){binary+=String.fromCharCode(b);});
-  var content=btoa(binary);
-  var url='https://api.github.com/repos/'+cfg.repo+'/contents/'+path;
-  var headers={'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
-  try{
-    var sha=null;
-    var check=await fetch(url,{headers:headers});
-    if(check.ok){var ex=await check.json();sha=ex.sha;}
-    var body={message:'Cadastro: '+orgAtivo+' ('+payload.length+' registros)',content:content,branch:cfg.branch||'main'};
-    if(sha)body.sha=sha;
-    var res=await fetch(url,{method:'PUT',headers:headers,body:JSON.stringify(body)});
-    if(res.ok){
-      toast('Salvo! '+payload.length+' registro(s).',true);
-      setSyncPill('ok','GitHub sincronizado');
-      dados=dados.map(function(d){return Object.assign({},d,{_origem:'csv'});});
-      localStorage.removeItem(K_PRE+slug(orgAtivo));
-      atualizarStatus();renderTabela(document.getElementById('srchInp').value);
-    }else{var err=await res.json();toast('Erro: '+(err.message||res.status),false);setSyncPill('err','Erro');}
-  }catch(e){toast('Erro de conexão.',false);setSyncPill('err','Sem conexão');}
+async function salvarGitHub() {
+
+  var cfg = getCfg();
+  var token = cfg.token; // <-- CORRIGIDO
+
+  if (!token || !cfg.repo) {
+    toast('Configure o repositório na aba Configuração.', false);
+    goTab(3);
+    return;
+  }
+
+  if (!dados.length) {
+    toast('Nenhum dado.', false);
+    return;
+  }
+
+  setSyncPill('', 'Salvando...');
+
+  var payload = dados.map(function(d){
+    var r = {};
+    COLS.forEach(function(c){
+      r[c] = d[c] || '';
+    });
+    return r;
+  });
+
+  var csv = [COLS.join(';')]
+    .concat(
+      payload.map(function(r){
+        return COLS.map(function(c){
+          return '"' + ((r[c] || '').replace(/"/g,'""')) + '"';
+        }).join(';');
+      })
+    )
+    .join('\n');
+
+  var path = (cfg.path || 'cadastros/') + slug(orgAtivo) + '.csv';
+
+  // UTF-8 + BOM
+  var csvComBOM = '\ufeff' + csv;
+  var bytes = new TextEncoder().encode(csvComBOM);
+  var binary = '';
+
+  bytes.forEach(function(b){
+    binary += String.fromCharCode(b);
+  });
+
+  var content = btoa(binary);
+
+  var url = 'https://api.github.com/repos/' +
+            cfg.repo +
+            '/contents/' +
+            path;
+
+  var headers = {
+    'Authorization': 'Bearer ' + token,
+    'Accept': 'application/vnd.github+json',
+    'Content-Type': 'application/json'
+  };
+
+  try {
+
+    var sha = null;
+
+    // verifica se arquivo existe
+    var check = await fetch(url, {
+      headers: headers
+    });
+
+    if (check.ok) {
+      var ex = await check.json();
+      sha = ex.sha;
+    }
+
+    var body = {
+      message: 'Cadastro: ' + orgAtivo + ' (' + payload.length + ' registros)',
+      content: content,
+      branch: cfg.branch || 'main'
+    };
+
+    if (sha) {
+      body.sha = sha;
+    }
+
+    var res = await fetch(url, {
+      method: 'PUT',
+      headers: headers,
+      body: JSON.stringify(body)
+    });
+
+    if (res.ok) {
+
+      toast('Salvo! ' + payload.length + ' registro(s).', true);
+      setSyncPill('ok', 'GitHub sincronizado');
+
+      dados = dados.map(function(d){
+        return Object.assign({}, d, {
+          _origem: 'csv'
+        });
+      });
+
+      localStorage.removeItem(K_PRE + slug(orgAtivo));
+
+      atualizarStatus();
+      renderTabela(document.getElementById('srchInp').value);
+
+    } else {
+
+      var erroTexto = await res.text();
+
+      console.error('STATUS:', res.status);
+      console.error('ERRO:', erroTexto);
+
+      toast('Erro GitHub: ' + res.status, false);
+      setSyncPill('err', 'Erro');
+
+    }
+
+  } catch (e) {
+
+    console.error(e);
+
+    toast('Erro de conexão.', false);
+    setSyncPill('err', 'Sem conexão');
+
+  }
+
 }
 
 // CONFIGURAÇÃO
