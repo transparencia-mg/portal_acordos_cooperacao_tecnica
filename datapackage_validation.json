@@ -1,6 +1,6 @@
 {
   "version": "4.16.6",
-  "time": 0.105,
+  "time": 0.117,
   "errors": [],
   "tasks": [
     {
@@ -66,13 +66,13 @@
         "scheme": "file",
         "title": "Acordos de Cooperacao Tecnica",
         "stats": {
-          "hash": "81cc514fd0448e920bbd3b7dccd0c108",
-          "bytes": 969664,
+          "hash": "b4ff14c2c35738097acbb5a51af86ddb",
+          "bytes": 969774,
           "fields": 11,
           "rows": 1801
         }
       },
-      "time": 0.091,
+      "time": 0.101,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -576,7 +576,7 @@
             "-",
             "Indeterminado",
             "Vigente",
-            "",
+            "https://nuvem.cge.mg.gov.br/index.php/s/TT3WpHtBiPCs3WR",
             ""
           ],
           "rowNumber": 687,
