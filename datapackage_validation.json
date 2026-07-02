@@ -1,6 +1,6 @@
 {
   "version": "4.16.6",
-  "time": 0.119,
+  "time": 0.105,
   "errors": [],
   "tasks": [
     {
@@ -66,13 +66,13 @@
         "scheme": "file",
         "title": "Acordos de Cooperacao Tecnica",
         "stats": {
-          "hash": "4fd8d78159457b3651da0aacd3049f56",
-          "bytes": 971606,
+          "hash": "81cc514fd0448e920bbd3b7dccd0c108",
+          "bytes": 969664,
           "fields": 11,
-          "rows": 1803
+          "rows": 1801
         }
       },
-      "time": 0.092,
+      "time": 0.091,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -571,12 +571,12 @@
             "S/N",
             "1080.01.0052901/2024-20",
             "AGENCIA DE DESENVOLVIMENTO DA REGIAO METROPOLITANA DE BELO HORIZONTE",
-            "MINISTERIO PUBLICO FEDERAL; MINISTERIO PUBLICO DO ESTADO DE MINAS GERAIS; UNIAO; PREFEITURA MUNICIPAL DE BELO HORIZONTE; PREFEITURA MUNICIPAL DE NOVA LIMA, INSTITUTO ESTADUAL DE FLORESTAS",
+            "MINISTERIO PUBLICO FEDERAL, MINISTERIO PUBLICO DO ESTADO DE MINAS GERAIS, PREFEITURA MUNICIPAL DE BELO HORIZONTE, PREFEITURA MUNICIPAL DE NOVA LIMA, INSTITUTO ESTADUAL DE FLORESTAS",
             "Troca de informações e documentos entre os partícipes para uma eventual transferência de patrimônio da União para municípios da Região Metropolitana de Belo Horizonte.",
             "-",
             "Indeterminado",
             "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/NqMSDeM5bgjfQSD?path=%2FAGENCIA%20ARMBH",
+            "",
             ""
           ],
           "rowNumber": 687,
@@ -841,37 +841,6 @@
           "description": "The value does not match the schema type and format for this field."
         },
         {
-          "cell": "-",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2023",
-            "6",
-            "1370.01.0060513/2022-90",
-            "AGENCIA DE DESENVOLVIMENTO DA REGIAO METROPOLITANA DE BELO HORIZONTE",
-            "SECRETARIA DE ESTADO DE MEIO AMBIENTE E DESENVOLVIMENTO SUSTENTAVEL",
-            "Implementar o Programa AmbientAÇÃO nas edificações onde se instala a AGÊNCIA DE DESENVOLVIMENTO DA REGIÃO METROPOLITANA DE BELO HORIZONTE - ARMBH, nas dependências da Cidade Administrativa do Estado de Minas Gerais, em Belo Horizonte, visando formar uma cultura organizacional que incentive o questionamento crítico e emancipador dos colaboradores em relação à dimensão ambiental de seus impactos no mundo, bem como seu potencial de reduzi-los, de modo a contribuir para a melhoria dos indicadores de gestão e de educação ambiental, no âmbito da edificação e, consequentemente em sentido amplo, no território do estado de Minas Gerais.",
-            "-",
-            "Indeterminado",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/NqMSDeM5bgjfQSD?path=%2FAGENCIA%20ARMBH",
-            ""
-          ],
-          "rowNumber": 1174,
-          "rowPosition": 1175,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"-\" in row \"1175\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
           "cell": "21/07/2023",
           "fieldName": "inicio_vigencia",
           "fieldNumber": 7,
@@ -889,8 +858,8 @@
             "https://www.emater.mg.gov.br/doc/TC/D0001.3.01.13620.00.pdf",
             ""
           ],
-          "rowNumber": 1201,
-          "rowPosition": 1202,
+          "rowNumber": 1200,
+          "rowPosition": 1201,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -899,18 +868,18 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"21/07/2023\" in row \"1202\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"21/07/2023\" in row \"1201\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         }
       ],
       "stats": {
-        "errors": 26
+        "errors": 25
       },
       "valid": false
     }
   ],
   "stats": {
-    "errors": 26,
+    "errors": 25,
     "tasks": 1
   },
   "valid": false
