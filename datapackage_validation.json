@@ -1,6 +1,6 @@
 {
   "version": "4.16.6",
-  "time": 0.11,
+  "time": 0.092,
   "errors": [],
   "tasks": [
     {
@@ -66,13 +66,13 @@
         "scheme": "file",
         "title": "Acordos de Cooperacao Tecnica",
         "stats": {
-          "hash": "9dbec11deac5a8a0d41122bc2ce6d1eb",
-          "bytes": 986010,
+          "hash": "adc993fcbe341a48d21a4acb7e3b709a",
+          "bytes": 1010465,
           "fields": 11,
-          "rows": 1823
+          "rows": 1847
         }
       },
-      "time": 0.096,
+      "time": 0.08,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -579,8 +579,8 @@
             "https://nuvem.cge.mg.gov.br/index.php/s/TT3WpHtBiPCs3WR",
             ""
           ],
-          "rowNumber": 698,
-          "rowPosition": 699,
+          "rowNumber": 701,
+          "rowPosition": 702,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -589,7 +589,7 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"-\" in row \"699\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"-\" in row \"702\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -610,8 +610,8 @@
             "https://www.emater.mg.gov.br/doc/TC/C0001.3.01.14082.00.pdf",
             ""
           ],
-          "rowNumber": 739,
-          "rowPosition": 740,
+          "rowNumber": 742,
+          "rowPosition": 743,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -620,7 +620,7 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"21/02/2024\" in row \"740\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"21/02/2024\" in row \"743\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -641,8 +641,8 @@
             "https://www.emater.mg.gov.br/doc/TC/G0010.3.01.14004.00.pdf",
             ""
           ],
-          "rowNumber": 741,
-          "rowPosition": 742,
+          "rowNumber": 744,
+          "rowPosition": 745,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -651,7 +651,7 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"11/12/2023\" in row \"742\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"11/12/2023\" in row \"745\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -672,8 +672,8 @@
             "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
-          "rowNumber": 765,
-          "rowPosition": 766,
+          "rowNumber": 768,
+          "rowPosition": 769,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -682,7 +682,7 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"06/07/2024\" in row \"766\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"06/07/2024\" in row \"769\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -703,8 +703,8 @@
             "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
-          "rowNumber": 766,
-          "rowPosition": 767,
+          "rowNumber": 769,
+          "rowPosition": 770,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -713,7 +713,7 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"26/06/2024\" in row \"767\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"26/06/2024\" in row \"770\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -734,8 +734,8 @@
             "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
-          "rowNumber": 767,
-          "rowPosition": 768,
+          "rowNumber": 770,
+          "rowPosition": 771,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -744,7 +744,7 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"17/05/2024\" in row \"768\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"17/05/2024\" in row \"771\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -765,8 +765,8 @@
             "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
-          "rowNumber": 772,
-          "rowPosition": 773,
+          "rowNumber": 775,
+          "rowPosition": 776,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -775,7 +775,7 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"30/06/2022\" in row \"773\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"30/06/2022\" in row \"776\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -796,8 +796,8 @@
             "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
-          "rowNumber": 774,
-          "rowPosition": 775,
+          "rowNumber": 777,
+          "rowPosition": 778,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -806,7 +806,7 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"30/11/2024\" in row \"775\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"30/11/2024\" in row \"778\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -827,8 +827,8 @@
             "https://iepha303.sharepoint.com/Documentos%20Compartilhados/GLCC/2026/ACTS/ACT_APPA_FBE.pdf?CT=1781102570832&OR=ItemsView",
             ""
           ],
-          "rowNumber": 847,
-          "rowPosition": 848,
+          "rowNumber": 850,
+          "rowPosition": 851,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -837,7 +837,7 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"45398\" in row \"848\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"45398\" in row \"851\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -858,8 +858,8 @@
             "https://www.emater.mg.gov.br/doc/TC/D0001.3.01.13620.00.pdf",
             ""
           ],
-          "rowNumber": 1222,
-          "rowPosition": 1223,
+          "rowNumber": 1235,
+          "rowPosition": 1236,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -868,7 +868,7 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"21/07/2023\" in row \"1223\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"21/07/2023\" in row \"1236\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         }
       ],
