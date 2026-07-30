@@ -1,6 +1,6 @@
 {
   "version": "4.16.6",
-  "time": 0.052,
+  "time": 0.106,
   "errors": [],
   "tasks": [
     {
@@ -66,13 +66,13 @@
         "scheme": "file",
         "title": "Acordos de Cooperacao Tecnica",
         "stats": {
-          "hash": "4ec71b31e60ba7089b6f115816ab2545",
-          "bytes": 1036412,
+          "hash": "3d9b1adb10064fce1556fd21fc92741c",
+          "bytes": 1036436,
           "fields": 11,
           "rows": 1872
         }
       },
-      "time": 0.045,
+      "time": 0.093,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -128,25 +128,25 @@
           "description": "One of the data source header does not match the field name defined in the schema."
         },
         {
-          "cell": "17/04/2026",
+          "cell": "21/02/2024",
           "fieldName": "inicio_vigencia",
           "fieldNumber": 7,
           "fieldPosition": 7,
           "cells": [
-            "2026",
-            "11",
-            "2320.01.0001336/2026-03",
-            "FUNDACAO HEMOMINAS",
-            "COOPERATIVA DOS RECOLHEDORES AUTÔNOMOS DE RESÍDUOS SÓLIDOS E MATERIAIS RECICLÁVEIS DE UBERABA - COOPERU",
-            "Destinação dos materiais recicláveis descartados (papel, plástico, papelão) gerados na unidade da Fundação Hemominas situada em Uberaba (MG)",
-            "17/04/2026",
-            "16/04/2027",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/295JiTNdy88dwEw",
+            "2024",
+            "C0001.3.01.14082.00",
+            "3040.010001186/2024-80",
+            "EMPRESA DE ASSISTÊNCIA TÉCNICA E EXTENSÃO RURAL DO ESTADO DE MINAS GERAIS (EMATER-MG)",
+            "FACULDADE CEDIN LTDA",
+            "Acordo de cooperação técnica sem repasse financeiro.",
+            "21/02/2024",
+            "22/03/2024",
+            "Encerrado",
+            "https://www.emater.mg.gov.br/doc/TC/C0001.3.01.14082.00.pdf",
             ""
           ],
-          "rowNumber": 43,
-          "rowPosition": 44,
+          "rowNumber": 141,
+          "rowPosition": 142,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -155,131 +155,7 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"17/04/2026\" in row \"44\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "28/04/2026",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2026",
-            "15",
-            "2320.01.0004294/2026-65",
-            "FUNDACAO HEMOMINAS",
-            "Hospital César Leite",
-            "Permissão de Uso diversos equipamentos do ciclo do sangue",
-            "28/04/2026",
-            "27/04/2027",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
-            ""
-          ],
-          "rowNumber": 44,
-          "rowPosition": 45,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"28/04/2026\" in row \"45\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "23/02/2026",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2026",
-            "12",
-            "2320.01.0000105/2026-66",
-            "FUNDACAO HEMOMINAS",
-            "INSTITUTO PRO HEMO SAÚDE/IPH",
-            " Concessão de uma licença de uso não exclusiva, intransferível e revogável do Software “Sistema INDICAH BRASIL”, de propriedade desenvolvida pelo Centro de Hematologia e Hemoterapia do Ceará –HEMOCE, em parceria com o Instituto Pró-Hemo Saúde – IPH",
-            "23/02/2026",
-            "22/02/2028",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
-            ""
-          ],
-          "rowNumber": 45,
-          "rowPosition": 46,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"23/02/2026\" in row \"46\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "18/03/2026",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2026",
-            "8",
-            "2320.01.0001847/2026-77",
-            "FUNDACAO HEMOMINAS",
-            "Universidade Federal de Minas Gerais- PRO-Reitoria de Pesquisa-CT Terapias Avançadas UFMG (PRPq-CT Terapias)",
-            "Formação, aperf. e espec. técnica de recursos humanos e desenv. Inst. mediante a disp.de bolsas de sangue total e hemocomponentes",
-            "18/03/2026",
-            "31/12/2030",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
-            ""
-          ],
-          "rowNumber": 46,
-          "rowPosition": 47,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"18/03/2026\" in row \"47\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "02/04/2026",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2026",
-            "9",
-            "2320.01.0001569/2026-17",
-            "FUNDACAO HEMOMINAS",
-            "Município de São Lourenço",
-            "Instalação e Operacionalização do PACE",
-            "02/04/2026",
-            "01/04/2031",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
-            ""
-          ],
-          "rowNumber": 48,
-          "rowPosition": 49,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"02/04/2026\" in row \"49\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"21/02/2024\" in row \"142\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -300,8 +176,8 @@
             "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
-          "rowNumber": 359,
-          "rowPosition": 360,
+          "rowNumber": 556,
+          "rowPosition": 557,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -310,317 +186,7 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"01/08/2025\" in row \"360\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "19/12/2025",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2025",
-            "18",
-            "2320.01.0004750/2024-78",
-            "FUNDACAO HEMOMINAS",
-            "HOSPITAL METROPOLITANO ODILON BEHRENS",
-            " Cessão de Uso - Equipamentos ",
-            "19/12/2025",
-            "19/12/2028",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
-            ""
-          ],
-          "rowNumber": 360,
-          "rowPosition": 361,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"19/12/2025\" in row \"361\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "11/10/2025",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2025",
-            "17",
-            "2320.01.0009573/2024-31",
-            "FUNDACAO HEMOMINAS",
-            "Município de Formiga",
-            "  Cessão de Uso diversos equipamentos",
-            "11/10/2025",
-            "29/06/2029",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
-            ""
-          ],
-          "rowNumber": 361,
-          "rowPosition": 362,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"11/10/2025\" in row \"362\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "24/02/2025",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2025",
-            "19",
-            "2320.01.0018097/2024-64",
-            "FUNDACAO HEMOMINAS",
-            "UNIÃO,/MINISTÉRIO DA SAÚDE",
-            "CESSÃO DE SERVIDORES ",
-            "24/02/2025",
-            "24/02/2030",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
-            ""
-          ],
-          "rowNumber": 362,
-          "rowPosition": 363,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"24/02/2025\" in row \"363\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "27/02/2025",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2025",
-            "1",
-            "2320.01.0007236/2024-80",
-            "FUNDACAO HEMOMINAS",
-            "EBSERH/UFTM - Universidade do Triângulo Mineiro",
-            "Implantação e Manutenção do Hemocentro Regional de Uberaba no Município de Uberaba",
-            "27/02/2025",
-            "26/02/2030",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
-            ""
-          ],
-          "rowNumber": 363,
-          "rowPosition": 364,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"27/02/2025\" in row \"364\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "30/09/2025",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2025",
-            "8",
-            "2320.01.0017162/2024-89",
-            "FUNDACAO HEMOMINAS",
-            "Município de Lagoa Santa",
-            " Cessão do Terreno para continuidade das atividades do Centro de Tecidos Biológicos de Minas Gerais – CETEBIO",
-            "30/09/2025",
-            "30/09/2030",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
-            ""
-          ],
-          "rowNumber": 364,
-          "rowPosition": 365,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"30/09/2025\" in row \"365\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "14/10/2025",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2025",
-            "1",
-            "2320.01.0017703/2024-32",
-            "FUNDACAO HEMOMINAS",
-            "Secretaria de Estado de Planejuamento e Gestão - SEPLAG",
-            "Acordo de Coop. Técnica - Unidade de Atendimento Integrado (UAI) - Barreiro",
-            "14/10/2025",
-            "14/10/2030",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
-            ""
-          ],
-          "rowNumber": 365,
-          "rowPosition": 366,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"14/10/2025\" in row \"366\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "14/01/2026",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2025",
-            "2",
-            "2320.01.0015430/2024-02",
-            "FUNDACAO HEMOMINAS",
-            "Instituto de Previdência dos Servidores do Estado de Minas Gerais - IPSEMG",
-            " Concessão onerosa de parte do imóvel de propriedade do IPSEMG, na Avenida Brasil, nº 688, Santa Efigênia, Bhte",
-            "14/01/2026",
-            "13/01/2061",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
-            ""
-          ],
-          "rowNumber": 366,
-          "rowPosition": 367,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"14/01/2026\" in row \"367\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "-",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2025",
-            "S/N",
-            "1410.01.0000401/2020-62",
-            "SECRETARIA DE ESTADO DE CULTURA E TURSMO",
-            "INSTITUTO BRASILEIRO DE MUSEUS - IBRAM",
-            "Termo de Reciprocidade tem por objeto estabelecer a cooperação mútua, visando promover ações conjuntas, compatíveis com os propósitos institucionais e as competências de cada uma das Partes, para realização do Registro de Museus em âmbito estadual.",
-            "-",
-            "Indetermidado",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/NqMSDeM5bgjfQSD/download?path=%2FSECULT&files=Termo%20de%20Reciprocidade%20-%20INSTITUTO%20BRASILEIRO%20DE%20MUSEUS%20%E2%80%93%20IBRAM.pdf",
-            ""
-          ],
-          "rowNumber": 530,
-          "rowPosition": 531,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"-\" in row \"531\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "-",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2024",
-            "S/N",
-            "1080.01.0052901/2024-20",
-            "AGENCIA DE DESENVOLVIMENTO DA REGIAO METROPOLITANA DE BELO HORIZONTE",
-            "MINISTERIO PUBLICO FEDERAL, MINISTERIO PUBLICO DO ESTADO DE MINAS GERAIS, PREFEITURA MUNICIPAL DE BELO HORIZONTE, PREFEITURA MUNICIPAL DE NOVA LIMA, INSTITUTO ESTADUAL DE FLORESTAS",
-            "Troca de informações e documentos entre os partícipes para uma eventual transferência de patrimônio da União para municípios da Região Metropolitana de Belo Horizonte.",
-            "-",
-            "Indetermidado",
-            "Vigente",
-            "https://nuvem.cge.mg.gov.br/index.php/s/TT3WpHtBiPCs3WR",
-            ""
-          ],
-          "rowNumber": 715,
-          "rowPosition": 716,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"-\" in row \"716\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
-          "description": "The value does not match the schema type and format for this field."
-        },
-        {
-          "cell": "21/02/2024",
-          "fieldName": "inicio_vigencia",
-          "fieldNumber": 7,
-          "fieldPosition": 7,
-          "cells": [
-            "2024",
-            "C0001.3.01.14082.00",
-            "3040.010001186/2024-80",
-            "EMPRESA DE ASSISTÊNCIA TÉCNICA E EXTENSÃO RURAL DO ESTADO DE MINAS GERAIS (EMATER-MG)",
-            "FACULDADE CEDIN LTDA",
-            "Acordo de cooperação técnica sem repasse financeiro.",
-            "21/02/2024",
-            "22/03/2024",
-            "Encerrado",
-            "https://www.emater.mg.gov.br/doc/TC/C0001.3.01.14082.00.pdf",
-            ""
-          ],
-          "rowNumber": 750,
-          "rowPosition": 751,
-          "code": "type-error",
-          "name": "Type Error",
-          "tags": [
-            "#table",
-            "#row",
-            "#cell"
-          ],
-          "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"21/02/2024\" in row \"751\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"01/08/2025\" in row \"557\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -641,8 +207,8 @@
             "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
-          "rowNumber": 784,
-          "rowPosition": 785,
+          "rowNumber": 726,
+          "rowPosition": 727,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -651,7 +217,69 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"17/05/2024\" in row \"785\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"17/05/2024\" in row \"727\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "17/04/2026",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2026",
+            "11",
+            "2320.01.0001336/2026-03",
+            "FUNDACAO HEMOMINAS",
+            "COOPERATIVA DOS RECOLHEDORES AUTÔNOMOS DE RESÍDUOS SÓLIDOS E MATERIAIS RECICLÁVEIS DE UBERABA - COOPERU",
+            "Destinação dos materiais recicláveis descartados (papel, plástico, papelão) gerados na unidade da Fundação Hemominas situada em Uberaba (MG)",
+            "17/04/2026",
+            "16/04/2027",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/295JiTNdy88dwEw",
+            ""
+          ],
+          "rowNumber": 751,
+          "rowPosition": 752,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"17/04/2026\" in row \"752\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "28/04/2026",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2026",
+            "15",
+            "2320.01.0004294/2026-65",
+            "FUNDACAO HEMOMINAS",
+            "Hospital César Leite",
+            "Permissão de Uso diversos equipamentos do ciclo do sangue",
+            "28/04/2026",
+            "27/04/2027",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 758,
+          "rowPosition": 759,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"28/04/2026\" in row \"759\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -672,8 +300,8 @@
             "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
-          "rowNumber": 786,
-          "rowPosition": 787,
+          "rowNumber": 829,
+          "rowPosition": 830,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -682,7 +310,7 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"30/06/2022\" in row \"787\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"30/06/2022\" in row \"830\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -703,8 +331,8 @@
             "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
-          "rowNumber": 787,
-          "rowPosition": 788,
+          "rowNumber": 942,
+          "rowPosition": 943,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -713,7 +341,38 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"26/06/2024\" in row \"788\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"26/06/2024\" in row \"943\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "23/02/2026",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2026",
+            "12",
+            "2320.01.0000105/2026-66",
+            "FUNDACAO HEMOMINAS",
+            "INSTITUTO PRO HEMO SAÚDE/IPH",
+            " Concessão de uma licença de uso não exclusiva, intransferível e revogável do Software “Sistema INDICAH BRASIL”, de propriedade desenvolvida pelo Centro de Hematologia e Hemoterapia do Ceará –HEMOCE, em parceria com o Instituto Pró-Hemo Saúde – IPH",
+            "23/02/2026",
+            "22/02/2028",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 1089,
+          "rowPosition": 1090,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"23/02/2026\" in row \"1090\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -734,8 +393,8 @@
             "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
-          "rowNumber": 788,
-          "rowPosition": 789,
+          "rowNumber": 1284,
+          "rowPosition": 1285,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -744,7 +403,69 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"06/07/2024\" in row \"789\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"06/07/2024\" in row \"1285\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "19/12/2025",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2025",
+            "18",
+            "2320.01.0004750/2024-78",
+            "FUNDACAO HEMOMINAS",
+            "HOSPITAL METROPOLITANO ODILON BEHRENS",
+            " Cessão de Uso - Equipamentos ",
+            "19/12/2025",
+            "19/12/2028",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 1294,
+          "rowPosition": 1295,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"19/12/2025\" in row \"1295\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "11/10/2025",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2025",
+            "17",
+            "2320.01.0009573/2024-31",
+            "FUNDACAO HEMOMINAS",
+            "Município de Formiga",
+            "  Cessão de Uso diversos equipamentos",
+            "11/10/2025",
+            "29/06/2029",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 1445,
+          "rowPosition": 1446,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"11/10/2025\" in row \"1446\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         },
         {
@@ -765,8 +486,8 @@
             "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
-          "rowNumber": 794,
-          "rowPosition": 795,
+          "rowNumber": 1515,
+          "rowPosition": 1516,
           "code": "type-error",
           "name": "Type Error",
           "tags": [
@@ -775,7 +496,286 @@
             "#cell"
           ],
           "note": "type is \"datetime/default\"",
-          "message": "Type error in the cell \"30/11/2024\" in row \"795\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "message": "Type error in the cell \"30/11/2024\" in row \"1516\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "24/02/2025",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2025",
+            "19",
+            "2320.01.0018097/2024-64",
+            "FUNDACAO HEMOMINAS",
+            "UNIÃO,/MINISTÉRIO DA SAÚDE",
+            "CESSÃO DE SERVIDORES ",
+            "24/02/2025",
+            "24/02/2030",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 1621,
+          "rowPosition": 1622,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"24/02/2025\" in row \"1622\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "27/02/2025",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2025",
+            "1",
+            "2320.01.0007236/2024-80",
+            "FUNDACAO HEMOMINAS",
+            "EBSERH/UFTM - Universidade do Triângulo Mineiro",
+            "Implantação e Manutenção do Hemocentro Regional de Uberaba no Município de Uberaba",
+            "27/02/2025",
+            "26/02/2030",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 1622,
+          "rowPosition": 1623,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"27/02/2025\" in row \"1623\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "30/09/2025",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2025",
+            "8",
+            "2320.01.0017162/2024-89",
+            "FUNDACAO HEMOMINAS",
+            "Município de Lagoa Santa",
+            " Cessão do Terreno para continuidade das atividades do Centro de Tecidos Biológicos de Minas Gerais – CETEBIO",
+            "30/09/2025",
+            "30/09/2030",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 1729,
+          "rowPosition": 1730,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"30/09/2025\" in row \"1730\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "14/10/2025",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2025",
+            "1",
+            "2320.01.0017703/2024-32",
+            "FUNDACAO HEMOMINAS",
+            "Secretaria de Estado de Planejuamento e Gestão - SEPLAG",
+            "Acordo de Coop. Técnica - Unidade de Atendimento Integrado (UAI) - Barreiro",
+            "14/10/2025",
+            "14/10/2030",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 1731,
+          "rowPosition": 1732,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"14/10/2025\" in row \"1732\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "18/03/2026",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2026",
+            "8",
+            "2320.01.0001847/2026-77",
+            "FUNDACAO HEMOMINAS",
+            "Universidade Federal de Minas Gerais- PRO-Reitoria de Pesquisa-CT Terapias Avançadas UFMG (PRPq-CT Terapias)",
+            "Formação, aperf. e espec. técnica de recursos humanos e desenv. Inst. mediante a disp.de bolsas de sangue total e hemocomponentes",
+            "18/03/2026",
+            "31/12/2030",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 1754,
+          "rowPosition": 1755,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"18/03/2026\" in row \"1755\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "02/04/2026",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2026",
+            "9",
+            "2320.01.0001569/2026-17",
+            "FUNDACAO HEMOMINAS",
+            "Município de São Lourenço",
+            "Instalação e Operacionalização do PACE",
+            "02/04/2026",
+            "01/04/2031",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 1810,
+          "rowPosition": 1811,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"02/04/2026\" in row \"1811\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "14/01/2026",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2025",
+            "2",
+            "2320.01.0015430/2024-02",
+            "FUNDACAO HEMOMINAS",
+            "Instituto de Previdência dos Servidores do Estado de Minas Gerais - IPSEMG",
+            " Concessão onerosa de parte do imóvel de propriedade do IPSEMG, na Avenida Brasil, nº 688, Santa Efigênia, Bhte",
+            "14/01/2026",
+            "13/01/2061",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
+            ""
+          ],
+          "rowNumber": 1849,
+          "rowPosition": 1850,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"14/01/2026\" in row \"1850\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "-",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2025",
+            "S/N",
+            "1410.01.0000401/2020-62",
+            "SECRETARIA DE ESTADO DE CULTURA E TURSMO",
+            "INSTITUTO BRASILEIRO DE MUSEUS - IBRAM",
+            "Termo de Reciprocidade tem por objeto estabelecer a cooperação mútua, visando promover ações conjuntas, compatíveis com os propósitos institucionais e as competências de cada uma das Partes, para realização do Registro de Museus em âmbito estadual.",
+            "-",
+            "Indetermidado",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/NqMSDeM5bgjfQSD/download?path=%2FSECULT&files=Termo%20de%20Reciprocidade%20-%20INSTITUTO%20BRASILEIRO%20DE%20MUSEUS%20%E2%80%93%20IBRAM.pdf",
+            ""
+          ],
+          "rowNumber": 1854,
+          "rowPosition": 1855,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"-\" in row \"1855\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
+          "description": "The value does not match the schema type and format for this field."
+        },
+        {
+          "cell": "-",
+          "fieldName": "inicio_vigencia",
+          "fieldNumber": 7,
+          "fieldPosition": 7,
+          "cells": [
+            "2024",
+            "S/N",
+            "1080.01.0052901/2024-20",
+            "AGENCIA DE DESENVOLVIMENTO DA REGIAO METROPOLITANA DE BELO HORIZONTE",
+            "MINISTERIO PUBLICO FEDERAL, MINISTERIO PUBLICO DO ESTADO DE MINAS GERAIS, PREFEITURA MUNICIPAL DE BELO HORIZONTE, PREFEITURA MUNICIPAL DE NOVA LIMA, INSTITUTO ESTADUAL DE FLORESTAS",
+            "Troca de informações e documentos entre os partícipes para uma eventual transferência de patrimônio da União para municípios da Região Metropolitana de Belo Horizonte.",
+            "-",
+            "Indetermidado",
+            "Vigente",
+            "https://nuvem.cge.mg.gov.br/index.php/s/TT3WpHtBiPCs3WR",
+            ""
+          ],
+          "rowNumber": 1856,
+          "rowPosition": 1857,
+          "code": "type-error",
+          "name": "Type Error",
+          "tags": [
+            "#table",
+            "#row",
+            "#cell"
+          ],
+          "note": "type is \"datetime/default\"",
+          "message": "Type error in the cell \"-\" in row \"1857\" and field \"inicio_vigencia\" at position \"7\": type is \"datetime/default\"",
           "description": "The value does not match the schema type and format for this field."
         }
       ],
