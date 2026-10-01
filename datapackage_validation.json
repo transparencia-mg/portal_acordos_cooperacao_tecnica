@@ -1,6 +1,6 @@
 {
   "version": "4.16.6",
-  "time": 0.111,
+  "time": 0.106,
   "errors": [],
   "tasks": [
     {
@@ -66,13 +66,13 @@
         "scheme": "file",
         "title": "Acordos de Cooperacao Tecnica",
         "stats": {
-          "hash": "e2af37f9dd0bac43f1b1e4f1b8098ec4",
-          "bytes": 1036456,
+          "hash": "b01c1729dab4ad7abf3e8e3674d922d7",
+          "bytes": 1037170,
           "fields": 11,
-          "rows": 1872
+          "rows": 1873
         }
       },
-      "time": 0.097,
+      "time": 0.092,
       "scope": [
         "hash-count-error",
         "byte-count-error",
@@ -172,7 +172,7 @@
             "Cessão de bens permanentes para uso no PACE - Valor total R$ 334.378,32",
             "01/08/2025",
             "16/09/2026",
-            "Vigente",
+            "Encerrado",
             "https://nuvem.cge.mg.gov.br/index.php/s/gtaz92nHwoH8KjR",
             ""
           ],
