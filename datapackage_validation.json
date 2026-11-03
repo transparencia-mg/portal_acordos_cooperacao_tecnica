@@ -1,6 +1,6 @@
 {
   "version": "4.16.6",
-  "time": 0.106,
+  "time": 0.11,
   "errors": [],
   "tasks": [
     {
@@ -66,13 +66,13 @@
         "scheme": "file",
         "title": "Acordos de Cooperacao Tecnica",
         "stats": {
-          "hash": "b01c1729dab4ad7abf3e8e3674d922d7",
-          "bytes": 1037170,
+          "hash": "92394860909e35d4c7678318c44658fa",
+          "bytes": 1037192,
           "fields": 11,
           "rows": 1873
         }
       },
-      "time": 0.092,
+      "time": 0.094,
       "scope": [
         "hash-count-error",
         "byte-count-error",
